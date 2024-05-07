@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.ssafit.pjt.model.dao.StoreDao;
 import com.ssafit.pjt.model.dto.Category;
-import com.ssafit.pjt.model.dto.SearchCondition;
 import com.ssafit.pjt.model.dto.Store;
+import com.ssafit.pjt.util.StoreSearchCondition;
 
 @Service
 public class StoreServiceImpl implements StoreService{
@@ -24,7 +24,7 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 	@Override
-	public List<Store> storeList(SearchCondition searchCondition) {
+	public List<Store> storeList(StoreSearchCondition searchCondition) {
 		return storeDao.selectStore(searchCondition);
 	}
 	
