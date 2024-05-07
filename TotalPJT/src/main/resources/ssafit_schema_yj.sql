@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`category` VARCHAR(40) NULL, -- 분류가 뭐지?
 	`comment` TEXT NULL,
 	`img` VARCHAR(40) NULL,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+    FOREIGN KEY (`category`) REFERENCES `exercise_category`(`exercise_id`)
 );
 
 
@@ -88,6 +89,24 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 
 
+CREATE TABLE IF NOT EXISTS `stores` (
+    `store_id` INT NOT NULL AUTO_INCREMENT,
+    `exercise_id` INT NOT NULL, # 외래키 (exercise_category)
+    `store_name` VARCHAR(255) NOT NULL,
+    `address` VARCHAR(255) NOT NULL,
+    `phone_number` VARCHAR(20) NOT NULL,
+    `description` TEXT NULL,
+    `favorite_count` INT DEFAULT 0,
+    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `opening_hours` VARCHAR(255) NULL, # 운영시간
+    `logo_image` VARCHAR(255) NULL,
+	# `rating` DECIMAL(3, 2) NULL CHECK (rating >= 0.0 AND rating <= 5.0), # 평점
+    # `dormant_account` BOOLEAN DEFAULT FALSE, #휴면계정
+    # `push_notification_agreement` BOOLEAN DEFAULT FALSE, # push 알림동의
+    # `day_off` VARCHAR(255) NULL, # 휴무일
+    PRIMARY KEY (`store_id`),
+    FOREIGN KEY (`exercise_id`) REFERENCES `exercise_category`(`exercise_id`)
+);
 
 -- CREATE TABLE `stores` (
 -- 	`가게id`	not null	NOT NULL,
@@ -149,18 +168,36 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- 	`예약관리 id`	auto	NOT NULL
 -- );
 
--- CREATE TABLE `exercise_category` (
--- 	`운동id`	not null	NOT NULL,
--- 	`분류`	not null	NULL
--- );
+CREATE TABLE `exercise_category` (
+    `exercise_id` INT NOT NULL,
+    `category` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`exercise_id`)
+);
+
+INSERT INTO `exercise_category` (`exercise_id`, `category`)
+VALUES
+    (1, 'Pilates'),
+    (2, 'Fitness'),
+    (3, 'Boxing'),
+    (4, 'CrossFit'),
+    (5, 'Climbing'),
+    (6, 'Swimming'),
+    (7, 'Taekwondo'),
+    (8, 'Jiu-Jitsu'),
+    (9, 'Yoga')
+;
+
+
 
 CREATE TABLE `teacher_reservations` (
-	`예약관리 id`	auto	NOT NULL,
-	`날짜`	not null	NULL,
-	`시작시간`	not null	NULL,
-	`종료시간`	not null	NULL,
-	`수용인원`	not null	NULL,
-	`강사id`	not null	NOT NULL
+    `reservation_id` INT NOT NULL AUTO_INCREMENT,
+    `date` DATE NOT NULL,
+    `start_time` TIME NOT NULL,
+    `end_time` TIME NOT NULL,
+    `capacity` INT NOT NULL,
+    `teacher_id` INT NOT NULL,
+    PRIMARY KEY (`reservation_id`),
+    FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`)
 );
 
 CREATE TABLE `operating_hours` (
