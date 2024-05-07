@@ -1,16 +1,16 @@
-package com.ssafit.pjt.model.dto;
+package com.ssafit.pjt.util;
 
-public class SearchCondition {
-	private String category = "none";
-	private String key = "none";
+public class StoreSearchCondition {
+	private int category = -1;
+	private String key = null;
 	private String word;
-	private String orderBy = "none";
+	private String orderBy = null;
 	private String orderByDir;
 	
-	public SearchCondition() {
+	public StoreSearchCondition() {
 	}
 	
-	public SearchCondition(String category, String key, String word, String orderBy, String orderByDir) {
+	public StoreSearchCondition(int category, String key, String word, String orderBy, String orderByDir) {
 		this.category = category;
 		this.key = key;
 		this.word = word;
@@ -51,11 +51,11 @@ public class SearchCondition {
 	}
 	
 
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
 
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 

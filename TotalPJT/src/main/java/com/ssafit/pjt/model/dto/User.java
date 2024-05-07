@@ -3,11 +3,15 @@ package com.ssafit.pjt.model.dto;
 import java.sql.Timestamp;
 
 public class User {
+	/*
+	 * 선택사항으로 회원가입 시 입력하지 않아도 되는 것들은 기본값으로 null
+	 * 
+	 * */
 	private String id;
 	private String password;
 	private String name;
 	private String email;
-	private String address;
+	private String address = null;
 	private int membershipRate; // 회원 등급
 	private int gender;
 	private String nickName;
@@ -15,10 +19,10 @@ public class User {
 	private Timestamp regDate; // 생성일
 	private Timestamp updateDate; // 수정일
 	private int coin; // 보유 코인
-	private String category; //이게 뭐야?
-	private String comment;
-	private String img; // 이미지
-	private String orgImg; // 최초 업로드시 파일 이름
+	private int category = 0; // 0: 사용자, 1: 관리자
+	private String comment = null;
+	private String img = null; // 이미지
+	private String orgImg = null; // 최초 업로드시 파일 이름
 	
 	
 	public User() {
@@ -28,7 +32,7 @@ public class User {
 	
 	
 	public User(String id, String password, String name, String email, String address, int gender, String nickName,
-			Timestamp birth, String category, String comment, String img, String orgImg) {
+			Timestamp birth, int category, String comment, String img, String orgImg) {
 		//default인 등급, 생성일, 수정일, 보유코인 필드 제외한 생성자. 
 		this.id = id;
 		this.password = password;
@@ -118,10 +122,10 @@ public class User {
 	public void setCoin(int coin) {
 		this.coin = coin;
 	}
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 	public String getComment() {

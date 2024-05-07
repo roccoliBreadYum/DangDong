@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.pjt.model.dto.Category;
-import com.ssafit.pjt.model.dto.SearchCondition;
 import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.model.service.StoreService;
+import com.ssafit.pjt.util.StoreSearchCondition;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -37,7 +37,7 @@ public class StoreController {
 	}
 	
 	@GetMapping("/stores")
-	public ResponseEntity<?> getStores(@ModelAttribute SearchCondition searchCondition){
+	public ResponseEntity<?> getStores(@ModelAttribute StoreSearchCondition searchCondition){
 		List<Store> list = storeService.storeList(searchCondition);
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
