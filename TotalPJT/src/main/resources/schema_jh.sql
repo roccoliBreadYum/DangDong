@@ -103,4 +103,12 @@ CREATE TABLE `teacher_reservations` (
     FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`)
 );
 
+CREATE TABLE `favorites` (
+`user_id` VARCHAR(20) NOT NULL,
+`store_id` INT NOT NULL,
+PRIMARY KEY (`store_id`, `user_id`),
+FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`),
+FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+);
+
 commit;
