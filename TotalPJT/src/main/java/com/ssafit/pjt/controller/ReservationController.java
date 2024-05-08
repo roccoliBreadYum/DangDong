@@ -1,9 +1,16 @@
 package com.ssafit.pjt.controller;
 
-import org.springframework.stereotype.Controller;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafit.pjt.model.dto.Reservation;
 import com.ssafit.pjt.model.service.ReservationService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,9 +26,11 @@ public class ReservationController {
 		this.resService = resService;
 	}
 	
-	
-	
-	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> getCategory(@PathVariable("id")int id, Date date){
+		List<Reservation> list = resService.getByIdAndMonth(date, id);
+		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
 	
 	
 	
