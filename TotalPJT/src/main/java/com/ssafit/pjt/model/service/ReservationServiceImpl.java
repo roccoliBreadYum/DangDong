@@ -5,21 +5,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.ssafit.pjt.model.dao.ReservationDao;
-import com.ssafit.pjt.model.dto.ExcerciseClass;
+import com.ssafit.pjt.model.dao.CalenderDao;
+import com.ssafit.pjt.model.dto.Reservation;
 
 @Service
 public class ReservationServiceImpl implements ReservationService{
-
-private final ReservationDao resDao;
 	
-	public ReservationServiceImpl (ReservationDao resDao) {
-		this.resDao = resDao;
+	private final CalenderDao calDao;
+	
+	public ReservationServiceImpl(CalenderDao calDao) {
+		this.calDao = calDao;
 	}
-	
+
 	@Override
-	public List<ExcerciseClass> findByDate(int storeId, Date date) {
-		return resDao.selectByDate(storeId, date);
+	public List<Reservation> getByIdAndMonth(Date date, int id) {
+		return calDao.searchByIdAndMonth(date, id);
 	}
 
 }
