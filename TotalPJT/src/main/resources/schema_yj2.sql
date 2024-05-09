@@ -2,19 +2,15 @@ CREATE DATABASE IF NOT EXISTS `ssafy_db`;
 
 USE `ssafy_db`;
 
--- drop table `exercise_category`;
--- drop table `users`;
--- drop table `stores`;
--- drop table `teacher`;
--- drop table `exercise_class`;
-
+drop table `exercise_category`;
+drop table `users`;
+drop table `stores`;
 
 CREATE TABLE IF NOT EXISTS `exercise_category` (
     `exercise_id` INT NOT NULL AUTO_INCREMENT,
     `category` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`exercise_id`)
 );
-
 
 INSERT INTO `exercise_category` (`category`)
 VALUES
@@ -25,7 +21,7 @@ VALUES
     ('Climbing'),
     ('Swimming'),
     ('Taekwondo'),
-    ('Jiu-Jitsu'), -- 주짓수
+    ('Jiu-Jitsu'),
     ('Yoga')
 ;
 
@@ -45,7 +41,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`category` INT NULL, -- 분류가 뭐지?
 	`comment` TEXT NULL,
 	`img` VARCHAR(40) NULL,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+    FOREIGN KEY (`category`) REFERENCES `exercise_category`(`exercise_id`)
 );
 
 INSERT INTO `users` (`id`, `password`, `name`, `email`, `address`, `membership_rate`, `gender`, `nick_name`, `birth`, `coin`, `category`, `comment`, `img`) VALUES
@@ -92,6 +89,43 @@ INSERT INTO `stores` (`exercise_id`, `store_name`, `address`, `phone_number`, `d
 (9, 'Yoga Studio', '555 Birch St, City, Country', '555-666-7777', 'Find your inner peace with yoga!', 900, CURRENT_TIMESTAMP, '6:00 AM - 9:00 PM', 'yoga_logo.jpg'),
 (1, 'Running Club', '666 Spruce St, City, Country', '666-777-8888', 'Run with us!', 1000, CURRENT_TIMESTAMP, '5:00 AM - 8:00 PM', 'running_logo.jpg');
 
+
+
+
+CREATE TABLE `teacher_reservations` (
+    `reservation_id` INT NOT NULL AUTO_INCREMENT,
+    `date` DATE NOT NULL,
+    `start_time` TIME NOT NULL,
+    `end_time` TIME NOT NULL,
+    `capacity` INT NOT NULL,
+    `teacher_id` INT NOT NULL,
+    PRIMARY KEY (`reservation_id`),
+    FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`)
+);
+
+CREATE TABLE `favorites` (
+`user_id` VARCHAR(20) NOT NULL,
+`store_id` INT NOT NULL,
+PRIMARY KEY (`store_id`, `user_id`),
+FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE,
+FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+);
+
+INSERT INTO `favorites` (`user_id`, `store_id`) VALUES
+('user1', 1),
+('user1', 2),
+('user1', 3),
+('user1', 4),
+('user2', 2),
+('user3', 3),
+('user4', 4),
+('user5', 5),
+('user6', 6),
+('user7', 7),
+('user8', 8),
+('user9', 9),
+('user10', 1);
+
 CREATE TABLE IF NOT EXISTS `teacher` (
     `teacher_id` INT NOT NULL AUTO_INCREMENT,
     `store_id` INT NOT NULL,
@@ -113,39 +147,8 @@ VALUES (1, '김영희', '수학과 관련된 전문가입니다.'),
 (9, '정영수', '미래를 준비하는 학생들을 가르치는 교사입니다.'),
 (1, '이민지', '국어 교육에 특화된 교사입니다.');
 
-
-
-CREATE TABLE IF NOT EXISTS `exercise_class` (
-    `reservation_id` INT NOT NULL AUTO_INCREMENT,
-    `store_id` INT NOT NULL,
-    `teacher_id` INT NOT NULL,
-    `date` DATE NOT NULL,
-    `start_time` TIME NOT NULL,
-    `now_person` INT NOT NULL,
-    `total_person` INT NOT NULL,
-    PRIMARY KEY (`reservation_id`),
-    FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`),
-    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`)
-);
-
-INSERT INTO `exercise_class` (`store_id`, `teacher_id`, `date`, `start_time`, `now_person`, `total_person`) 
-VALUES (1, 1, '2024-05-10', '09:00:00', 3, 10),
-(1, 2, '2024-05-10', '10:30:00', 2, 8),
-(1, 3, '2024-05-10', '13:00:00', 0, 12),
-(2, 4, '2024-05-10', '15:30:00', 5, 6),
-(2, 5, '2024-05-11', '11:00:00', 7, 15),
-(3, 6, '2024-05-11', '10:00:00', 1, 7),
-(3, 7, '2024-05-11', '14:00:00', 10, 10),
-(3, 8, '2024-05-12', '16:30:00', 2, 8),
-(4, 9, '2024-05-12', '12:30:00', 3, 9),
-(1, 1, '2024-05-12', '08:30:00', 5, 10);
-
-CREATE TABLE `favorites` (
-`user_id` VARCHAR(20) NOT NULL,
-`store_id` INT NOT NULL,
-PRIMARY KEY (`store_id`, `user_id`),
-FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`),
-FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
-);
+SELECT `store_id`, `store_name`, `description`, (SELECT COUNT(*) FROM teacher t WHERE t.store_id = s.store_id)`teacherCount`
+FROM stores s
+WHERE store_id in (SELECT store_id FROM favorites WHERE user_id='user1');
 
 commit;

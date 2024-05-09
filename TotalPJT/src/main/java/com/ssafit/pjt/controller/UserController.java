@@ -56,6 +56,13 @@ public class UserController {
 //		 return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
 //	 }
 	
+	@GetMapping("/{id}")
+	@Operation(summary = "회원아이디로 회원 조회")
+	public ResponseEntity<?> getUser(@PathVariable("id") String id){
+		User user = uService.findUser(id);
+		return new ResponseEntity<>(user, HttpStatus.FOUND);
+	}
+	
 	@PostMapping("")
 	@Operation(summary = "회원가입")
 	/*
