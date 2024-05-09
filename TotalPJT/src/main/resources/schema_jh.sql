@@ -2,15 +2,19 @@ CREATE DATABASE IF NOT EXISTS `ssafy_db`;
 
 USE `ssafy_db`;
 
-drop table `exercise_category`;
-drop table `users`;
-drop table `stores`;
+-- drop table `exercise_category`;
+-- drop table `users`;
+-- drop table `stores`;
+-- drop table `teacher`;
+-- drop table `exercise_class`;
+
 
 CREATE TABLE IF NOT EXISTS `exercise_category` (
     `exercise_id` INT NOT NULL AUTO_INCREMENT,
     `category` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`exercise_id`)
 );
+
 
 INSERT INTO `exercise_category` (`category`)
 VALUES
@@ -21,7 +25,7 @@ VALUES
     ('Climbing'),
     ('Swimming'),
     ('Taekwondo'),
-    ('Jiu-Jitsu'),
+    ('Jiu-Jitsu'), -- 주짓수
     ('Yoga')
 ;
 
@@ -41,8 +45,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 	`category` INT NULL, -- 분류가 뭐지?
 	`comment` TEXT NULL,
 	`img` VARCHAR(40) NULL,
-	PRIMARY KEY (`id`),
-    FOREIGN KEY (`category`) REFERENCES `exercise_category`(`exercise_id`)
+	PRIMARY KEY (`id`)
 );
 
 INSERT INTO `users` (`id`, `password`, `name`, `email`, `address`, `membership_rate`, `gender`, `nick_name`, `birth`, `coin`, `category`, `comment`, `img`) VALUES
@@ -89,19 +92,53 @@ INSERT INTO `stores` (`exercise_id`, `store_name`, `address`, `phone_number`, `d
 (9, 'Yoga Studio', '555 Birch St, City, Country', '555-666-7777', 'Find your inner peace with yoga!', 900, CURRENT_TIMESTAMP, '6:00 AM - 9:00 PM', 'yoga_logo.jpg'),
 (1, 'Running Club', '666 Spruce St, City, Country', '666-777-8888', 'Run with us!', 1000, CURRENT_TIMESTAMP, '5:00 AM - 8:00 PM', 'running_logo.jpg');
 
+CREATE TABLE IF NOT EXISTS `teacher` (
+    `teacher_id` INT NOT NULL AUTO_INCREMENT,
+    `store_id` INT NOT NULL,
+    `name` varchar(30) NOT NULL,
+    `comment` text NULL,
+    PRIMARY KEY (`teacher_id`),
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`)
+);
+
+INSERT INTO `teacher` (`store_id`, `name`, `comment`) 
+VALUES (1, '김영희', '수학과 관련된 전문가입니다.'),
+(2, '이철수', '과학을 사랑하는 교사입니다.'),
+(3, '박민수', '영어 교육에 열정적입니다.'),
+(4, '정미경', '음악 강사로 활동하고 있습니다.'),
+(5, '홍길동', '역사에 대해 재미있게 가르치는 교사입니다.'),
+(6, '이영희', '미술 교육 전문가입니다.'),
+(7, '김철수', '체육을 좋아하는 교사입니다.'),
+(8, '박지영', '컴퓨터 과학 교육에 관심이 많습니다.'),
+(9, '정영수', '미래를 준비하는 학생들을 가르치는 교사입니다.'),
+(1, '이민지', '국어 교육에 특화된 교사입니다.');
 
 
 
-CREATE TABLE `teacher_reservations` (
+CREATE TABLE IF NOT EXISTS `exercise_class` (
     `reservation_id` INT NOT NULL AUTO_INCREMENT,
+    `store_id` INT NOT NULL,
+    `teacher_id` INT NOT NULL,
     `date` DATE NOT NULL,
     `start_time` TIME NOT NULL,
-    `end_time` TIME NOT NULL,
-    `capacity` INT NOT NULL,
-    `teacher_id` INT NOT NULL,
+    `now_person` INT NOT NULL,
+    `total_person` INT NOT NULL,
     PRIMARY KEY (`reservation_id`),
-    FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`)
+    FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`),
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`)
 );
+
+INSERT INTO `exercise_class` (`store_id`, `teacher_id`, `date`, `start_time`, `now_person`, `total_person`) 
+VALUES (1, 1, '2024-05-10', '09:00:00', 3, 10),
+(1, 2, '2024-05-10', '10:30:00', 2, 8),
+(1, 3, '2024-05-10', '13:00:00', 0, 12),
+(2, 4, '2024-05-10', '15:30:00', 5, 6),
+(2, 5, '2024-05-11', '11:00:00', 7, 15),
+(3, 6, '2024-05-11', '10:00:00', 1, 7),
+(3, 7, '2024-05-11', '14:00:00', 10, 10),
+(3, 8, '2024-05-12', '16:30:00', 2, 8),
+(4, 9, '2024-05-12', '12:30:00', 3, 9),
+(1, 1, '2024-05-12', '08:30:00', 5, 10);
 
 CREATE TABLE `favorites` (
 `user_id` VARCHAR(20) NOT NULL,
