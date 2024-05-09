@@ -18,10 +18,6 @@ public class StoreServiceImpl implements StoreService{
 		this.storeDao = storeDao;
 	}
 
-	@Override
-	public List<Category> categoryList() {
-		return storeDao.selectCategory();
-	}
 
 	@Override
 	public List<Store> storeList(StoreSearchCondition searchCondition) {
@@ -29,8 +25,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 	
 	@Override
-	public List<Store> getStoreById(int id) {
-		return storeDao.selectStoreById(id);
+	public List<Store> getStoreById(int storeId) {
+		return storeDao.selectStoreById(storeId);
 	}
 
 	@Override

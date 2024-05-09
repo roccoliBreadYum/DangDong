@@ -20,7 +20,7 @@ import com.ssafit.pjt.util.StoreSearchCondition;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController //rest API사용, JSON형태로 주고받기 위함 
-@RequestMapping("/api-store")
+@RequestMapping("/store")
 @Tag(name="StoreRestController", description = "Store CRUD")
 public class StoreController {
 	
@@ -30,25 +30,19 @@ public class StoreController {
 		this.storeService = storeService;
 	}
 	
-	@GetMapping("/category")
-	public ResponseEntity<?> getCategory(){
-		List<Category> list = storeService.categoryList();
-		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
-	}
-	
-	@GetMapping("/stores")
+	@GetMapping("")
 	public ResponseEntity<?> getStores(@ModelAttribute StoreSearchCondition searchCondition){
 		List<Store> list = storeService.storeList(searchCondition);
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
-	@GetMapping("/stores/{id}")
-	public ResponseEntity<?> searchStoreByCategory(@PathVariable("exercise_id") int id){
-		List<Store> list = storeService.getStoreById(id);
+	@GetMapping("/{StoreId}")
+	public ResponseEntity<?> selectStoreById(@PathVariable("StoreId") int storeId){
+		List<Store> list = storeService.getStoreById(storeId);
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
-	@PostMapping("/stores")
+	@PostMapping("")
 	public ResponseEntity<?> updateStore(@RequestBody Store store){
 		int num = storeService.modifyStore(store);
 		return new ResponseEntity<>(num, num != 1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
