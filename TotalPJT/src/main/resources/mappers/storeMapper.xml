@@ -5,10 +5,18 @@
 <mapper namespace="com.ssafit.pjt.model.dao.StoreDao">
 	
 	<!-- 필터별 store 리스트 -->
-	<select id="selectStoreById" parameterType="int" resultType="Store">
-		SELECT *
+	<select id="selectStoreDetail" parameterType="Map" resultType="Store">
+		SELECT *,
+           CASE WHEN EXISTS (
+                  SELECT 1
+                  FROM favorites
+                  WHERE store_id = ${storeId} AND user_id = #{userId}
+               )
+           THEN true
+           ELSE false
+           END AS isFavorite
 		FROM stores
-		WHERE id = #{id}
+		WHERE store_id = ${storeId};
 	</select>
 	
 	<!-- 필터별 store 리스트 -->
@@ -16,10 +24,10 @@
 		SELECT *
 		FROM stores
 		<where>
-			<if test="key != 'none'">
+			<if test="key != null">
 				AND ${key} LIKE concat ('%', #{word}, '%')
 			</if>
-			<if test="category != 'none'">
+			<if test="category != null">
 				AND exerciseId IN (
                 	SELECT exercise_id
                 	FROM exercise_category
@@ -32,18 +40,18 @@
 		</if>
 	</select>
 	
-	<update id="updateStore" parameterType="store">
+	<update id="updateStore" parameterType="Store">
 	    UPDATE stores
-	    <set>
-	        store_name = #{storeName},
-	        address = #{address},
-	        phone_number = #{phoneNumber},
-	        description = #{description},
-	        opening_hours = #{opening_hours},
-	        logo_image = #{logoImage},
-	        exercise_id = #{exerciseId}
-	    </set>
-	    WHERE store_id = #{storeId}
+		    <set>
+		        storeName = #{store_name},
+		        address = #{address},
+		        phoneNumber = #{phone_number},
+		        description = #{description},
+		        opening_hours = #{opening_hours},
+		        logoImage = #{logo_image},
+		        exerciseId = #{exercise_id}
+		    </set>
+	    WHERE store_id = #{store_id}
 	</update>
 
 </mapper>
