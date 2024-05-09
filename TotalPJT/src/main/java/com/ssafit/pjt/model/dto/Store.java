@@ -11,6 +11,7 @@ public class Store {
 	private String createdAt;  // 생성일자
 	private String openingHours; // 운영시간
 	private String logoImage;// 이미지 
+	private int teacherCount; // 강사진 수 
 	
 	public Store() {}
 
@@ -106,6 +107,15 @@ public class Store {
 
 	public void setLogoImage(String logoImage) {
 		this.logoImage = logoImage;
+	}
+	
+	
+	public int getTeacherCount() {
+		return teacherCount;
+	}
+
+	public void setTeacherCount(int teacherCount) {
+		this.teacherCount = teacherCount;
 	}
 
 	@Override

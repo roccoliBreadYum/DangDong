@@ -107,8 +107,48 @@ CREATE TABLE `favorites` (
 `user_id` VARCHAR(20) NOT NULL,
 `store_id` INT NOT NULL,
 PRIMARY KEY (`store_id`, `user_id`),
-FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`),
-FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE,
+FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
+
+INSERT INTO `favorites` (`user_id`, `store_id`) VALUES
+('user1', 1),
+('user1', 2),
+('user1', 3),
+('user1', 4),
+('user2', 2),
+('user3', 3),
+('user4', 4),
+('user5', 5),
+('user6', 6),
+('user7', 7),
+('user8', 8),
+('user9', 9),
+('user10', 1);
+
+CREATE TABLE IF NOT EXISTS `teacher` (
+    `teacher_id` INT NOT NULL AUTO_INCREMENT,
+    `store_id` INT NOT NULL,
+    `name` varchar(30) NOT NULL,
+    `comment` text NULL,
+    PRIMARY KEY (`teacher_id`),
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`)
+);
+
+INSERT INTO `teacher` (`store_id`, `name`, `comment`) 
+VALUES (1, '김영희', '수학과 관련된 전문가입니다.'),
+(2, '이철수', '과학을 사랑하는 교사입니다.'),
+(3, '박민수', '영어 교육에 열정적입니다.'),
+(4, '정미경', '음악 강사로 활동하고 있습니다.'),
+(5, '홍길동', '역사에 대해 재미있게 가르치는 교사입니다.'),
+(6, '이영희', '미술 교육 전문가입니다.'),
+(7, '김철수', '체육을 좋아하는 교사입니다.'),
+(8, '박지영', '컴퓨터 과학 교육에 관심이 많습니다.'),
+(9, '정영수', '미래를 준비하는 학생들을 가르치는 교사입니다.'),
+(1, '이민지', '국어 교육에 특화된 교사입니다.');
+
+SELECT `store_id`, `store_name`, `description`, (SELECT COUNT(*) FROM teacher t WHERE t.store_id = s.store_id)`teacherCount`
+FROM stores s
+WHERE store_id in (SELECT store_id FROM favorites WHERE user_id='user1');
 
 commit;

@@ -19,7 +19,7 @@
 	</select>
 	
 	<!-- 필터별 store 리스트 -->
-	<select id="selectStore" parameterType="SearchCondition" resultType="Store">
+	<select id="selectStore" parameterType="StoreSearchCondition" resultType="Store">
 		SELECT *
 		FROM stores
 		<where>
