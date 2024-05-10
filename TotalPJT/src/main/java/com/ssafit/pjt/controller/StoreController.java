@@ -50,12 +50,10 @@ public class StoreController {
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
-	@PostMapping("")
-	@Operation(summary = "(사업자) 가게 내용 수정", description = "가게 상세페이지 내 내용 수정")
-	public ResponseEntity<?> updateStore(@RequestBody Store store){
-		int num = storeService.modifyStore(store);
-		return new ResponseEntity<>(num, num != 1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
-	}
-	
-	
+//	@PostMapping("")
+//	@Operation(summary = "(사업자) 가게 내용 수정", description = "가게 상세페이지 내 내용 수정")
+//	public ResponseEntity<?> updateStore(@RequestBody Store store){
+//		int num = storeService.modifyStore(store);
+//		return new ResponseEntity<>(num, num != 1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+//	}
 }

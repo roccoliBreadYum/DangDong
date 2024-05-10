@@ -1,17 +1,18 @@
 package com.ssafit.pjt.model.dto;
 
 public class Store {
-	private int storeId; // PK
-	private int excersiceId; // 카테고리 id 
-	private String storeName; // 이름 
-	private String address; // 주소
-	private String phoneNumber; // 연락처
-	private String description; // 설명
-	private int favoriteCount; // 찜 개수
-	private String createdAt;  // 생성일자
-	private String openingHours; // 운영시간
-	private String logoImage;// 이미지 
-	private int teacherCount; // 강사진 수 
+	private int storeId; // PK @
+	private int excersiceId; // 카테고리 id @
+	private String storeName; // 이름  @
+	private String address; // 주소 @
+	private String phoneNumber; // 연락처 @
+	private String description; // 설명 @
+	private int favoriteCount; // 찜 개수 @
+	private String createdAt;  // 생성일자 @
+	private String openingHours; // 운영시간 @
+	private String logoImage;// 이미지 @
+	private int teacherCount; // 강사진 수  -> 즐겨찾기에서 사용하기위해 작성했던 것 같은데 확인 필요 (DB에 없음)
+	// 평점, 휴면계정, push알림동의, 휴무일
 	
 	public Store() {}
 

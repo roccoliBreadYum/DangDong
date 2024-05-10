@@ -12,7 +12,7 @@
 	</select>
 	
 	<!-- 예약 완료시 해당 예약내역을 예약DB에 넣는다. -->
-	<insert id="insertReservation" parameterType="Reservation" keyProperty="id" useGeneratedKeys="true">
+	<insert id="insertReservation" parameterType="Reservation" keyProperty="reservationId" useGeneratedKeys="true">
 		INSERT INTO reservation (user_id, store_id, teacher_id, ticket_id, date)
 		VALUES (#{userId}, #{storeId}, #{teacherId}, #{ticketId}, #{date})
 	</insert>

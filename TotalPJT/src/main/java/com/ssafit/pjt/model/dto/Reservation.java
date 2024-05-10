@@ -15,17 +15,17 @@ public class Reservation {
 	private int reservationId; 
 	private String userId;
 	private int storeId;
-	private int teacherId;
+	private int lessonId;
 	private int ticketId;
 	private Timestamp date;
 	
 	public Reservation() {	}
 	
-	public Reservation(int reservationId, String userId, int storeId, int teacherId, int ticketId, Timestamp date) {
+	public Reservation(int reservationId, String userId, int storeId, int lessonId, int ticketId, Timestamp date) {
 		this.reservationId = reservationId;
 		this.userId = userId;
 		this.storeId = storeId;
-		this.teacherId = teacherId;
+		this.lessonId = lessonId;
 		this.ticketId = ticketId;
 		this.date = date;
 	}
@@ -64,11 +64,11 @@ public class Reservation {
 	}
 	
 	public int getTeacherId() {
-		return teacherId;
+		return lessonId;
 	}
 	
 	public void setTeacherId(int teacherId) {
-		this.teacherId = teacherId;
+		this.lessonId = teacherId;
 	}
 	
 	public Date getDate() {
@@ -82,7 +82,7 @@ public class Reservation {
 	@Override
 	public String toString() {
 		return "Reservation [reservationId=" + reservationId + ", userId=" + userId + ", storeId=" + storeId
-				+ ", teacherId=" + teacherId + ", ticketId=" + ticketId + ", date=" + date + "]";
+				+ ", lessonId=" + lessonId + ", ticketId=" + ticketId + ", date=" + date + "]";
 	}
 	
 }

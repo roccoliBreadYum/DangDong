@@ -1,33 +1,8 @@
-CREATE DATABASE IF NOT EXISTS `ssafy_db`;
+DROP DATABASE IF EXISTS`ssafy_db`;
+
+CREATE DATABASE `ssafy_db` default character set utf8mb4;
 
 USE `ssafy_db`;
-
--- drop table `exercise_category`;
--- drop table `users`;
--- drop table `stores`;
--- drop table `teacher`;
--- drop table `exercise_class`;
-
-
-CREATE TABLE IF NOT EXISTS `exercise_category` (
-    `exercise_id` INT NOT NULL AUTO_INCREMENT,
-    `category` VARCHAR(255) NOT NULL,
-    PRIMARY KEY (`exercise_id`)
-);
-
-
-INSERT INTO `exercise_category` (`category`)
-VALUES
-    ('Pilates'),
-    ('Fitness'),
-    ('Boxing'),
-    ('CrossFit'),
-    ('Climbing'),
-    ('Swimming'),
-    ('Taekwondo'),
-    ('Jiu-Jitsu'), -- 주짓수
-    ('Yoga')
-;
 
 CREATE TABLE IF NOT EXISTS `users` (
 	`id` VARCHAR(20) NOT NULL,
@@ -59,6 +34,27 @@ INSERT INTO `users` (`id`, `password`, `name`, `email`, `address`, `membership_r
 ('user8', 'password8', 'Olivia Anderson', 'olivia@example.com', '444 Walnut St, City, Country', 80, 1, 'OliviaA', '1998-12-05', 800, 8, 'Good night!', 'olivia.jpg'),
 ('user9', 'password9', 'Daniel Taylor', 'daniel@example.com', '555 Birch St, City, Country', 90, 0, 'DanielT', '1987-06-18', 900, 9, 'Take care!', 'daniel.jpg'),
 ('user10', 'password10', 'Emma Garcia', 'emma@example.com', '666 Spruce St, City, Country', 100, 1, 'EmmaG', '1993-04-07', 1000, 1, 'See you soon!', 'emma.jpg');
+
+
+CREATE TABLE IF NOT EXISTS `exercise_category` (
+    `exercise_id` INT NOT NULL AUTO_INCREMENT,
+    `category` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (`exercise_id`)
+);
+
+INSERT INTO `exercise_category` (`category`)
+VALUES
+    ('Pilates'),
+    ('Fitness'),
+    ('Boxing'),
+    ('CrossFit'),
+    ('Climbing'),
+    ('Swimming'),
+    ('Taekwondo'),
+    ('Jiu-Jitsu'), -- 주짓수
+    ('Yoga')
+;
+
 
 
 CREATE TABLE IF NOT EXISTS `stores` (
@@ -102,16 +98,18 @@ CREATE TABLE IF NOT EXISTS `teacher` (
 );
 
 INSERT INTO `teacher` (`store_id`, `name`, `comment`) 
-VALUES (1, '김영희', '수학과 관련된 전문가입니다.'),
-(2, '이철수', '과학을 사랑하는 교사입니다.'),
-(3, '박민수', '영어 교육에 열정적입니다.'),
-(4, '정미경', '음악 강사로 활동하고 있습니다.'),
-(5, '홍길동', '역사에 대해 재미있게 가르치는 교사입니다.'),
-(6, '이영희', '미술 교육 전문가입니다.'),
-(7, '김철수', '체육을 좋아하는 교사입니다.'),
-(8, '박지영', '컴퓨터 과학 교육에 관심이 많습니다.'),
-(9, '정영수', '미래를 준비하는 학생들을 가르치는 교사입니다.'),
-(1, '이민지', '국어 교육에 특화된 교사입니다.');
+VALUES 
+(1, '김영희', '피트니스 전문가로 다양한 운동 프로그램을 진행합니다.'),
+(2, '이철수', '헬스 트레이닝에 관심이 많은 트레이너입니다.'),
+(3, '박민수', '크로스핏을 좋아하는 운동 인스트럭터입니다.'),
+(4, '정미경', '바디빌딩과 관련된 다양한 팁을 제공합니다.'),
+(5, '홍길동', '유연성을 향상시키는 운동을 가르치는 전문가입니다.'),
+(6, '이영희', '요가 강사로 활동하고 있습니다.'),
+(7, '김철수', '태권도를 전문적으로 가르치는 강사입니다.'),
+(8, '박지영', '피트니스에 대한 전문적인 지식을 갖춘 운동 강사입니다.'),
+(9, '정영수', '스포츠 심리학에 대해 깊이 있는 이해를 가지고 있습니다.'),
+(1, '이민지', '다이어트에 관심이 많은 운동 강사입니다.');
+
 
 
 
@@ -161,20 +159,85 @@ VALUES
 ('user9', 9),
 ('user10', 1);
 
+CREATE TABLE `tickets` (
+    `ticket_id`    INT NOT NULL AUTO_INCREMENT,
+    `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 생성일
+     `expiration_date` TIMESTAMP NULL, -- 만료일 -- 정기권이 아니면 NULL
+    `total_quantity` INT NOT NULL DEFAULT 0, -- 초기횟수 -- 다회권이 아니면 0
+     `remaining_quantity` INT NOT NULL DEFAULT 0, -- 잔여횟수 -- 다회권이 아니면 0
+    `category` INT NOT NULL, -- 이용권 분류 0:다회권 / 1:정기권
+    `user_id` VARCHAR(20) NOT NULL,
+    `store_id` INT NOT NULL,
+    PRIMARY KEY (`ticket_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE, -- 사용자가 삭제되면 삭제..? 
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`)
+ );
+
+INSERT INTO `tickets` (`reg_date`, `expiration_date`, `total_quantity`, `remaining_quantity`, `category`, `user_id`, `store_id`)
+VALUES
+    ('2024-05-10 12:00:00', '2024-06-10 12:00:00', 10, 10, 0, 'user1', 1), -- 다회권, 10회권, 만료일까지 10회 남음
+    ('2024-05-10 12:00:00', '2024-07-10 12:00:00', 1, 1, 1, 'user2', 2),  -- 정기권, 1개월 유효, 만료일까지 1회 남음
+    ('2024-05-10 12:00:00', NULL, 20, 20, 0, 'user3', 3); -- 다회권, 단순히 횟수만 제공, 만료일 없음
+
+CREATE TABLE IF NOT EXISTS `lesson` (
+    `lesson_id` INT NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+    `store_id` INT NOT NULL,
+    `date` TIMESTAMP NOT NULL,
+    `user_cnt` INT NOT NULL DEFAULT 0,
+    `capacity` INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (`lesson_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`)
+);
+
+INSERT INTO `lesson` (`user_id`, `store_id`, `date`, `user_cnt`, `capacity`)
+VALUES
+(1, 1, '2024-05-10 09:00:00', 3, 10),
+(2, 1, '2024-05-10 10:30:00', 2, 8),
+(3, 1, '2024-05-10 13:00:00', 0, 12),
+(4, 2, '2024-05-10 15:30:00', 5, 6),
+(5, 2, '2024-05-11 11:00:00', 7, 15),
+(6, 3, '2024-05-11 10:00:00', 1, 7),
+(7, 3, '2024-05-11 14:00:00', 10, 10),
+(8, 3, '2024-05-12 16:30:00', 2, 8),
+(9, 4, '2024-05-12 12:30:00', 3, 9),
+(10, 1, '2024-05-12 08:30:00', 5, 10);
+
+
 
 CREATE TABLE IF NOT EXISTS `reservation` (
 	`reservation_id` INT NOT NULL AUTO_INCREMENT,
-	`user_id` INT NOT NULL,
+	`user_id` VARCHAR(20) NOT NULL,
 	`store_id` INT NOT NULL,
 	`teacher_id` INT NOT NULL,
 	`ticket_id` INT NOT NULL,
     `date` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`reservation_id`),
-    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
     FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`),
     FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`),
     FOREIGN KEY (`ticket_id`) REFERENCES `tickets`(`ticket_id`)
 );
+select * from stores;
+
+
+SELECT *
+FROM reservation
+WHERE YEAR(date) = 2024 AND MONTH(date) = 05 AND DAY(date) = 12 AND user_id = 'user10'; 
+
+INSERT INTO `reservation` (`user_id`, `store_id`, `lesson_id`, `ticket_id`, `date`)
+VALUES
+('user1', 1, 1, 1, '2024-05-10 09:00:00'),
+('user2', 1, 2, 1, '2024-05-10 10:30:00'),
+('user3', 1, 3, 1, '2024-05-10 13:00:00'),
+('user4', 2, 4, 2, '2024-05-10 15:30:00'),
+('user5', 2, 5, 2, '2024-05-11 11:00:00'),
+('user6', 3, 6, 3, '2024-05-11 10:00:00'),
+('user7', 3, 7, 3, '2024-05-11 14:00:00'),
+('user8', 3, 8, 3, '2024-05-12 16:30:00'),
+('user9', 4, 9, 1, '2024-05-12 12:30:00'),
+('user10', 1, 1, 1, '2024-05-12 08:30:00');
 
 
 commit;
