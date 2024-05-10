@@ -19,10 +19,11 @@ import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.model.service.StoreService;
 import com.ssafit.pjt.util.StoreSearchCondition;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController //rest API사용, JSON형태로 주고받기 위함 
-@RequestMapping("/store")
+@RequestMapping("/api-store")
 @Tag(name="StoreRestController", description = "Store CRUD")
 public class StoreController {
 	
@@ -33,12 +34,14 @@ public class StoreController {
 	}
 	
 	@GetMapping("")
+	@Operation(summary = "가게 목록", description = "필터 조건에 따른 전체 가게 목록 반환")
 	public ResponseEntity<?> getStores(@ModelAttribute StoreSearchCondition searchCondition){
 		List<Store> list = storeService.storeList(searchCondition);
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping("/{storeId}/{userId}")
+	@Operation(summary = "가게 페이지", description = "리스트에서 선택한 가게의 상세페이지")
 	public ResponseEntity<?> selectStoreDetail(@PathVariable("storeId") int storeId, @PathVariable("userId") int userId){
 		Map<String, Object> map = new HashMap<>();
 		map.put("storeId", storeId);
@@ -48,6 +51,7 @@ public class StoreController {
 	}
 	
 	@PostMapping("")
+	@Operation(summary = "(사업자) 가게 내용 수정", description = "가게 상세페이지 내 내용 수정")
 	public ResponseEntity<?> updateStore(@RequestBody Store store){
 		int num = storeService.modifyStore(store);
 		return new ResponseEntity<>(num, num != 1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
