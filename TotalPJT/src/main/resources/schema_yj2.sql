@@ -151,4 +151,26 @@ SELECT `store_id`, `store_name`, `description`, (SELECT COUNT(*) FROM teacher t 
 FROM stores s
 WHERE store_id in (SELECT store_id FROM favorites WHERE user_id='user1');
 
+CREATE TABLE `tickets` (
+	`ticket_id`	INT NOT NULL AUTO_INCREMENT,
+	`reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 생성일
+ 	`expiration_date` TIMESTAMP NULL, -- 만료일 -- 정기권이 아니면 NULL
+    `total_quantity` INT NOT NULL DEFAULT 0, -- 초기횟수 -- 다회권이 아니면 0
+ 	`remaining_quantity` INT NOT NULL DEFAULT 0, -- 잔여횟수 -- 다회권이 아니면 0
+    `category` INT NOT NULL, -- 이용권 분류 0:다회권 / 1:정기권
+    `user_id` VARCHAR(20) NOT NULL,
+	`store_id` INT NOT NULL,
+	PRIMARY KEY (`ticket_id`),
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE, -- 사용자가 삭제되면 삭제..? 
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`)
+ );
+
+INSERT INTO `tickets` (`reg_date`, `expiration_date`, `total_quantity`, `remaining_quantity`, `category`, `user_id`, `store_id`)
+VALUES
+    ('2024-05-10 12:00:00', '2024-06-10 12:00:00', 10, 10, 0, 'user1', 1), -- 다회권, 10회권, 만료일까지 10회 남음
+    ('2024-05-10 12:00:00', '2024-07-10 12:00:00', 1, 1, 1, 'user2', 2),  -- 정기권, 1개월 유효, 만료일까지 1회 남음
+    ('2024-05-10 12:00:00', NULL, 20, 20, 0, 'user3', 3); -- 다회권, 단순히 횟수만 제공, 만료일 없음
+
+
+
 commit;
