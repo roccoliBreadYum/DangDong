@@ -1,6 +1,8 @@
 package com.ssafit.pjt.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,9 +38,12 @@ public class StoreController {
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
-	@GetMapping("/{StoreId}")
-	public ResponseEntity<?> selectStoreById(@PathVariable("StoreId") int storeId){
-		List<Store> list = storeService.getStoreById(storeId);
+	@GetMapping("/{storeId}/{userId}")
+	public ResponseEntity<?> selectStoreDetail(@PathVariable("storeId") int storeId, @PathVariable("userId") int userId){
+		Map<String, Object> map = new HashMap<>();
+		map.put("storeId", storeId);
+		map.put("userId", userId);
+		List<Store> list = storeService.getStoreDetail(map);
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	

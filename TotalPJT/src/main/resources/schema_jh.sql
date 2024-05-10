@@ -148,4 +148,29 @@ FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`),
 FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
 );
 
+INSERT INTO `favorites` (`user_id`, `store_id`)
+VALUES
+('user1', 1),
+('user2', 2),
+('user3', 3),
+('user4', 4),
+('user5', 5),
+('user6', 6),
+('user7', 7),
+('user8', 7),
+('user9', 9),
+('user10', 1);
+
+SELECT *,
+           CASE WHEN EXISTS (
+                  SELECT 1
+                  FROM favorites
+                  WHERE store_id = 7 AND user_id = 'user7'
+               )
+           THEN true
+           ELSE false
+           END AS isFavorite
+FROM stores
+WHERE store_id = 7;
+
 commit;

@@ -1,11 +1,11 @@
 package com.ssafit.pjt.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
 import com.ssafit.pjt.model.dao.StoreDao;
-import com.ssafit.pjt.model.dto.Category;
 import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.util.StoreSearchCondition;
 
@@ -25,8 +25,8 @@ public class StoreServiceImpl implements StoreService{
 	}
 	
 	@Override
-	public List<Store> getStoreById(int storeId) {
-		return storeDao.selectStoreById(storeId);
+	public List<Store> getStoreDetail(Map<String, Object> map) {
+		return storeDao.selectStoreDetail(map);
 	}
 
 	@Override
