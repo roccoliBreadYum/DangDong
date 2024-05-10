@@ -1,18 +1,19 @@
 package com.ssafit.pjt.model.dto;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Lesson {
 	private int lessonId; // 수업 PK
 	private int userId; // 유저아이디 (식별)
 	private int storeId; // 가게아이디 (식별)
-	private Date date; // 해당 수업의 날짜와 시간
+	private Timestamp date; // 해당 수업의 날짜와 시간
 	private int userCnt; // 해당 수업을 신청한 유저 수
 	private int capacity; // 해당 수업 총 수용량
 		
 	public Lesson() {}
 
-	public Lesson(int lessonId, int userId, int storeId, Date date, int userCnt, int capacity) {
+	public Lesson(int lessonId, int userId, int storeId, Timestamp date, int userCnt, int capacity) {
 		this.lessonId = lessonId;
 		this.userId = userId;
 		this.storeId = storeId;
@@ -50,7 +51,7 @@ public class Lesson {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	

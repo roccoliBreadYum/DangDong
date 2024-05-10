@@ -161,16 +161,20 @@ VALUES
 ('user9', 9),
 ('user10', 1);
 
-SELECT *,
-           CASE WHEN EXISTS (
-                  SELECT 1
-                  FROM favorites
-                  WHERE store_id = 7 AND user_id = 'user7'
-               )
-           THEN true
-           ELSE false
-           END AS isFavorite
-FROM stores
-WHERE store_id = 7;
+
+CREATE TABLE IF NOT EXISTS `reservation` (
+	`reservation_id` INT NOT NULL AUTO_INCREMENT,
+	`user_id` INT NOT NULL,
+	`store_id` INT NOT NULL,
+	`teacher_id` INT NOT NULL,
+	`ticket_id` INT NOT NULL,
+    `date` TIMESTAMP NOT NULL,
+	PRIMARY KEY (`reservation_id`),
+    FOREIGN KEY (`user_id`) REFERENCES `users`(`id`),
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`),
+    FOREIGN KEY (`teacher_id`) REFERENCES `teacher`(`teacher_id`),
+    FOREIGN KEY (`ticket_id`) REFERENCES `tickets`(`ticket_id`)
+);
+
 
 commit;
