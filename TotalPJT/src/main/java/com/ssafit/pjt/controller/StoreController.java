@@ -42,7 +42,7 @@ public class StoreController {
 	
 	@GetMapping("/{storeId}/{userId}")
 	@Operation(summary = "가게 페이지", description = "리스트에서 선택한 가게의 상세페이지")
-	public ResponseEntity<?> selectStoreDetail(@PathVariable("storeId") int storeId, @PathVariable("userId") int userId){
+	public ResponseEntity<?> selectStoreDetail(@PathVariable("storeId") int storeId, @PathVariable("userId") String userId){
 		Map<String, Object> map = new HashMap<>();
 		map.put("storeId", storeId);
 		map.put("userId", userId);

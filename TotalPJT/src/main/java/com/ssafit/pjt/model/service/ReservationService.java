@@ -1,6 +1,5 @@
 package com.ssafit.pjt.model.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,7 @@ public interface ReservationService {
 	
 	public List<Reservation> getReservationByDate(Map<String, Object> map);
 
-	public int removeReservation(Reservation reservation);
+	public int removeReservation(int reservationId);
 	
 	
 }

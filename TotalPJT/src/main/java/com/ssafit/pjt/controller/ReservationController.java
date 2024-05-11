@@ -51,10 +51,10 @@ public class ReservationController {
 		return new ResponseEntity<>(num, num == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
-	@DeleteMapping("")
+	@DeleteMapping("/{reservationId}")
 	@Operation(summary = "예약 취소", description = "예약 취소 및 이용권 복구")
-	public ResponseEntity<?> removeReservation (@RequestBody Reservation reservation){
-		int num = resService.removeReservation(reservation);
+	public ResponseEntity<?> removeReservation (@PathVariable int reservationId){
+		int num = resService.removeReservation(reservationId);
 		return new ResponseEntity<>(num, num == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 

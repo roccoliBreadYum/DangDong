@@ -6,5 +6,5 @@ import com.ssafit.pjt.model.dto.Lesson;
 
 public interface LessonService {
 	
-	public List<Lesson> allLessonById(int storeId);
+	public List<Lesson> selectAllLessonById(int storeId);
 }

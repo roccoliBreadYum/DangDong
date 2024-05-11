@@ -13,10 +13,11 @@
 	
 	<!-- 예약 완료시 해당 예약내역을 예약DB에 넣는다. -->
 	<insert id="insertReservation" parameterType="Reservation" keyProperty="reservationId" useGeneratedKeys="true">
-		INSERT INTO reservation (user_id, store_id, teacher_id, ticket_id, date)
-		VALUES (#{userId}, #{storeId}, #{teacherId}, #{ticketId}, #{date})
+		INSERT INTO reservation (user_id, store_id, lesson_id, ticket_id, date)
+		VALUES (#{userId}, #{storeId}, #{lessonId}, #{ticketId}, #{date})
 	</insert>
 	
+	<!-- 예약 취소시 해당 예약을 DB에서 삭제한다. -->
 	<delete id="deleteReservation" parameterType="int" >
 		DELETE FROM reservation
 		WHERE reservation_id = ${reservationId}

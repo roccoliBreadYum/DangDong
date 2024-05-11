@@ -25,9 +25,7 @@ public class User {
 	private String orgImg = null; // 최초 업로드시 파일 이름
 	
 	
-	public User() {
-		
-	}
+	public User() {	}
 	
 	
 	

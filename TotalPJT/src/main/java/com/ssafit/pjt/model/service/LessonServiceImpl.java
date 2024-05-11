@@ -17,8 +17,8 @@ public class LessonServiceImpl implements LessonService{
 	}
 
 	@Override
-	public List<Lesson> allLessonById(int storeId) {
-		return lDao.selectAllLesson(storeId);
+	public List<Lesson> selectAllLessonById(int storeId) {
+		return lDao.selectAllLessonById(storeId);
 	}
 	
 

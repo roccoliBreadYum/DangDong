@@ -8,7 +8,7 @@ public class Reservation {
 	 * reservationId: 예약 ID(PK)
 	 * userId: 유저 ID(FK)
 	 * storeId: 가게 ID(FK)
-	 * teacherId: 강사 ID(FK)
+	 * lessonId: 강의 ID(FK)
 	 * ticketId : 티켓 ID(FK)
 	 * date : 예약 날짜
 	 */
