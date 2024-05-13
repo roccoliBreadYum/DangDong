@@ -4,14 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.pjt.model.dto.User;
@@ -24,7 +25,8 @@ import jakarta.servlet.http.HttpSession;
 @RestController //rest API사용, JSON형태로 주고받기 위함 
 @RequestMapping("/api-user/user")
 @Tag(name="UserRestController", description = "User CRUD")
-
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.DELETE })
 public class UserController {
 	
 	private UserService uService;
@@ -55,6 +57,13 @@ public class UserController {
 //		 model.addAttribute("msg", "비밀번호를 잘못 입력했습니다.\r\n" + "입력하신 내용을 다시 확인해주세요.");
 //		 return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
 //	 }
+	
+	@GetMapping("/{id}")
+	@Operation(summary = "회원아이디로 회원 조회")
+	public ResponseEntity<?> getUser(@PathVariable("id") String id){
+		User user = uService.findUser(id);
+		return new ResponseEntity<>(user, HttpStatus.FOUND);
+	}
 	
 	@PostMapping("")
 	@Operation(summary = "회원가입")

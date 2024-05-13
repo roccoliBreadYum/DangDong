@@ -108,6 +108,15 @@ CREATE TABLE IF NOT EXISTS `stores` (
     FOREIGN KEY (`exercise_id`) REFERENCES `exercise_category`(`exercise_id`)
 );
 
+CREATE TABLE `favorites` (
+`user_id` VARCHAR(20) NOT NULL,
+`store_id` INT NOT NULL,
+PRIMARY KEY (`store_id`, `user_id`),
+FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`),
+FOREIGN KEY (`user_id`) REFERENCES `users`(`id`)
+);
+
+
 -- CREATE TABLE `stores` (
 -- 	`가게id`	not null	NOT NULL,
 -- 	`가게이름`	not null	NULL,

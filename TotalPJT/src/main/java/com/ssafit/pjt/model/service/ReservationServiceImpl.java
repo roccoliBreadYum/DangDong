@@ -1,25 +1,45 @@
 package com.ssafit.pjt.model.service;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafit.pjt.model.dao.ReservationDao;
-import com.ssafit.pjt.model.dto.ExcerciseClass;
+import com.ssafit.pjt.model.dao.TicketDao;
+import com.ssafit.pjt.model.dto.Reservation;
 
 @Service
-public class ReservationServiceImpl implements ReservationService{
-
-private final ReservationDao resDao;
+public class ReservationServiceImpl implements ReservationService {
 	
-	public ReservationServiceImpl (ReservationDao resDao) {
+	private final ReservationDao resDao;
+	private final TicketDao tDao;
+
+	
+	public ReservationServiceImpl (ReservationDao resDao, TicketDao tDao) {
 		this.resDao = resDao;
+		this.tDao = tDao;
 	}
+
+	@Override
+	@Transactional
+	public int addReservation(Reservation reservation) {
+		tDao.decreaseTicket(reservation.getTicketId());
+		return resDao.insertReservation(reservation);
+	}
+
+	@Override
+	public List<Reservation> getReservationByDate(Map<String, Object> map) {
+		return resDao.selectReservationByDate(map);
+	}
+
 	
 	@Override
-	public List<ExcerciseClass> findByDate(int storeId, Date date) {
-		return resDao.selectByDate(storeId, date);
+	@Transactional
+	public int removeReservation(int reservationId) {
+		tDao.increaseTicket(reservationId);
+		return resDao.deleteReservation(reservationId);
 	}
-
+	
 }

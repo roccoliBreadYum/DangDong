@@ -1,12 +1,17 @@
 package com.ssafit.pjt.model.service;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-import com.ssafit.pjt.model.dto.ExcerciseClass;
+import com.ssafit.pjt.model.dto.Reservation;
 
 public interface ReservationService {
-	/** 특정 일자를 기준으로 해당 일자에 해당하는 수업 리스트 반환 */
-	public List<ExcerciseClass> findByDate(int storeId, Date date);
 
+	public int addReservation (Reservation reservation);
+	
+	public List<Reservation> getReservationByDate(Map<String, Object> map);
+
+	public int removeReservation(int reservationId);
+	
+	
 }
