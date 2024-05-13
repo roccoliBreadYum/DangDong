@@ -40,6 +40,8 @@ const router = createRouter({
           component: UserInfo
         }
       ]
+    },
+    {
       path: '/myPage',
       name: 'myPage',
       component: MyPageView

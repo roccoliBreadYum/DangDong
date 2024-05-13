@@ -12,26 +12,14 @@ export const useReservationStore = defineStore("reservation", () => {
   const loginUserId = userStore.loginUserId;
 
   const reservationListCnt = ref(0)
-  const reservationList = ref({})
-
-  const date = Date.now()
-  let today = ref({
-    year: date.getFullYear,
-    month: date.getMonth,
-    day: date.getDay,
-    hour: date.getHours,
-    minute: date.getMinutes
-  })
+  const reservationList = ref([])
 
   const getReservation = () => {
-    axios.get(`${REST_API_RESERVATION}/${date}/${loginUserId}`)
+    axios.get(`${REST_API_RESERVATION}/${loginUserId}`)
     .then((res) => {
-      console.log(res)
+      reservationList.value = res.data
+      reservationListCnt.value = res.data.length
     })
-  }
-
-  const test = () => {
-    console.log(today)
   }
 
 
@@ -42,6 +30,6 @@ export const useReservationStore = defineStore("reservation", () => {
     reservationListCnt,
     reservationList,
     getReservation,
-    test,
+
   };
 });

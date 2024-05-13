@@ -18,11 +18,14 @@
    <div>
       <span>
         <i class="bi bi-alarm"></i> 예약된 일정
-
+        {{ reservationStore.reservationListCnt }} 개
       </span>
+      <button>일정 확인</button>
    </div>
   </div>
+
 </template>
+
 
 <script setup>
 import { useUserStore } from "@/stores/user";
@@ -37,10 +40,7 @@ const reservationStore = useReservationStore();
 onMounted(() => {
   userStore.getUserInfo(), 
   ticketStore.getUserTicketCount();
-  //reservationStore.getReservation()
-  reservationStore.test()
-  const date = new Date()
-  console.log(date)
+  reservationStore.getReservation()
 });
 </script>
 
