@@ -29,24 +29,15 @@ public class Reservation {
 		this.ticketId = ticketId;
 		this.date = date;
 	}
-	
-	
-	public int getTicketId() {
-		return ticketId;
-	}
-
-	public void setTicketId(int ticketId) {
-		this.ticketId = ticketId;
-	}
 
 	public int getReservationId() {
 		return reservationId;
 	}
-	
+
 	public void setReservationId(int reservationId) {
 		this.reservationId = reservationId;
 	}
-	
+
 	public String getUserId() {
 		return userId;
 	}
@@ -58,23 +49,31 @@ public class Reservation {
 	public int getStoreId() {
 		return storeId;
 	}
-	
+
 	public void setStoreId(int storeId) {
 		this.storeId = storeId;
 	}
-	
-	public int getTeacherId() {
+
+	public int getLessonId() {
 		return lessonId;
 	}
-	
-	public void setTeacherId(int teacherId) {
-		this.lessonId = teacherId;
+
+	public void setLessonId(int lessonId) {
+		this.lessonId = lessonId;
 	}
-	
-	public Date getDate() {
+
+	public int getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(int ticketId) {
+		this.ticketId = ticketId;
+	}
+
+	public Timestamp getDate() {
 		return date;
 	}
-	
+
 	public void setDate(Timestamp date) {
 		this.date = date;
 	}
@@ -84,5 +83,6 @@ public class Reservation {
 		return "Reservation [reservationId=" + reservationId + ", userId=" + userId + ", storeId=" + storeId
 				+ ", lessonId=" + lessonId + ", ticketId=" + ticketId + ", date=" + date + "]";
 	}
+	
 	
 }

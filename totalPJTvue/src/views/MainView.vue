@@ -1,13 +1,15 @@
 <template>
-    <div>
+  <div>
+    <RouterView :to="{name: 'userInfo'}"/>
 
-    </div>
+    
+  </div>
 </template>
 
 <script setup>
 
 </script>
 
-<style  scoped>
+<style scoped>
 
 </style>
