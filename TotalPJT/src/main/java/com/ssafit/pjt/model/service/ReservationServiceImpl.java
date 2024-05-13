@@ -28,6 +28,11 @@ public class ReservationServiceImpl implements ReservationService {
 		tDao.decreaseTicket(reservation.getTicketId());
 		return resDao.insertReservation(reservation);
 	}
+	
+	@Override
+	public List<Reservation> getReservationById(String UserId) {
+		return resDao.selectReservationById(UserId);
+	}
 
 	@Override
 	public List<Reservation> getReservationByDate(Map<String, Object> map) {

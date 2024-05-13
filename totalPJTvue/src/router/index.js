@@ -1,4 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
+import LoginView from '@/views/LoginView.vue'
+import MainView from '@/views/MainView.vue'
+import RegistView from '@/views/RegistView.vue'
+import UserInfo from '@/components/main/userInfo.vue'
 import CalendarView from '@/views/CalendarView.vue'
 import HomeView from '@/views/HomeView.vue'
 import SearchView from '@/views/SearchView.vue'
@@ -25,6 +30,16 @@ const router = createRouter({
       component: SearchView
     },
     {
+      path: '/main',
+      name: 'main',
+      component: MainView,
+      children:[
+        {
+          path: 'info',
+          name: 'info',
+          component: UserInfo
+        }
+      ]
       path: '/myPage',
       name: 'myPage',
       component: MyPageView

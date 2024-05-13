@@ -62,7 +62,7 @@ public class UserController {
 	@Operation(summary = "회원아이디로 회원 조회")
 	public ResponseEntity<?> getUser(@PathVariable("id") String id){
 		User user = uService.findUser(id);
-		return new ResponseEntity<>(user, HttpStatus.FOUND);
+		return new ResponseEntity<>(user, user != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
 	@PostMapping("")
