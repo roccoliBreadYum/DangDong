@@ -28,11 +28,7 @@
             AND ${key} LIKE concat ('%', #{word}, '%')
         </if>
         <if test="category != -1">
-            AND exercise_id IN (
-                SELECT exercise_id
-                FROM exercise_category
-                WHERE category = #{category}
-            )
+            AND exercise_id = #{category}
         </if>        
     </where>
     <if test="orderBy != null">

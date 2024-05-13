@@ -9,7 +9,9 @@ import HomeView from '@/views/HomeView.vue'
 import SearchView from '@/views/SearchView.vue'
 import MyPageView from '@/views/MyPageView.vue'
 import FavoriteView from '@/views/FavoriteView.vue'
-
+import StoreView from '@/views/StoreView.vue'
+import StoreDetail from '@/components/store/StoreDetail.vue'
+import StoreList from '@/components/store/StoreList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -33,13 +35,13 @@ const router = createRouter({
       path: '/main',
       name: 'main',
       component: MainView,
-      children:[
-        {
-          path: 'info',
-          name: 'info',
-          component: UserInfo
-        }
-      ]
+      // children:[
+      //   {
+      //     path: 'info',
+      //     name: 'info',
+      //     component: UserInfo
+      //   }
+      // ]
     },
     {
       path: '/myPage',
@@ -51,6 +53,24 @@ const router = createRouter({
       name: 'favorite',
       component: FavoriteView
     },
+    {
+      path: '/store',
+      name: 'store',
+      component: StoreView,
+      children: [
+        {
+          path: '',
+          name: 'storeList',
+          component: StoreList,
+        },
+        {
+          path: ':id',
+          name: 'storeDetail',
+          component: StoreDetail,
+        }
+      ]
+    },
+
   ]
 })
 
