@@ -214,7 +214,3 @@ VALUES
 
 
 commit;
-
-SELECT `store_id`, `store_name`, `description`, (SELECT COUNT(*) FROM teacher t WHERE t.store_id = s.store_id)`teacherCount`
-FROM stores s
-WHERE store_id in (SELECT store_id FROM favorites WHERE user_id='user1');
