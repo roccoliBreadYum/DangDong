@@ -6,12 +6,14 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.pjt.model.dto.Category;
@@ -25,6 +27,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController //rest API사용, JSON형태로 주고받기 위함 
 @RequestMapping("/api-store")
 @Tag(name="StoreRestController", description = "Store CRUD")
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.DELETE })
 public class StoreController {
 	
 	private final StoreService storeService;
@@ -42,7 +46,7 @@ public class StoreController {
 	
 	@GetMapping("/{storeId}/{userId}")
 	@Operation(summary = "가게 페이지", description = "리스트에서 선택한 가게의 상세페이지")
-	public ResponseEntity<?> selectStoreDetail(@PathVariable("storeId") int storeId, @PathVariable("userId") int userId){
+	public ResponseEntity<?> selectStoreDetail(@PathVariable("storeId") int storeId, @PathVariable("userId") String userId){
 		Map<String, Object> map = new HashMap<>();
 		map.put("storeId", storeId);
 		map.put("userId", userId);
@@ -50,12 +54,10 @@ public class StoreController {
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
-	@PostMapping("")
-	@Operation(summary = "(사업자) 가게 내용 수정", description = "가게 상세페이지 내 내용 수정")
-	public ResponseEntity<?> updateStore(@RequestBody Store store){
-		int num = storeService.modifyStore(store);
-		return new ResponseEntity<>(num, num != 1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
-	}
-	
-	
+//	@PostMapping("")
+//	@Operation(summary = "(사업자) 가게 내용 수정", description = "가게 상세페이지 내 내용 수정")
+//	public ResponseEntity<?> updateStore(@RequestBody Store store){
+//		int num = storeService.modifyStore(store);
+//		return new ResponseEntity<>(num, num != 1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+//	}
 }

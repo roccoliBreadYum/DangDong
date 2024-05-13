@@ -49,7 +49,10 @@
         	WHEN category = 0 THEN `remaining_quantity` + 1
         	ELSE `remaining_quantity`
     	END
-		WHERE ticket_id = #{ticketId}
+		WHERE ticket_id = (SELECT ticket_id
+						   FROM reservation
+						   WHERE reservation_id = ${reservationId})
+									
 	</update>
 	
 </mapper>

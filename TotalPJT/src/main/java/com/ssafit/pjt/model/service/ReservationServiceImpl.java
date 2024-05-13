@@ -7,24 +7,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafit.pjt.model.dao.ReservationDao;
+import com.ssafit.pjt.model.dao.TicketDao;
 import com.ssafit.pjt.model.dto.Reservation;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
 	
 	private final ReservationDao resDao;
-	//private final TicketDao tDao;
+	private final TicketDao tDao;
 
 	
-	public ReservationServiceImpl (ReservationDao resDao) {
+	public ReservationServiceImpl (ReservationDao resDao, TicketDao tDao) {
 		this.resDao = resDao;
-		//this.tDao = tDao;
+		this.tDao = tDao;
 	}
 
 	@Override
 	@Transactional
 	public int addReservation(Reservation reservation) {
-		//tDao.decreaseTicket(reservation.getTicketId());
+		tDao.decreaseTicket(reservation.getTicketId());
 		return resDao.insertReservation(reservation);
 	}
 
@@ -36,9 +37,9 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Override
 	@Transactional
-	public int removeReservation(Reservation reservation) {
-		//tDao.increaseTicket(reservation.getTicketId());
-		return resDao.deleteReservation(reservation.getReservationId());
+	public int removeReservation(int reservationId) {
+		tDao.increaseTicket(reservationId);
+		return resDao.deleteReservation(reservationId);
 	}
 	
 }

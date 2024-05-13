@@ -29,15 +29,9 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.selectStoreDetail(map);
 	}
 
-	@Override
-	public int modifyStore(Store store) {
-		return storeDao.updateStore(store);
-	}
-
-	
-
-
-
-
+//	@Override
+//	public int modifyStore(Store store) {
+//		return storeDao.updateStore(store);
+//	}
 
 }

@@ -8,10 +8,13 @@ import com.ssafit.pjt.util.StoreSearchCondition;
 
 public interface StoreDao {
 	
+	// 필터 조건에 따른 전체 가게 목록 반환
 	public List<Store> selectStore(StoreSearchCondition searchCondition);
 	
+	// 리스트에서 선택한 가게의 상세페이지
 	public List<Store> selectStoreDetail(Map<String, Object> map);
 	
-	public int updateStore(Store store);
+	// 가게 상세페이지 내 내용 수정
+	//public int updateStore(Store store);
 
 }

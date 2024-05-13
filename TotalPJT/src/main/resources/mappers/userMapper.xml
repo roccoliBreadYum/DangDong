@@ -41,7 +41,7 @@
 	        		, password = #{password}
 	        	</if>
 	        	<if test="nickName != null">
-	        		, nickName = #{nickName}
+	        		, nick_name = #{nickName}
 	        	</if>
 	        	<if test="comment != null">
 	        		, comment = #{comment}

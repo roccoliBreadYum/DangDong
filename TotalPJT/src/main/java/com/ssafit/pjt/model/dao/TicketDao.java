@@ -14,7 +14,7 @@ public interface TicketDao {
 
 	int deleteTicket(int ticketId);
 	
-	int increaseTicket(int ticketId);
+	int increaseTicket(int reservationId);
 	
 	int decreaseTicket(int ticketId);
 	

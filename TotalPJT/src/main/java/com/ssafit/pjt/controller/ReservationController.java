@@ -8,12 +8,14 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.pjt.model.dto.Reservation;
@@ -26,6 +28,8 @@ import jakarta.websocket.server.PathParam;
 @RestController //rest API사용, JSON형태로 주고받기 위함 
 @RequestMapping("/api-reservation")
 @Tag(name="Reservationcontroller", description = "예약리스트 DB와 소통")
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
+		RequestMethod.DELETE })
 public class ReservationController {
 	
 	private final ReservationService resService;
@@ -51,10 +55,10 @@ public class ReservationController {
 		return new ResponseEntity<>(num, num == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
-	@DeleteMapping("")
+	@DeleteMapping("/{reservationId}")
 	@Operation(summary = "예약 취소", description = "예약 취소 및 이용권 복구")
-	public ResponseEntity<?> removeReservation (@RequestBody Reservation reservation){
-		int num = resService.removeReservation(reservation);
+	public ResponseEntity<?> removeReservation (@PathVariable int reservationId){
+		int num = resService.removeReservation(reservationId);
 		return new ResponseEntity<>(num, num == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
