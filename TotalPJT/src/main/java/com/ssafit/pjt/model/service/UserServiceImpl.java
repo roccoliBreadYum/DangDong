@@ -76,5 +76,10 @@ public class UserServiceImpl implements UserService{
 		}
 
 	}
+
+	@Override
+	public User loginUser(User user) {
+		return uDao.loginUser(user);
+	}
 	
 }

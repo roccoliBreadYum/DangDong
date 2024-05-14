@@ -1,41 +1,25 @@
 <template>
   <div>
-    <label> ID </label>
-    <input type="text" v-model="loginUser.loginId" /> <br />
-    <label> PW </label>
-    <input type="password" v-model="loginUser.loginPw" /> <br />
-    <button @click="login">Login</button>
-    <button>Regist</button>
+    <h4>Login</h4>
+    <input type="text" placeholder="ID입력" v-model.trim="id" />
+    <input type="password" placeholder="PW입력" v-model.trim="pw" />
+    <button @click="login">로그인</button>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter, useRoute } from "vue-router";
-import axios from "axios";
-const REST_API = "http://localhost:8080/api-user/user";
-const route = useRoute();
-const router = useRouter();
+import {ref} from 'vue'
+import {useUserStore} from '@/stores/user'
 
-const loginUser = ref({
-  loginId: "",
-  loginPw: "",
-});
+const store = useUserStore();
 
-const login = (loginUser) => {
-  //console.log(loginUser.value.loginId)
-  //console.log(loginUser.value.loginPw)
-  axios
-    .get(`${REST_API}/login`, {
-      params: loginUser,
-    })
-    .then(() => {
-      router.push({ name: "main" });
-    })
-    .catch(() => {
-      router.push({ name: "login" });
-    });
-};
+const id = ref("")
+const pw = ref("")
+
+const login = function() {
+    store.userLogin(id.value, pw.value)
+}
+
 </script>
 
 <style scoped></style>
