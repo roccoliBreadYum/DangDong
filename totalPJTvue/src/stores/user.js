@@ -15,9 +15,9 @@ export const useUserStore = defineStore("user", () => {
       })
       .then((res) => {
         sessionStorage.setItem("access-token", res.data["access-token"]);
-
         const token = res.data["access-token"].split(".");
         let id = JSON.parse(atob(token[1]))["id"];
+
 
         loginUserId.value = id;
 
