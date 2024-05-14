@@ -14,5 +14,7 @@ public interface UserDao {
 	
 	//유저 삭제하기
 	int delete(String id);
+
+	User loginUser(User user);
 	
 }

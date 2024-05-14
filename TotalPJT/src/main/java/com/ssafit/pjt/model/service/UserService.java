@@ -11,4 +11,6 @@ public interface UserService {
 	int withdrawalUser(String id);
 
 	int updateUser(User user);
+
+	User loginUser(User user);
 }

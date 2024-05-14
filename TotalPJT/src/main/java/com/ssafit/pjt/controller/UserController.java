@@ -1,6 +1,11 @@
 package com.ssafit.pjt.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -17,9 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.pjt.model.dto.User;
 import com.ssafit.pjt.model.service.UserService;
+import com.ssafit.pjt.util.JwtUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @RestController //rest API사용, JSON형태로 주고받기 위함 
@@ -30,33 +38,60 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 	
 	private UserService uService;
+	private JwtUtil jwtUtil;
+	
+	@Value("${jwt.refreshtoken.expiretime}")
+	private int refreshTokenExpireTime;
 	
 	@Autowired
-	public void setUserService(UserService uService) {
+	public void setUserService(UserService uService, JwtUtil jwtUtil) {
 		this.uService = uService;
+		this.jwtUtil = jwtUtil;
 	}
 	
-//	@GetMapping("/login") //로그인 유저 정보
-//	@Operation(summary = "로그인", description = "로그인 요청을 시도한 아이디와 비밀번호를 통해 가능한지의 여부를 반환합니다.")
-//	
-//	public ResponseEntity<?> doLogin(@RequestBody User user, HttpSession session, Model model) { 
-//		 User loginUser = uService.findUser(user.getId());
-//		 
-//		 if(loginUser==null) {
-//			// 이 아이디로 가입된 사용자가 없을 때
-//			 model.addAttribute("msg", "아이디(로그인 전용 아이디)를 잘못 입력했습니다.\r\n"+ "입력하신 내용을 다시 확인해주세요.");
-//			 return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
-//			 
-//		 }else if(loginUser.getPassword().equals(user.getPassword())) {
-//			 // 로그인 성공
-//			 session.setAttribute("loginUser", loginUser);
-//			 return new ResponseEntity(HttpStatus.ACCEPTED);
-//		 }
-//		 
-//		 //비밀번호 입력 실패
-//		 model.addAttribute("msg", "비밀번호를 잘못 입력했습니다.\r\n" + "입력하신 내용을 다시 확인해주세요.");
-//		 return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
-//	 }
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody User userDto, HttpServletResponse response) throws UnsupportedEncodingException{
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		// DB에서 유저 가져오기
+		User dbUser = uService.loginUser(user);
+		
+		// 일치하는 유저가 없다면 UNAUTHORIZED 반환.
+		if(dbUser == null) {
+			result.put("message", "일치하는 유저가 없습니다.");
+			return new ResponseEntity<Map<String, Object>>(result, HttpStatus.UNAUTHORIZED);
+		}
+		
+		// 있으면 Token 발급
+		// AccessToken, RefreshToken 두 개를 발급해준다.
+		String accessToken = jwtUtil.createAccessToken(dbUser.getId());
+		String refreshToken = jwtUtil.createRefreshToken(dbUser.getId());
+		
+		// refreshtoken은 처음 발급할 때 -> DB에 저장.
+		// INSERT INTO `refresh-token` (userId, refreshToken)  VALUE (#{userId}, #{refreshToken}) 
+		
+		
+		// Front End와 합의사항
+		//1.) accessToken, refreshToken => 본문에 둘다 보내도 되고,
+		//   refreshToken: localStorage에 저장, accessToken: sessionStorage 또는 pinia store에만.
+		
+		//2.) accessToken만 응답 본문에 넣어서 보내고, refreshToken은 쿠키에 넣어서 보냄. => 
+		//  refreshToken은 브라우저에 자동 저장
+		//  accessToken만 sessionStorage 또는 pinia store에 저장.
+		
+		Cookie cookie = new Cookie("refreshToken", refreshToken);
+		cookie.setMaxAge(refreshTokenExpireTime);
+		cookie.setHttpOnly(true);
+		cookie.setPath("/");
+		response.addCookie(cookie);
+		
+		result.put("accessToken", accessToken);
+		result.put("name", dbUser.getName());
+		
+		
+		return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+	}
 	
 	@GetMapping("/{id}")
 	@Operation(summary = "회원아이디로 회원 조회")
