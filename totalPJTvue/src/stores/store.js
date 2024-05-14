@@ -13,10 +13,10 @@ export const useStoreStore = defineStore("store", () => {
             params: searchCondition
         })
         .then((res) => {
-            console.log(res)
             storeList.value = res.data
         })
     }
+
   
 
     return {

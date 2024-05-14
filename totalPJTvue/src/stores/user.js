@@ -11,7 +11,6 @@ export const useUserStore = defineStore("user", () => {
   const getUserInfo = () => {
     axios.get(`${REST_API_USER}/${loginUserId.value}`)
     .then((res) => {
-      console.log(res)
       loginUserInfo.value = res.data;
     })
   };

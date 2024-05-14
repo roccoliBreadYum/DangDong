@@ -22,13 +22,9 @@ import { useRoute } from 'vue-router';
 const store = useStoreStore()
 
 
-const route = useRoute()
-const searchInfo = ref({
-    category : 0
-})
-
 onMounted(() => {
-    store.searchStoreList(searchInfo.value)
+
+
 })
 </script>
 
