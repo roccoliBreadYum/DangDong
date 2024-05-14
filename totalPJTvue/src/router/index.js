@@ -1,55 +1,61 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
-import LoginView from '@/views/LoginView.vue'
-import MainView from '@/views/MainView.vue'
-import RegistView from '@/views/RegistView.vue'
-import UserInfo from '@/components/main/userInfo.vue'
-import CalendarView from '@/views/CalendarView.vue'
-import HomeView from '@/views/HomeView.vue'
-import SearchView from '@/views/SearchView.vue'
-import MyPageView from '@/views/MyPageView.vue'
-import FavoriteView from '@/views/FavoriteView.vue'
-
+import MainView from "@/views/MainView.vue";
+import RegistView from "@/views/RegistView.vue";
+import UserInfo from "@/components/main/userInfo.vue";
+import CalendarView from "@/views/CalendarView.vue";
+import HomeView from "@/views/HomeView.vue";
+import SearchView from "@/views/SearchView.vue";
+import MyPageView from "@/views/MyPageView.vue";
+import FavoriteView from "@/views/FavoriteView.vue";
+import LoginView from "@/views/LoginView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: HomeView
+      path: "/",
+      name: "home",
+      component: HomeView,
     },
     {
-      path: '/calendar',
-      name: 'calendar',
-      component: CalendarView
+      path: "/calendar",
+      name: "calendar",
+      component: CalendarView,
     },
     {
-      path: '/search',
-      name: 'search',
-      component: SearchView
+      path: "/search",
+      name: "search",
+      component: SearchView,
     },
     {
-      path: '/main',
-      name: 'main',
+      path: "/main",
+      name: "main",
       component: MainView,
-      children:[
+      children: [
         {
-          path: 'info',
-          name: 'info',
-          component: UserInfo
-        }
-      ]
-      path: '/myPage',
-      name: 'myPage',
-      component: MyPageView
+          path: "info",
+          name: "info",
+          component: UserInfo,
+        },
+      ],
     },
     {
-      path: '/favorite',
-      name: 'favorite',
-      component: FavoriteView
+      path: "/myPage",
+      name: "myPage",
+      component: MyPageView,
     },
-  ]
-})
+    {
+      path: "/favorite",
+      name: "favorite",
+      component: FavoriteView,
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: LoginView,
+    },
+  ],
+});
 
-export default router
+export default router;
