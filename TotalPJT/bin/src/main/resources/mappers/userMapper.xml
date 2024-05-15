@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafit.pjt.model.dao.UserDao">
+
+	<!-- 사용자 아이디 조회 -->
+	<select id="selectOne" parameterType="String" resultType="User">
+		SELECT *
+		FROM users
+		WHERE id = #{id};
+	</select>
+
+	<!-- 사용자 등록 -->
+	<insert id="insert" parameterType="User">
+		INSERT INTO users (id, password, name, email, address,gender, nick_name,birth, category, comment)
+		VALUES (#{id}, #{password}, #{name}, #{email}, #{address}, #{gender}, #{nickName}, #{birth}, #{category}, #{comment})
+	</insert>
+
+	<!-- 사용자 삭제 -->
+	<delete id="delete" parameterType="String">
+		DELETE FROM users
+		WHERE id = #{id}
+	</delete>
+
+	<!-- 사용자 정보 수정 -->
+	<update id="update" parameterType="User">
+		UPDATE users
+		SET 
+		<trim prefixOverrides=",">
+	        	<if test="name != null">
+	        		, name = #{name}
+	        	</if>
+	        	<if test="email != null">
+	        		, email = #{email}
+	        	</if>
+	        	<if test="address != null">
+	        		, address = #{address}
+	        	</if>
+	        	<if test="password != null">
+	        		, password = #{password}
+	        	</if>
+	        	<if test="nickName != null">
+	        		, nick_name = #{nickName}
+	        	</if>
+	        	<if test="comment != null">
+	        		, comment = #{comment}
+	        	</if>
+       	</trim>
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

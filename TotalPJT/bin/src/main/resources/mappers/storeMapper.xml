@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafit.pjt.model.dao.StoreDao">
+	
+	<!-- 필터별 store 리스트 -->
+	<select id="selectStoreDetail" parameterType="Map" resultType="Store">
+		SELECT *,
+           CASE WHEN EXISTS (
+                  SELECT 1
+                  FROM favorites
+                  WHERE store_id = ${storeId} AND user_id = #{userId}
+               )
+           THEN true
+           ELSE false
+           END AS isFavorite
+		FROM stores
+		WHERE store_id = ${storeId};
+	</select>
+	
+	<!-- 필터별 store 리스트 -->
+<select id="selectStore" parameterType="StoreSearchCondition" resultType="Store">
+    SELECT *
+    FROM stores
+    <where>
+        <if test="key != null">
+            AND ${key} LIKE concat ('%', #{word}, '%')
+        </if>
+        <if test="category != -1">
+            AND exercise_id IN (
+                SELECT exercise_id
+                FROM exercise_category
+                WHERE category = #{category}
+            )
+        </if>        
+    </where>
+    <if test="orderBy != null">
+        ORDER BY ${orderBy} ${orderByDir}
+    </if>
+</select>
+
+	
+	<update id="updateStore" parameterType="Store">
+	    UPDATE stores
+		    <set>
+		        storeName = #{store_name},
+		        address = #{address},
+		        phoneNumber = #{phone_number},
+		        description = #{description},
+		        opening_hours = #{opening_hours},
+		        logoImage = #{logo_image},
+		        exerciseId = #{exercise_id}
+		    </set>
+	    WHERE store_id = #{store_id}
+	</update>
+
+</mapper>

@@ -10,15 +10,24 @@
 <script setup>
 import {ref} from 'vue'
 import {useUserStore} from '@/stores/user'
+import {useRouter} from 'vue-router'
+
+
 
 const store = useUserStore();
-
+const router = useRouter()
 const id = ref("")
 const pw = ref("")
 
-const login = function() {
-    store.userLogin(id.value, pw.value)
-}
+const login = async () => {
+    const success = await store.userLogin(id.value, pw.value);
+    if (success) {
+        alert('로그인 성공');
+        // router.push({ name: 'home' }); // 로그인 성공 시 홈으로 리디렉션
+    } else {
+        alert('로그인 실패');
+    }
+};
 
 </script>
 

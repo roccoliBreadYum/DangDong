@@ -37,6 +37,7 @@ public class JwtInterceptor implements HandlerInterceptor{
 			return true;
 		}
 		
+//		System.out.println("여기를 왔나?");
 		throw new Exception("유효하지 않은 접근이다.");
 		
 	}
