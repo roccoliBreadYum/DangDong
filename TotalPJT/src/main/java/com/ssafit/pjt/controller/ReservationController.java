@@ -38,6 +38,13 @@ public class ReservationController {
 		this.resService = resService;
 	}
 	
+	@GetMapping("/{userId}")
+	@Operation(summary = "예약리스트(현재 이후) 반환", description = "현재 접속한 아이디 기준 현재 이후의 전체 예약목록 반환")
+	public ResponseEntity<?> getReservationById (@PathVariable("userId") String userId){
+		List<Reservation> list = resService.getReservationById(userId);
+		return new ResponseEntity<>(list, list != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
+	
 	@GetMapping("/{date}/{userId}")
 	@Operation(summary = "예약리스트 반환", description = "현재 접속한 아이디 및 날짜 기준 전체 예약목록 반환")
 	public ResponseEntity<?> getReservationByDate (@PathVariable("date") Timestamp date, @PathVariable("userId") String userId){

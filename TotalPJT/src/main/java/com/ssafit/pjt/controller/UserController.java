@@ -1,5 +1,8 @@
 package com.ssafit.pjt.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,7 +65,7 @@ public class UserController {
 	@Operation(summary = "회원아이디로 회원 조회")
 	public ResponseEntity<?> getUser(@PathVariable("id") String id){
 		User user = uService.findUser(id);
-		return new ResponseEntity<>(user, HttpStatus.FOUND);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PostMapping("")
@@ -90,5 +93,24 @@ public class UserController {
 		int result = uService.updateUser(user);
 		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
-
+	
+	@PostMapping("/{storeId}/{id}")
+	@Operation(summary = "특정 가게 좋아요 등록")
+	public ResponseEntity<?> addFavorite(@PathVariable("storeId") int storeId, @PathVariable("id") String id){
+		Map<String, Object> info = new HashMap();
+		info.put("storeId", storeId);
+		info.put("id", id);
+		int result = uService.addFavorite(info);
+		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+	
+	@DeleteMapping("/{storeId}/{id}")
+	@Operation(summary = "특정 가게 좋아요 삭제")
+	public ResponseEntity<?> removeFavorite(@PathVariable("storeId") int storeId, @PathVariable("id") String id){
+		Map<String, Object> info = new HashMap();
+		info.put("storeId", storeId);
+		info.put("id", id);
+		int result = uService.removeFavorite(info);
+		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
 }

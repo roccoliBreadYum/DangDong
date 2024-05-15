@@ -25,7 +25,7 @@ public class StoreServiceImpl implements StoreService{
 	}
 	
 	@Override
-	public List<Store> getStoreDetail(Map<String, Object> map) {
+	public Store getStoreDetail(Map<String, Object> map) {
 		return storeDao.selectStoreDetail(map);
 	}
 

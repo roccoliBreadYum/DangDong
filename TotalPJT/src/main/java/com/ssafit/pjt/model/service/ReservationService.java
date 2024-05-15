@@ -13,5 +13,8 @@ public interface ReservationService {
 
 	public int removeReservation(int reservationId);
 	
+	public List<Reservation> getReservationById(String UserId);
+	
+
 	
 }

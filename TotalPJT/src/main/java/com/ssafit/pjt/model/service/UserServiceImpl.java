@@ -2,6 +2,7 @@ package com.ssafit.pjt.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -75,6 +76,16 @@ public class UserServiceImpl implements UserService{
 			file.transferTo(new File(res.getFile().getCanonicalPath() + "/" + user.getImg()));
 		}
 
+	}
+
+	@Override
+	public int addFavorite(Map<String, Object> info) {
+		return uDao.insertFavorite(info);
+	}
+
+	@Override
+	public int removeFavorite(Map<String, Object> info) {
+		return uDao.deleteFavorite(info);
 	}
 	
 }

@@ -50,4 +50,16 @@
 		WHERE id = #{id}
 	</update>
 	
+	<insert id="insertFavorite" parameterType="Map">
+		INSERT INTO favorites
+		VALUES (#{id}, #{storeId})
+	</insert>
+	
+	<delete id="deleteFavorite" parameterType="Map">
+		DELETE FROM favorites
+		WHERE user_id = #{id} AND store_id = #{storeId} 
+	</delete>
+	
+	
+	
 </mapper>
