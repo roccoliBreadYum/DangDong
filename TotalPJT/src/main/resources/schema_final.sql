@@ -211,6 +211,38 @@ VALUES
 ('user9', 4, 9, 1, '2024-05-12 12:15:00'), -- user9이 2024년 5월 12일 12시 15분 수업을 10회권으로 예약함
 ('user10', 1, 10, 1, '2024-05-12 08:15:00'); -- user10이 2024년 5월 12일 8시 15분 수업을 10회권으로 예약함
 
+CREATE TABLE IF NOT EXISTS `sell_ticket` (
+	`ticket_id` INT NOT NULL AUTO_INCREMENT,
+    `store_id` INT NOT NULL,
+    `name` varchar(255) NOT NULL,
+	`category` INT NOT NULL, -- 정기권 1, 다회권 0
+	`expire_date` INT NULL, -- category 1일때만
+	`quantity` INT NULL, -- category 2일때만
+    `price` int NOT NULL,
+	PRIMARY KEY (`ticket_id`),
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE
+);
 
+INSERT INTO `sell_ticket` (`store_id`, `name`, `category`, `expire_date`, `quantity`, `price`) VALUES
+(1, 'Monthly Pass', 1, 30, NULL, 50000),
+(1, '10 Visit Pass', 0, NULL, 10, 45000),
+(1, 'Quarterly Pass', 1, 90, NULL, 120000),
+(1, '20 Visit Pass', 0, NULL, 20, 80000),
+(1, 'Weekly Pass', 1, 7, NULL, 20000),
+(1, '5 Visit Pass', 0, NULL, 5, 25000),
+(2, 'Yearly Pass', 1, 365, NULL, 450000),
+(2, '50 Visit Pass', 0, NULL, 50, 180000),
+(2, 'Monthly Pass', 1, 30, NULL, 52000),
+(2, '15 Visit Pass', 0, NULL, 15, 70000),
+(2, 'Bi-Annual Pass', 1, 180, NULL, 250000),
+(2, '30 Visit Pass', 0, NULL, 30, 120000),
+(3, 'Monthly Pass', 1, 30, NULL, 49000),
+(3, '8 Visit Pass', 0, NULL, 8, 36000),
+(3, 'Quarterly Pass', 1, 90, NULL, 115000),
+(3, '25 Visit Pass', 0, NULL, 25, 90000),
+(3, 'Weekly Pass', 1, 7, NULL, 21000),
+(3, '12 Visit Pass', 0, NULL, 12, 55000),
+(4, 'Monthly Pass', 1, 30, NULL, 51000),
+(4, '6 Visit Pass', 0, NULL, 6, 28000);
 
 commit;
