@@ -21,15 +21,13 @@ export const useUserStore = defineStore("user", () => {
 
       loginUserId.value = userId;
 
-      console.log(loginUserId.value);
-      router.push("/")
+      router.push("/");
       return true; // 로그인 성공
     } catch (err) {
       console.error(err);
       return false; // 로그인 실패
     }
   };
-
 
   return { userLogin, loginUserId };
 });

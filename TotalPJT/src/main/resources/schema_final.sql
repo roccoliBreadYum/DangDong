@@ -219,11 +219,16 @@ VALUES
 ('user1', 2, 4, 2, '2024-05-20 15:00:00'), -- user4이 2024년 5월 10일 15시 수업을 정기권으로 예약함
 ('user1', 2, 5, 2, '2024-05-21 10:45:00'); -- user5이 2024년 5월 11일 10시 45분 수업을 정기권으로 예약함
 
+
+CREATE TABLE `refresh_token` (
+	`refresh_token_id` VARCHAR(255) NOT NULL,
+	`user_id` VARCHAR(20) NOT NULL,
+    PRIMARY KEY (`refresh_token_id`),
+	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+);
+
 commit;
 
-SELECT *
-FROM reservation
-WHERE user_id = 'user1' AND date > NOW();
 
 
 commit;

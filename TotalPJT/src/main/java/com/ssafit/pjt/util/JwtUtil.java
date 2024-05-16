@@ -38,7 +38,7 @@ public class JwtUtil {
 	}
 	
 	public String createRefreshToken(String userId) {
-		Date exp = new Date(System.currentTimeMillis() + 1000*accessTokenExpireTime);
+		Date exp = new Date(System.currentTimeMillis() + 1000*refreshTokenExpireTime);
 		return Jwts.builder().header().add("typ","JWT").and().claim("id", userId)
 				.expiration(exp).signWith(secretKey).compact();
 		
@@ -53,6 +53,14 @@ public class JwtUtil {
 	
 	}
 	
+//	public static void main(String[] args) {
+//		JwtUtil j = new JwtUtil();
+//		String token = j.createAccessToken("user1");
+//		System.out.println(j.validate(token).getPayload().get("id"));
+//	}
+	public String getId(String token) {
+		return (String)Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("id");
+	}
 	
 }
 
