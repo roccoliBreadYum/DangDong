@@ -1,6 +1,11 @@
 package com.ssafit.pjt.model.service;
 
+import java.util.Map;
+
 import com.ssafit.pjt.model.dto.User;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 public interface UserService {
 
@@ -12,5 +17,7 @@ public interface UserService {
 
 	int updateUser(User user);
 
-	User loginUser(User user);
+	Map<String, Object> loginUser(User user, HttpServletResponse response);
+
+	Map<String, Object> refreshAccessToken(HttpServletRequest request);
 }

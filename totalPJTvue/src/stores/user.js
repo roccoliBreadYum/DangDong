@@ -3,27 +3,30 @@ import { defineStore } from "pinia";
 import router from "@/router";
 import axios from "axios";
 
-const REST_BOARD_API = `http://localhost:8080/api-user/user`;
+const REST_USER_API = `http://localhost:8080/api-user/user`;
 
+axios.defaults.withCredentials = true;
 export const useUserStore = defineStore("user", () => {
-  const loginUserId = ref("n");
-  const userLogin = function (id, password) {
-    axios
-      .post(`${REST_BOARD_API}/login`, {
+  const loginUserId = ref(null);
+  const userLogin = async (id, password) => {
+    try {
+      const res = await axios.post(`${REST_USER_API}/login`, {
         id: id,
         password: password,
-      })
-      .then((res) => {
-        sessionStorage.setItem("access-token", res.data["access-token"]);
-        const token = res.data["access-token"].split(".");
-        let id = JSON.parse(atob(token[1]))["id"];
+      });
 
+      sessionStorage.setItem("access-token", res.data["access-token"]);
+      const token = res.data["access-token"].split(".");
+      let userId = JSON.parse(atob(token[1]))["id"];
 
-        loginUserId.value = id;
+      loginUserId.value = userId;
 
-        router.push({ name: "home" });
-      })
-      .catch((err) => {});
+      router.push("/");
+      return true; // 로그인 성공
+    } catch (err) {
+      console.error(err);
+      return false; // 로그인 실패
+    }
   };
 
   return { userLogin, loginUserId };

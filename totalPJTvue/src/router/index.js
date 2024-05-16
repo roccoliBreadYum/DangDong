@@ -9,7 +9,12 @@ import SearchView from "@/views/SearchView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import FavoriteView from "@/views/FavoriteView.vue";
 import LoginView from "@/views/LoginView.vue";
+import Cookies from "js-cookie";
+import axios from "axios";
 
+const getCookie = function (name) {
+  return Cookies.get(name);
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +63,32 @@ const router = createRouter({
       component: LoginView,
     },
   ],
+});
+
+// 네비게이션 가드
+router.beforeEach((to, from, next) => {
+  const accessToken = sessionStorage.getItem("access-token");
+  const refreshToken = getCookie("refreshToken");
+
+  // 현재 경로가 로그인 페이지인지 확인
+  if (to.name === "login" && !accessToken && !refreshToken) {
+    return next();
+  }
+
+  axios
+    .post("http://localhost:8080/api-user/user/refresh", null, {
+      headers: {
+        "access-token": accessToken,
+      },
+    })
+    .then((res) => {
+      sessionStorage.setItem("access-token", res.data["access-token"]);
+      next();
+    })
+    .catch((err) => {
+      console.log(err);
+      router.push({ name: "login" });
+    });
 });
 
 export default router;

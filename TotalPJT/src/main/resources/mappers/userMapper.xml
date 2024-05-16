@@ -5,8 +5,8 @@
 <mapper namespace="com.ssafit.pjt.model.dao.UserDao">
 	
 	<!-- 로그인을 위한 사용자 조회 -->
-	<select id="loginUser" parameterType="UserDto" resultType="UserDto">
-		SELECT * FROM user
+	<select id="loginUser" parameterType="User" resultType="User">
+		SELECT * FROM users
 		WHERE id=#{id} AND password=#{password}
 	</select>
 	

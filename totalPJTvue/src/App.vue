@@ -1,14 +1,11 @@
 <template>
   <div>
-    <template v-if="userStore.loginUserId !== null">
-      <template v-if="!isSearchView">
-        <TheHeaderSearchNav />
-      </template>
-      <RouterView />
-      <TheFooterNav />
+    <template v-if="!isSearchView && !isLoginView">
+      <TheHeaderSearchNav />
     </template>
-    <template v-else>
-      <LoginView />
+    <RouterView />
+    <template v-if="!isLoginView">
+      <TheFooterNav />
     </template>
   </div>
 </template>
@@ -27,6 +24,10 @@ const userStore = useUserStore(); //로그인 여부 판단
 // 현재 경로를 확인하여 searchView 여부를 판단하는 계산된 속성
 const isSearchView = computed(() => {
   return router.currentRoute.value.name === "search";
+});
+// 현재 경로를 확인하여 loginView 여부를 판단하는 계산된 속성
+const isLoginView = computed(() => {
+  return router.currentRoute.value.name === "login";
 });
 </script>
 
