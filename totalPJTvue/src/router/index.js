@@ -8,9 +8,11 @@ import HomeView from "@/views/HomeView.vue";
 import SearchView from "@/views/SearchView.vue";
 import MyPageView from "@/views/MyPageView.vue";
 import FavoriteView from "@/views/FavoriteView.vue";
-import LoginView from "@/views/LoginView.vue";
 import Cookies from "js-cookie";
 import axios from "axios";
+import EnterView from "@/views/EnterView.vue";
+import UserLogin from "@/components/user/UserLogin.vue";
+import UserCreate from "@/components/user/UserCreate.vue";
 
 const getCookie = function (name) {
   return Cookies.get(name);
@@ -58,9 +60,22 @@ const router = createRouter({
       component: FavoriteView,
     },
     {
-      path: "/login",
-      name: "login",
-      component: LoginView,
+      path: "/enter",
+      name: "enter",
+      component: EnterView,
+
+      children: [
+        {
+          path: "",
+          name: "login",
+          component: UserLogin,
+        },
+        {
+          path: "create",
+          name: "userCreate",
+          component: UserCreate,
+        },
+      ],
     },
   ],
 });
@@ -70,7 +85,12 @@ router.beforeEach((to, from, next) => {
   const accessToken = sessionStorage.getItem("access-token");
   const refreshToken = getCookie("refreshToken");
 
-  // 현재 경로가 로그인 페이지인지 확인
+  // 현재 경로가 회원가입 페이지인지 확인
+  if(to.name==="userCreate"){
+    return next();
+  }
+    
+    // 현재 경로가 로그인 페이지인지 확인
   if (to.name === "login" && !accessToken && !refreshToken) {
     return next();
   }
