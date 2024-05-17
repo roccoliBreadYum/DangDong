@@ -36,6 +36,7 @@ public class TicketController {
 	@GetMapping("/{userId}")
 	@Operation(summary = "사용자가 보유하고있는 전체 이용권 리스트 반환")
 	public ResponseEntity<?> getTicketList(@PathVariable("userId") String userId){
+		System.out.println("ticket controller에서 임시로 출력한 출력물(삭제요망)");
 		List<Ticket> ticketList = tService.getTicketList(userId);
 		return new ResponseEntity<>(ticketList, HttpStatus.OK);
 	}
