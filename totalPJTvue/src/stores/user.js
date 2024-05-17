@@ -6,6 +6,8 @@ import axios from "axios";
 const REST_USER_API = `http://localhost:8080/api-user/user`;
 
 axios.defaults.withCredentials = true;
+//.withCredentials의 기본값을 true값으로 변경->CORS 요청 허용, 쿠키값을 전달 할 수 있게 됨.
+// 전역 설정 
 export const useUserStore = defineStore("user", () => {
   const loginUserId = ref(null);
   const userLogin = async (id, password) => {
@@ -28,6 +30,11 @@ export const useUserStore = defineStore("user", () => {
       return false; // 로그인 실패
     }
   };
+
+  // const User = ref({})
+  // const createUser = function(){
+
+  // }
 
   return { userLogin, loginUserId };
 });
