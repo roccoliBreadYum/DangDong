@@ -37,6 +37,7 @@ public class FavoriteController {
 	@PostMapping("")
 	@Operation(summary = "즐겨찾기 추가", description = "사용자 아이디와 가게 아이디를 통해서 즐겨찾기 항목 추가")
 	public ResponseEntity<?> createFavorite(@RequestBody Favorite favorite){
+		System.out.println("favorite get userId: " + favorite.getUserId());
 		int res = fService.createFavorite(favorite);
 		return new ResponseEntity<>(res, res==1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}

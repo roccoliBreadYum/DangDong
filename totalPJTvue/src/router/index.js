@@ -47,7 +47,7 @@ const router = createRouter({
           component: StoreList,
         },
         {
-          path:":storeId/:userId",
+          path:":storeId",
           name:"storeDetail",
           component: StoreDetail,
         }

@@ -12,7 +12,10 @@ export const useStoreStore = defineStore("store", () => {
 
     const searchStoreList = (searchCondition) => {
         axios.get(REST_API_STORE,{
-            params: searchCondition
+            params: searchCondition,
+            headers: {
+                "access-token": accessToken,
+              }
         })
         .then((res) => {
             storeList.value = res.data

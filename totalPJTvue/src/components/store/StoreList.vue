@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div v-for="st in store.storeList" :key="st.storeId" class="store-item mb-3 rounded-5 shadow">
-            <RouterLink :to="`/store/${st.storeId}/${userStore.loginUserId}`" class="store-link">
+            <RouterLink :to="`/store/${st.storeId}`" class="store-link">
                 <img src="@/assets/temp.png" alt="..." class="store-image rounded-3">
                 <div class="store-info" style="color: black;">
                     <h5>{{ st.storeName }}</h5>
@@ -23,6 +23,8 @@ import { useRouter, useRoute } from 'vue-router';
 const store = useStoreStore()
 const userStore = useUserStore()
 const router = useRouter()
+
+
 
 
 onMounted(() => {

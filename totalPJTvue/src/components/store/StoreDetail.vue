@@ -66,11 +66,13 @@ const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
 
+const loginUserId = sessionStorage.getItem("loginUserId");
+
 
 const swichFavorite = () => {
-        userStore.updateFavorite(store.storeDetail.isFavorite, route.params.userId, route.params.storeId)
+        userStore.updateFavorite(store.storeDetail.isFavorite, loginUserId, route.params.storeId)
     .then(() => {
-        store.getStoreDetail(route.params.storeId, route.params.userId)
+        store.getStoreDetail(route.params.storeId, loginUserId)
     })
     .catch(() => {
 
@@ -79,7 +81,7 @@ const swichFavorite = () => {
 
 
 onMounted(() => {
-    store.getStoreDetail(route.params.storeId, route.params.userId)
+    store.getStoreDetail(route.params.storeId, loginUserId)
 })
 
 </script>

@@ -45,11 +45,12 @@ import { ref, onMounted } from "vue";
 const userStore = useUserStore();
 const ticketStore = useticketStore();
 const reservationStore = useReservationStore();
+const loginUserId = sessionStorage.getItem("loginUserId")
 
 onMounted(() => {
-  userStore.getUserInfo(userStore.loginUserId)
-  ticketStore.getUserTicketCount();
-  reservationStore.getReservation()
+  userStore.getUserInfo(loginUserId)
+  ticketStore.getUserTicketCount(loginUserId);
+  reservationStore.getReservation(loginUserId)
 });
 </script>
 

@@ -25,6 +25,9 @@ export const useUserStore = defineStore("user", () => {
       sessionStorage.setItem("access-token", res.data["access-token"]);
       const token = res.data["access-token"].split(".");
       let userId = JSON.parse(atob(token[1]))["id"];
+      sessionStorage.setItem("loginUserId", userId);
+
+
 
       loginUserId.value = userId;
 
@@ -56,11 +59,19 @@ export const useUserStore = defineStore("user", () => {
   const updateFavorite = (nowStatus, userId, storeId) => {
     if(nowStatus === 0){
       return axios.post(`${REST_API_FAVORITE}`,{
-        userId,
-        storeId
+        userId : userId,
+        storeId : storeId,
+      },{
+        headers: {
+          "access-token": accessToken,
+        },
       })
     } else {
-      return axios.delete(`${REST_API_FAVORITE}/${userId}/${storeId}`)
+      return axios.delete(`${REST_API_FAVORITE}/${userId}/${storeId}`,{
+        headers: {
+          "access-token": accessToken,
+        },
+      })
   }}
 
   return { 

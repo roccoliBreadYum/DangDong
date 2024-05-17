@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.ssafit.pjt.util.JwtUtil;
@@ -21,6 +22,10 @@ public class JwtInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
+		
+		if(CorsUtils.isPreFlightRequest(request)) {
+			return true;
+		}
 		
 		logger.info("Interceptor preHandle 메서드 호출: " + request.getRequestURI());
 //		System.out.println(logger.get);
