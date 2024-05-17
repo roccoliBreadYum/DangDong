@@ -7,6 +7,7 @@ import { useUserStore } from "./user";
 const REST_API_TICKET ="http://localhost:8080/api-ticket/ticket";
 
 export const useticketStore = defineStore("ticket", () => {
+  const accessToken = sessionStorage.getItem("access-token");
   const userStore = useUserStore()
 
   const loginUserId = userStore.loginUserId;
@@ -14,7 +15,11 @@ export const useticketStore = defineStore("ticket", () => {
   const userTicket = ref({})
   const userTicketCnt = ref(0)
   const getUserTicketCount = () => {
-    axios.get(`${REST_API_TICKET}/${loginUserId}`)
+    axios.get(`${REST_API_TICKET}/${loginUserId}`, {
+      headers: {
+        "access-token": accessToken,
+      },
+    })
     .then((res) => {
       //console.log(res)
       userTicket.value = res.data

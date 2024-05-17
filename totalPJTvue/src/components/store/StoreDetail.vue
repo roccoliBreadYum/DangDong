@@ -50,7 +50,6 @@
 
         <!-- 공지사항 위치 -->
         <StoreNotice />
-
     </div>
 </template>
 
@@ -69,7 +68,7 @@ const router = useRouter()
 
 
 const swichFavorite = () => {
-    userStore.updateFavorite(store.storeDetail.isFavorite, route.params.userId, route.params.storeId)
+        userStore.updateFavorite(store.storeDetail.isFavorite, route.params.userId, route.params.storeId)
     .then(() => {
         store.getStoreDetail(route.params.storeId, route.params.userId)
     })

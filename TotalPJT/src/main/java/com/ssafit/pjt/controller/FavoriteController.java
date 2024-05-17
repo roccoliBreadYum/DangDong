@@ -25,8 +25,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController //rest API사용, JSON형태로 주고받기 위함 
 @RequestMapping("/api-favorite/favorite")
 @Tag(name="FavoriteRestController", description = "User CRUD")
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-		RequestMethod.DELETE })
 public class FavoriteController {
 	
 	private FavoriteService fService;

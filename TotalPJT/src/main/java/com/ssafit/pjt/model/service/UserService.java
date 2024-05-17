@@ -4,6 +4,9 @@ import java.util.Map;
 
 import com.ssafit.pjt.model.dto.User;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 public interface UserService {
 
 	User findUser(String id);
@@ -13,9 +16,8 @@ public interface UserService {
 	int withdrawalUser(String id);
 
 	int updateUser(User user);
-	
-	int addFavorite(Map<String, Object> info);
 
-	int removeFavorite(Map<String, Object> info);
+	Map<String, Object> loginUser(User user, HttpServletResponse response);
 
+	Map<String, Object> refreshAccessToken(HttpServletRequest request);
 }

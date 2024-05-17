@@ -36,6 +36,7 @@
 	    </if>
 	</select>
 
+
 	
 	<update id="updateStore" parameterType="Store">
 	    UPDATE stores

@@ -24,8 +24,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/api-ticket/ticket")
 @Tag(name="TicketRestController", description = "Ticket CRUD")
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-		RequestMethod.DELETE })
 public class TicketController {
 	
 	private TicketService tService;
