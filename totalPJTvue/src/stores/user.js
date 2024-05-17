@@ -40,7 +40,7 @@ export const useUserStore = defineStore("user", () => {
   const loginUserInfo = ref({});
 
   const getUserInfo = (id) => {
-    console.log(loginUserId.value)
+    console.log(id)
     axios.get(`${REST_API_USER}/${id}`, {
       headers: {
         "access-token": accessToken,
