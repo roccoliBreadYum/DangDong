@@ -1,7 +1,19 @@
 <template>
-  <div class="container"></div>
+  <div class="container">
+    <UserInfo />
+    <ExcerciseCategory />
+
+    
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import ExcerciseCategory from '@/components/main/excerciseCategory.vue';
+import UserInfo from '@/components/main/userInfo.vue';
 
-<style scoped></style>
+
+</script>
+
+<style scoped>
+
+</style>

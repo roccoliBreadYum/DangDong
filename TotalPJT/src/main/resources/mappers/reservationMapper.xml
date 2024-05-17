@@ -12,8 +12,6 @@
 		WHERE user_id = #{userId} AND date > NOW()
 	</select>
 
-
-
 	<!-- 해당 날짜에 맞는 전체 예약 리스트를 가져온다.-->
 	<select id="selectReservationByDate" parameterType="Map" resultType="Reservation">
 		SELECT *

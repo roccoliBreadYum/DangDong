@@ -1,8 +1,5 @@
-import { createRouter, createWebHistory } from "vue-router";
-
+import { createRouter, createWebHistory } from 'vue-router'
 import MainView from "@/views/MainView.vue";
-import RegistView from "@/views/RegistView.vue";
-import UserInfo from "@/components/main/userInfo.vue";
 import CalendarView from "@/views/CalendarView.vue";
 import HomeView from "@/views/HomeView.vue";
 import SearchView from "@/views/SearchView.vue";
@@ -13,10 +10,13 @@ import axios from "axios";
 import EnterView from "@/views/EnterView.vue";
 import UserLogin from "@/components/user/UserLogin.vue";
 import UserCreate from "@/components/user/UserCreate.vue";
+import StoreList from "@/components/store/StoreList.vue";
+import StoreDetail from "@/components/store/StoreDetail.vue";
+import StoreView from "@/views/StoreView.vue";
 
-const getCookie = function (name) {
+const getCookie = function(name) {
   return Cookies.get(name);
-};
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,17 +37,21 @@ const router = createRouter({
       component: SearchView,
     },
     {
-      path: "/main",
-      name: "main",
-      component: MainView,
-
-      children: [
+      path: "/store",
+      name: "storeView",
+      component: StoreView,
+      children:[
         {
-          path: "info",
-          name: "info",
-          component: UserInfo,
+          path: "",
+          name: "storeList",
+          component: StoreList,
         },
-      ],
+        {
+          path:":storeId/:userId",
+          name:"storeDetail",
+          component: StoreDetail,
+        }
+      ]
     },
     {
       path: "/myPage",
@@ -80,7 +84,6 @@ const router = createRouter({
   ],
 });
 
-// 네비게이션 가드
 router.beforeEach((to, from, next) => {
   const accessToken = sessionStorage.getItem("access-token");
   const refreshToken = getCookie("refreshToken");
@@ -109,6 +112,8 @@ router.beforeEach((to, from, next) => {
       console.log(err);
       router.push({ name: "login" });
     });
+
+    next();
 });
 
 export default router;

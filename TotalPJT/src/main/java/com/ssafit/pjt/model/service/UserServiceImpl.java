@@ -2,10 +2,8 @@ package com.ssafit.pjt.model.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-
-
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -95,7 +93,6 @@ public class UserServiceImpl implements UserService{
 
 	}
 
-	@Override
 	public Map<String, Object> loginUser(User user, HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<>();
 

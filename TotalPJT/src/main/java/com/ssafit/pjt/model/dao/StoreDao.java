@@ -12,7 +12,7 @@ public interface StoreDao {
 	public List<Store> selectStore(StoreSearchCondition searchCondition);
 	
 	// 리스트에서 선택한 가게의 상세페이지
-	public List<Store> selectStoreDetail(Map<String, Object> map);
+	public Store selectStoreDetail(Map<String, Object> map);
 	
 	// 가게 상세페이지 내 내용 수정
 	//public int updateStore(Store store);

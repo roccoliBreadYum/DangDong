@@ -1,5 +1,6 @@
 package com.ssafit.pjt.controller;
 
+import java.util.HashMap;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -62,7 +63,7 @@ public class UserController {
 	@Operation(summary = "회원아이디로 회원 조회")
 	public ResponseEntity<?> getUser(@PathVariable("id") String id) {
 		User user = uService.findUser(id);
-		return new ResponseEntity<>(user, user != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(user, user != null ? HttpStatus.OK : HttpStatus.OK);
 	}
 
 	@PostMapping("")
@@ -90,5 +91,4 @@ public class UserController {
 		int result = uService.updateUser(user);
 		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
-
 }

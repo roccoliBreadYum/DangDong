@@ -27,8 +27,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController //rest API사용, JSON형태로 주고받기 위함 
 @RequestMapping("/api-store")
 @Tag(name="StoreRestController", description = "Store CRUD")
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-		RequestMethod.DELETE })
 public class StoreController {
 	
 	private final StoreService storeService;
@@ -50,9 +48,10 @@ public class StoreController {
 		Map<String, Object> map = new HashMap<>();
 		map.put("storeId", storeId);
 		map.put("userId", userId);
-		List<Store> list = storeService.getStoreDetail(map);
-		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
+		Store store = storeService.getStoreDetail(map);
+		return new ResponseEntity<>(store, store != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
+	
 	
 //	@PostMapping("")
 //	@Operation(summary = "(사업자) 가게 내용 수정", description = "가게 상세페이지 내 내용 수정")

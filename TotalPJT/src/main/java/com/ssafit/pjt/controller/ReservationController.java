@@ -28,8 +28,6 @@ import jakarta.websocket.server.PathParam;
 @RestController //rest API사용, JSON형태로 주고받기 위함 
 @RequestMapping("/api-reservation")
 @Tag(name="Reservationcontroller", description = "예약리스트 DB와 소통")
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT,
-		RequestMethod.DELETE })
 public class ReservationController {
 	
 	private final ReservationService resService;

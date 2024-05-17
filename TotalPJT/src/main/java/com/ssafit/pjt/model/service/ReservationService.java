@@ -15,6 +15,7 @@ public interface ReservationService {
 	public List<Reservation> getReservationByDate(Map<String, Object> map);
 
 	public int removeReservation(int reservationId);
-	
+		
+
 	
 }

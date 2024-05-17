@@ -47,7 +47,7 @@ const ticketStore = useticketStore();
 const reservationStore = useReservationStore();
 
 onMounted(() => {
-  userStore.getUserInfo(), 
+  userStore.getUserInfo(userStore.loginUserId)
   ticketStore.getUserTicketCount();
   reservationStore.getReservation()
 });
