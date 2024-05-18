@@ -42,13 +42,8 @@
   const id = ref("");
   const pw = ref("");
   
-  const login = async () => {//비동기 함수 처리 
-    const success = await store.userLogin(id.value, pw.value);
-    if (success) {
-      alert("로그인 성공");
-    } else {
-      alert("로그인 실패");
-    }
+  const login = () => {
+    store.userLogin(id.value, pw.value);
   };
 
   

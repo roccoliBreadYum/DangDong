@@ -15,28 +15,23 @@ export const useUserStore = defineStore("user", () => {
   const loginUserId = ref(null);
 
 
-  const userLogin = async (id, password) => {
-    try {
-      const res = await axios.post(`${REST_API_USER}/login`, {
+  const userLogin = (id, password) => {
+      axios.post(`${REST_API_USER}/login`, {
         id: id,
         password: password,
-      });
-
-      sessionStorage.setItem("access-token", res.data["access-token"]);
-      const token = res.data["access-token"].split(".");
-      let userId = JSON.parse(atob(token[1]))["id"];
-      sessionStorage.setItem("loginUserId", userId);
-
-
-
-      loginUserId.value = userId;
-
-      router.push("/");
-      return true; // 로그인 성공
-    } catch (err) {
-      console.error(err);
-      return false; // 로그인 실패
-    }
+      }).then((res)=>{
+        sessionStorage.setItem("access-token", res.data["access-token"]);
+        const token = res.data["access-token"].split(".");
+        let userId = JSON.parse(atob(token[1]))["id"];
+        sessionStorage.setItem("loginUserId", userId);
+        loginUserId.value = userId;
+        router.push("/");
+        
+      }).
+      catch (err=>{
+        console.error(err);
+        alert("아이디 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.");
+      })
   };
   
 
@@ -52,6 +47,9 @@ export const useUserStore = defineStore("user", () => {
     .then((res) => {
       console.log(res)
       loginUserInfo.value = res.data;
+    })
+    .catch((err)=>{
+      console.log(err)
     })
   };
 

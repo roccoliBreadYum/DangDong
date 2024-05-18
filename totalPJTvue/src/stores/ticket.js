@@ -15,7 +15,7 @@ export const useticketStore = defineStore("ticket", () => {
   const userTicket = ref({})
   const userTicketCnt = ref(0)
   const getUserTicketCount = (id) => {
-    console.log(`ticket: ${loginUserId}` )
+    console.log(`ticket: ${id}` )
     axios.get(`${REST_API_TICKET}/${id}`, {
       headers: {
         "access-token": accessToken,
