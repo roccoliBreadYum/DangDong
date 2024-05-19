@@ -3,7 +3,9 @@
     <template v-if="!isSearchView && !isEnterView">
       <TheHeaderSearchNav />
     </template>
-    <RouterView />
+    <!-- <template v-if="isAuthenticated||isEnterView"> -->
+      <RouterView />
+    <!-- </template> -->
     <template v-if="!isEnterView">
       <TheFooterNav />
     </template>
@@ -27,6 +29,10 @@ const isSearchView = computed(() => {
 // 현재 경로를 확인하여 loginView 여부를 판단하는 계산된 속성
 const isEnterView = computed(() => {
   return router.currentRoute.value.name === "login" || router.currentRoute.value.name === "userCreate" ;
+});
+// 세션에 저장된 access-token을 확인하여 사용자가 인증되었는지 판단하는 계산된 속성
+const isAuthenticated = computed(() => {
+  return userStore.accessToken !== null && userStore.accessToken !== undefined;
 });
 </script>
 

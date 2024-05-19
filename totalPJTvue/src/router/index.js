@@ -3,7 +3,7 @@ import MainView from "@/views/MainView.vue";
 import CalendarView from "@/views/CalendarView.vue";
 import HomeView from "@/views/HomeView.vue";
 import SearchView from "@/views/SearchView.vue";
-import MyPageView from "@/views/MyPageView.vue";
+import UserView from "@/views/UserView.vue";
 import FavoriteView from "@/views/FavoriteView.vue";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -13,6 +13,8 @@ import UserCreate from "@/components/user/UserCreate.vue";
 import StoreList from "@/components/store/StoreList.vue";
 import StoreDetail from "@/components/store/StoreDetail.vue";
 import StoreView from "@/views/StoreView.vue";
+import UserPage from "@/components/user/UserPage.vue"
+import UserUpdate from '@/components/user/UserUpdate.vue';
 
 const getCookie = function(name) {
   return Cookies.get(name);
@@ -54,9 +56,20 @@ const router = createRouter({
       ]
     },
     {
-      path: "/myPage",
-      name: "myPage",
-      component: MyPageView,
+      path: "/my",
+      component: UserView,
+      children:[
+        {
+          path: "",
+          name: "userPage",
+          component: UserPage,
+        },
+        {
+          path: "/update",
+          name: "userUpdate",
+          component: UserUpdate,
+        }
+      ]
     },
     {
       path: "/favorite",

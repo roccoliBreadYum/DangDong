@@ -12,12 +12,12 @@
             id="input-form"
             class="d-flex justify-content-center align-items-center flex-column flex-grow-1"
           >
-            <input type="text" placeholder="ID" v-model.trim="id" class="p-3" />
+            <input type="text" placeholder="ID" v-model.trim="id" class="p-3" @keyup.enter="login"/>
             <input
               type="password"
               placeholder="PWD"
               v-model.trim="pw"
-              class="p-3"
+              class="p-3" @keyup.enter="login"
             />
           </div>
           <div

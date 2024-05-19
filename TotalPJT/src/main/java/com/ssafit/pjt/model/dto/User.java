@@ -13,7 +13,7 @@ public class User {
 	private String email;
 	private String address = null;
 	private int membershipRate; // 회원 등급
-	private int gender;
+	private int gender; //0: 남자,1: 여자
 	private String nickName;
 	private Timestamp birth;
 	private Timestamp regDate; // 생성일
@@ -143,6 +143,16 @@ public class User {
 	}
 	public void setOrgImg(String orgImg) {
 		this.orgImg = orgImg;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", password=" + password + ", name=" + name + ", email=" + email + ", address="
+				+ address + ", membershipRate=" + membershipRate + ", gender=" + gender + ", nickName=" + nickName
+				+ ", birth=" + birth + ", regDate=" + regDate + ", updateDate=" + updateDate + ", coin=" + coin
+				+ ", category=" + category + ", comment=" + comment + ", img=" + img + ", orgImg=" + orgImg + "]";
 	}
 	
 	
