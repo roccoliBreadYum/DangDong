@@ -141,7 +141,7 @@ public class UserServiceImpl implements UserService{
 		Map<String, Object> result = new HashMap<>();
 		
 		//쿠키에서 refreshToken 정보 받아오기
-		System.out.println("cookie");
+//		System.out.println("cookie");
 		Cookie[] cookies = request.getCookies();
 		String refreshToken = null;
 		for(Cookie c : cookies) {
@@ -149,17 +149,17 @@ public class UserServiceImpl implements UserService{
 				refreshToken = c.getValue();
 			}
 		}
-		System.out.println("refreshToken"+refreshToken);
+//		System.out.println("refreshToken"+refreshToken);
 		//db에서 토큰으로 저장된 유저 아이디 값 가져오기
 		String dbUserId = rDao.selectUserIdByRefreshToken(refreshToken);
 		
 		//요청에서 acessToken가져오기
 		String accessToken = request.getHeader("access-token");
-		System.out.println("access-token"+accessToken);
+//		System.out.println("access-token"+accessToken);
 
 		//토큰의 유저아이디 가져오기
 		String tokenUserId = jwtUtil.getId(accessToken);
-		System.out.println("id"+tokenUserId);
+//		System.out.println("id"+tokenUserId);
 		if(dbUserId==null) {
 			//리프래시 토큰이 없음
 			result.put("message", "잘못된 토큰의 접근입니다.");

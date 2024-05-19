@@ -9,6 +9,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.ssafit.pjt.util.JwtUtil;
 
+import io.swagger.v3.oas.models.PathItem.HttpMethod;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -24,10 +25,17 @@ public class JwtInterceptor implements HandlerInterceptor{
 			throws Exception {
 		
 		if(CorsUtils.isPreFlightRequest(request)) {
+			//preflight error 해결 
+			return true;
+		}
+		
+		if(request.getRequestURI().equals("/api-user/user")&&request.getMethod().equals("POST")) {
+			//회원가입 요청 시 return true
 			return true;
 		}
 		
 		logger.info("Interceptor preHandle 메서드 호출: " + request.getRequestURI());
+		// debug위한 로그 찍기 
 //		System.out.println(logger.get);
 //		if(request.getMethod().equals("OPTIONS")) {
 //			return true;
@@ -45,7 +53,6 @@ public class JwtInterceptor implements HandlerInterceptor{
 			//유효한 토큰인지 검증.
 			return true;
 		}
-		System.out.println("여기옴");
 		throw new Exception("재로그인이 필요합니다.");
 		
 	}

@@ -73,6 +73,7 @@ public class UserController {
 	 * 
 	 */
 	public ResponseEntity<?> signin(@RequestBody User user) {
+		System.out.println("user : "+user);
 		int result = uService.signUser(user);
 		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
@@ -84,10 +85,10 @@ public class UserController {
 		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
-	@PutMapping("/{id}")
+	@PutMapping("")
 	@Operation(summary = "회원정보수정")
-	public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody User user) {
-		user.setId(id);
+	public ResponseEntity<?> updateUser(@RequestBody User user) {
+//		user.setId(id);
 		int result = uService.updateUser(user);
 		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}

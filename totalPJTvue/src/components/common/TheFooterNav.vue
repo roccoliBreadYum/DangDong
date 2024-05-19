@@ -36,7 +36,7 @@
           </RouterLink>
         </div>
         <div>
-          <RouterLink :to="{ name: 'myPage' }"
+          <RouterLink to="/my"
             ><i
               class="bi bi-person-fill"
               style="font-size: 45px; color: white"
