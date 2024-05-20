@@ -57,15 +57,17 @@
 </template>
 
 <script setup>
+import { useAuthStore } from "@/stores/auth";
 import { useUserStore } from "@/stores/user";
 import { onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 
 const userStore = useUserStore();
+const authStore = useAuthStore();
 const router = useRouter();
-const loginUserId = sessionStorage.getItem("loginUserId");
-const accessToken = sessionStorage.getItem("access-token");
+const loginUserId = authStore.getLoginUserId()
+const accessToken = authStore.getAccessToken()
 
 onMounted(() => {
   userStore.getFavoriteStoreList(loginUserId);

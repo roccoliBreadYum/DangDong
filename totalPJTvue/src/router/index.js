@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 import MainView from "@/views/MainView.vue";
 import CalendarView from "@/views/CalendarView.vue";
 import HomeView from "@/views/HomeView.vue";
@@ -11,10 +12,12 @@ import EnterView from "@/views/EnterView.vue";
 import UserLogin from "@/components/user/UserLogin.vue";
 import UserCreate from "@/components/user/UserCreate.vue";
 import StoreList from "@/components/store/StoreList.vue";
+import StoreTicketList from "@/components/store/StoreTicketList.vue";
 import StoreDetail from "@/components/store/StoreDetail.vue";
 import StoreView from "@/views/StoreView.vue";
 import UserPage from "@/components/user/UserPage.vue";
 import UserUpdate from "@/components/user/UserUpdate.vue";
+
 
 const getCookie = function (name) {
   return Cookies.get(name);
@@ -53,6 +56,11 @@ const router = createRouter({
           name: "storeDetail",
           component: StoreDetail,
         },
+        {
+          path: ":storeId/ticket",
+          name: "sellTicket",
+          component: StoreTicketList,
+        }
       ],
     },
     {
@@ -98,7 +106,9 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const accessToken = sessionStorage.getItem("access-token");
+  const store = useAuthStore();
+  const accessToken = store.getAccessToken();
+
   const refreshToken = getCookie("refreshToken");
 
   // 현재 경로가 회원가입 페이지인지 확인

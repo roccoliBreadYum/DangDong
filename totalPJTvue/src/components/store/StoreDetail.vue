@@ -53,10 +53,10 @@
 
     <!-- 구매 / 예약 버튼 위치 -->
     <div id="button" class="d-flex justify-content-around pb-3">
-      <button class="btn">
-        <p id="btn-type">정기권/다회권</p>
-        <p id="btn-click">구매</p>
-      </button>
+      <RouterLink :to="{name: 'sellTicket', params:{storeId: route.params.storeId}}" class="btn">
+          <p id="btn-type">정기권/다회권</p>
+          <p id="btn-click">구매</p>
+      </RouterLink>
       <button class="btn">
         <p id="btn-type">일일권/이용권</p>
         <p id="btn-click">예약</p>
@@ -72,31 +72,30 @@
 import { ref, onMounted } from "vue";
 import { useStoreStore } from "@/stores/store";
 import { useUserStore } from "@/stores/user";
+import { useAuthStore } from "@/stores/auth";
 import { useRoute, useRouter } from "vue-router";
 import StoreNotice from "@/components/store/StoreNotice.vue";
 
 const store = useStoreStore();
 const userStore = useUserStore();
+const authStore = useAuthStore();
 const route = useRoute();
 const router = useRouter();
 
-const loginUserId = sessionStorage.getItem("loginUserId");
+const loginUserId = ref(authStore.getLoginUserId());
 
 const swichFavorite = () => {
-  userStore
-    .updateFavorite(
-      store.storeDetail.isFavorite,
-      loginUserId,
-      route.params.storeId
-    )
+  userStore.updateFavorite(store.storeDetail.isFavorite, loginUserId.value, route.params.storeId)
     .then(() => {
-      store.getStoreDetail(route.params.storeId, loginUserId);
+      store.getStoreDetail(route.params.storeId, loginUserId.value);
     })
-    .catch(() => {});
+    .catch(() => {
+
+    });
 };
 
 onMounted(() => {
-  store.getStoreDetail(route.params.storeId, loginUserId);
+  store.getStoreDetail(route.params.storeId, loginUserId.value);
 });
 </script>
 

@@ -2,6 +2,7 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import router from "@/router";
 import axios from "axios";
+import { useAuthStore } from "@/stores/auth";
 
 const REST_API_USER = `http://localhost:8080/api-user/user`;
 const REST_API_FAVORITE = "http://localhost:8080/api-favorite/favorite";
@@ -10,19 +11,26 @@ axios.defaults.withCredentials = true;
 //.withCredentials의 기본값을 true값으로 변경->CORS 요청 허용, 쿠키값을 전달 할 수 있게 됨.
 // 전역 설정
 export const useUserStore = defineStore("user", () => {
-  const accessToken = ref(sessionStorage.getItem("access-token"));
-  const loginUserId = ref(sessionStorage.getItem("loginUserId"));
+  const store = useAuthStore();
+  const accessToken = ref(store.getAccessToken());
+  const loginUserId = ref(store.getLoginUserId());
 
-  const userLogin = async (id, password) => {
+  const userLogin = async (id, password, keep) => {
     try {
       const res = await axios.post(`${REST_API_USER}/login`, { id, password });
       const token = res.data["access-token"];
-      sessionStorage.setItem("access-token", token);
-      accessToken.value = token;
-
       const decoded = JSON.parse(atob(token.split(".")[1]));
       const userId = decoded.id;
-      sessionStorage.setItem("loginUserId", userId);
+
+      if (keep) {
+        localStorage.setItem("access-token", token);
+        localStorage.setItem("loginUserId", userId);
+      } else {
+        sessionStorage.setItem("access-token", token);
+        sessionStorage.setItem("loginUserId", userId);
+      }
+
+      accessToken.value = token;
       loginUserId.value = userId;
 
       await getUserInfo(userId);
@@ -75,8 +83,7 @@ export const useUserStore = defineStore("user", () => {
   };
 
   const logout = () => {
-    sessionStorage.removeItem("access-token");
-    sessionStorage.removeItem("loginUserId");
+    store.removeTokens();
     router.push({ name: "enter" });
   };
 
@@ -105,9 +112,7 @@ export const useUserStore = defineStore("user", () => {
 
   const updateFavorite = (nowStatus, userId, storeId) => {
     if (nowStatus === 0) {
-      return axios.post(
-        `${REST_API_FAVORITE}`,
-        {
+      return axios.post(`${REST_API_FAVORITE}`,{
           userId: userId,
           storeId: storeId,
         },

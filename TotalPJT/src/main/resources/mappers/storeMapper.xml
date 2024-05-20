@@ -45,6 +45,14 @@
 		WHERE exercise_id = ${exerciseId}
 	
 	</select>
+	
+	<!-- 티켓 리스트 -->
+	<select id="selectTicketlist" parameterType="int" resultType="SellTicket">
+		SELECT *
+		FROM sell_ticket
+		WHERE store_id = #{storeId}
+		ORDER BY `price`
+	</select>
 
 
 	
