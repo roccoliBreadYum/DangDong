@@ -57,10 +57,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int signUser(User user, MultipartFile file) {
-		/*
-		 * 이미지 파일 처리
-		 * 
-		 * */
+		//이미지파일 처리
 		try {
 			return fileHandling(user, file);
 		} catch (IOException e) {
@@ -76,17 +73,24 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int updateUser(User user) {
-		return uDao.update(user);
+	public int updateUser(User user, MultipartFile file) {
+		//이미지파일 처리
+				try {
+					return fileHandling2(user, file);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} 
+				
+				return 0;
 	}
 	
 	private int fileHandling(User user, MultipartFile file) throws IOException {
 		// 파일을 저장할 폴더 지정 (자바 폴더 내에 지정)
 		Resource res = resLoader.getResource("classpath:/static/resources");
-		//파일 저장할 때 이렇게 resource폴더에 하는게 좋음...
-		if(!res.getFile().exists()) {
-			res.getFile().mkdirs(); // 두 경로이므로 이겋게해야함.
-		}
+//		//파일 저장할 때 이렇게 resource폴더에 하는게 좋음...
+//		if(!res.getFile().exists()) {
+//			res.getFile().mkdirs(); // 두 경로이므로 이겋게해야함.
+//		}
 		
 		if (file != null && file.getSize() > 0) {
 			// prefix를 포함한 전체 이름
@@ -95,7 +99,7 @@ public class UserServiceImpl implements UserService{
 
 			// 변경된 파일 이름이 적용된 Movie MovieService를 통해 DB에 저장한다.
 
-			file.transferTo(new File(res.getFile().getCanonicalPath() + "/" + user.getImg()));
+			file.transferTo(new File(res.getFile(), user.getImg()));
 		}
 		
 		
@@ -114,6 +118,23 @@ public class UserServiceImpl implements UserService{
 //        }
 		
 		return uDao.insert(user);
+	}
+	
+	private int fileHandling2(User user, MultipartFile file) throws IOException {
+		// 파일을 저장할 폴더 지정 (자바 폴더 내에 지정)
+		Resource res = resLoader.getResource("classpath:/static/resources");
+		
+		if (file != null && file.getSize() > 0) {
+			// prefix를 포함한 전체 이름
+			user.setImg(System.currentTimeMillis() + "_" + file.getOriginalFilename());
+			user.setOrgImg(file.getOriginalFilename());
+
+			// 변경된 파일 이름이 적용된 Movie MovieService를 통해 DB에 저장한다.
+
+			file.transferTo(new File(res.getFile(), user.getImg()));
+		}
+		
+		return uDao.update(user);
 	}
 
 	public Map<String, Object> loginUser(User user, HttpServletResponse response) {

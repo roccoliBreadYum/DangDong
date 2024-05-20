@@ -5,7 +5,7 @@
         <img
           class="rounded-circle my-3 mx-2"
           style="width: 27%"
-          src="@/assets/temp.png"
+          :src="`http://localhost:8080/resources/${userStore.loginUserInfo.img}`"
         />
       </div>
       <div class="px-3" style="display: inline-block">

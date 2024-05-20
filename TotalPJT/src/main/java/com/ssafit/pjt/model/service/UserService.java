@@ -19,7 +19,7 @@ public interface UserService {
 
 	int withdrawalUser(String id);
 
-	int updateUser(User user);
+	int updateUser(User user, MultipartFile file);
 
 	Map<String, Object> loginUser(User user, HttpServletResponse response);
 
