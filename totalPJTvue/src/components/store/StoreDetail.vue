@@ -53,10 +53,10 @@
 
     <!-- 구매 / 예약 버튼 위치 -->
     <div id="button" class="d-flex justify-content-around pb-3">
-      <button class="btn">
-        <p id="btn-type">정기권/다회권</p>
-        <p id="btn-click">구매</p>
-      </button>
+      <RouterLink :to="{name: 'sellTicket', params:{storeId: route.params.storeId}}" class="btn">
+          <p id="btn-type">정기권/다회권</p>
+          <p id="btn-click">구매</p>
+      </RouterLink>
       <button class="btn">
         <p id="btn-type">일일권/이용권</p>
         <p id="btn-click">예약</p>
@@ -80,7 +80,7 @@ const userStore = useUserStore();
 const route = useRoute();
 const router = useRouter();
 
-const loginUserId = sessionStorage.getItem("loginUserId");
+const loginUserId = ref(sessionStorage.getItem("loginUserId"));
 
 const swichFavorite = () => {
   userStore
@@ -90,13 +90,13 @@ const swichFavorite = () => {
       route.params.storeId
     )
     .then(() => {
-      store.getStoreDetail(route.params.storeId, loginUserId);
+      store.getStoreDetail(route.params.storeId, loginUserId.value);
     })
     .catch(() => {});
 };
 
 onMounted(() => {
-  store.getStoreDetail(route.params.storeId, loginUserId);
+  store.getStoreDetail(route.params.storeId, loginUserId.value);
 });
 </script>
 

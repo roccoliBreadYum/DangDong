@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.ssafit.pjt.model.dao.StoreDao;
+import com.ssafit.pjt.model.dto.SellTicket;
 import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.util.StoreSearchCondition;
 
@@ -27,6 +28,11 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public Store getStoreDetail(Map<String, Object> map) {
 		return storeDao.selectStoreDetail(map);
+	}
+	
+	@Override
+	public List<SellTicket> getTicketList(int storeId) {
+		return storeDao.selectTicketlist(storeId);
 	}
 
 

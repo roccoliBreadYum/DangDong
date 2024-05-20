@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.ssafit.pjt.model.dto.Category;
+import com.ssafit.pjt.model.dto.SellTicket;
 import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.util.StoreSearchCondition;
 
@@ -16,6 +17,8 @@ public interface StoreService {
 	/** store detail*/
 	public Store getStoreDetail(Map<String, Object> map);
 	
+	/** sell ticket*/
+	public List<SellTicket> getTicketList(int storeId);
 	
 	public String getCategory(int exerciseId);
 	

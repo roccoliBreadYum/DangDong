@@ -3,6 +3,7 @@ package com.ssafit.pjt.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafit.pjt.model.dto.SellTicket;
 import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.util.StoreSearchCondition;
 
@@ -13,6 +14,8 @@ public interface StoreDao {
 	
 	// 리스트에서 선택한 가게의 상세페이지
 	public Store selectStoreDetail(Map<String, Object> map);
+	
+	public List<SellTicket> selectTicketlist(int storeId);
 	
 	public String selectCategory(int excerciseId);
 	

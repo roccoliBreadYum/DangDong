@@ -11,6 +11,7 @@ import EnterView from "@/views/EnterView.vue";
 import UserLogin from "@/components/user/UserLogin.vue";
 import UserCreate from "@/components/user/UserCreate.vue";
 import StoreList from "@/components/store/StoreList.vue";
+import StoreTicketList from "@/components/store/StoreTicketList.vue";
 import StoreDetail from "@/components/store/StoreDetail.vue";
 import StoreView from "@/views/StoreView.vue";
 import UserPage from "@/components/user/UserPage.vue";
@@ -53,6 +54,11 @@ const router = createRouter({
           name: "storeDetail",
           component: StoreDetail,
         },
+        {
+          path: ":storeId/ticket",
+          name: "sellTicket",
+          component: StoreTicketList,
+        }
       ],
     },
     {

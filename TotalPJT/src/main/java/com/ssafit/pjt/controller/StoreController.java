@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafit.pjt.model.dto.Category;
+import com.ssafit.pjt.model.dto.SellTicket;
 import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.model.service.StoreService;
 import com.ssafit.pjt.util.StoreSearchCondition;
@@ -50,6 +51,13 @@ public class StoreController {
 		map.put("userId", userId);
 		Store store = storeService.getStoreDetail(map);
 		return new ResponseEntity<>(store, store != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/{storeId}/ticket")
+	@Operation(summary = "티켓 판매", description = "해당 가게에서 판매중인 티켓 리스트")
+	public ResponseEntity<?> getTicketList(@PathVariable("storeId") int storeId){
+		List<SellTicket> ticket = storeService.getTicketList(storeId);
+		return new ResponseEntity<>(ticket, ticket != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
 	@GetMapping("/category/{exerciseId}")
