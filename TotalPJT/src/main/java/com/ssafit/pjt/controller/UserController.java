@@ -88,9 +88,10 @@ public class UserController {
 
 	@PutMapping("")
 	@Operation(summary = "회원정보수정")
-	public ResponseEntity<?> updateUser(@RequestBody User user) {
+	public ResponseEntity<?> updateUser(@RequestPart("user") User user,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
 //		user.setId(id);
-		int result = uService.updateUser(user);
+		int result = uService.updateUser(user, file);
 		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 }

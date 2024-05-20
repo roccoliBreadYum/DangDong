@@ -11,10 +11,22 @@
             id="img-area"
             class="d-flex flex-row justify-content-center align-item-center"
           >
-            <div id="img-box" class="d-flex">
-              <img src="@/assets/tmp_user.png" alt="user img" />
-            </div>
-            <input type="file" />
+            <template v-if="userStore.loginUserInfo.img !== null">
+              <div id="img-box" class="d-flex">
+                <img
+                  :src="`http://localhost:8080/resources/${userStore.loginUserInfo.img}`"
+                  class="rounded-circle"
+                  alt="user img"
+                />
+              </div>
+            </template>
+            <template v-else>
+              <div id="img-box" class="d-flex">
+                <img src="@/assets/tmp_user.png" alt="user img" />
+              </div>
+            </template>
+
+            <input type="file" @change="handleFileChange" />
           </div>
           <div class="d-flex flex-column justify-content-around p-3">
             <div
@@ -153,7 +165,11 @@ import { useRouter } from "vue-router";
 const userStore = useUserStore();
 const router = useRouter();
 const loginUserId = sessionStorage.getItem("loginUserId");
-
+const file = ref(null);
+const handleFileChange = (event) => {
+  file.value = event.target.files[0];
+  // console.log(file.value);
+};
 const user = ref({
   name: "",
   email: "",
@@ -175,7 +191,7 @@ onMounted(() => {
 });
 
 const updateUser = function () {
-  userStore.updateUser(user.value);
+  userStore.updateUser(user.value, file.value);
 };
 const backButton = function () {
   router.go(-1);

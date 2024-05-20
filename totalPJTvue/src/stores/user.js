@@ -80,12 +80,18 @@ export const useUserStore = defineStore("user", () => {
     router.push({ name: "enter" });
   };
 
-  const updateUser = function (user) {
+  const updateUser = function (user, file) {
+    const formData = new FormData();
+    formData.append(
+      "user",
+      new Blob([JSON.stringify(user)], { type: "application/json" })
+    );
+    formData.append("file", file);
     axios
-      .put(`${REST_API_USER}`, user, {
+      .put(`${REST_API_USER}`, formData, {
         headers: {
           "access-token": accessToken.value,
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
