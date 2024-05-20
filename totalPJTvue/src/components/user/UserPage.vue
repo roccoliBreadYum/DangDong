@@ -6,7 +6,7 @@
     >
       <div id="user-img" class="d-flex">
         <img
-          :src="`C:/Users/SSAFY/Desktop/createUser/${userStore.loginUserInfo.img}`"
+          :src="`http://localhost:8080/resources/${userStore.loginUserInfo.img}`"
           alt="user img"
         />
       </div>
@@ -146,7 +146,7 @@
             />
           </svg>
         </div>
-        <p>캘린더 관리</p>
+        <RouterLink to="/calendar">캘린더 관리</RouterLink>
       </div>
     </div>
   </div>
@@ -192,6 +192,8 @@ const withdrawal = function () {
   height: 90vh;
   width: 100vw;
   padding: 15px 15px;
+  margin-top: 66px;
+  margin-bottom: 90.5px;
 }
 #user-info {
   background-color: white;

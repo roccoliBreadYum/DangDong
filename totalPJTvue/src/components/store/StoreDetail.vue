@@ -1,138 +1,151 @@
 <template>
-    <div calss="container">
-        <!-- 업체 정보 위치 -->
-        <div id="detail" class="shadow" style="margin-top: 1rem;">
-            <!-- 상호명, 채팅, 즐겨찾기 -->
-            <div id="detail-head" class="d-flex justify-content-between align-items-center">
-                <div id="head-title" class="p-2">
-                    <h3>{{ store.storeDetail.storeName }}</h3>
-                </div>
-                <div id="head-icons" class="p-2 d-flex flex-row mb-3 align-items-center">
-                    <i id="icons-talk" class="bi bi-chat-dots p-2 px-3"></i>
-                    <div v-if="store.storeDetail.isFavorite === 1"> <button id="icon-btn" @click="swichFavorite">
-                        <i id="icons" class="bi bi-star-fill p-2" style="color: #FFC81E;"></i> </button>
-                    </div>
-                    <div v-else> <button id="icon-btn" @click="swichFavorite">
-                        <i id="icons" class="bi bi-star p-2" style="color: #FFC81E;"></i> </button>
-                    </div> 
-                </div>
-            </div>
-            <!-- 업체사진 -->
-            <div class="d-flex justify-content-around">
-                <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img">
-                <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img">
-            </div>
-            <!-- 상세정보 -->
-            <div id="store-detail" class="my-3 pb-3">
-                <div class="my-1">
-                    <i class="bi bi-geo-alt"></i> {{ store.storeDetail.address }}    
-                </div>
-                <div class="my-1">
-                    <i class="bi bi-telephone-fill"></i> {{ store.storeDetail.phoneNumber }}
-                </div>
-                <div class="my-1">
-                    <i class="bi bi-clock-fill"></i> {{ store.storeDetail.openingHours }}
-                </div>
-            </div>
+  <div calss="container">
+    <!-- 업체 정보 위치 -->
+    <div id="detail" class="shadow" style="margin-top: 1rem">
+      <!-- 상호명, 채팅, 즐겨찾기 -->
+      <div
+        id="detail-head"
+        class="d-flex justify-content-between align-items-center"
+      >
+        <div id="head-title" class="p-2">
+          <h3>{{ store.storeDetail.storeName }}</h3>
         </div>
-
-        <!-- 구매 / 예약 버튼 위치 -->
-        <div id="button" class="d-flex justify-content-around pb-3">
-            <button class="btn">
-                <p id="btn-type">정기권/다회권</p>
-                <p id="btn-click">구매</p>
+        <div
+          id="head-icons"
+          class="p-2 d-flex flex-row mb-3 align-items-center"
+        >
+          <i id="icons-talk" class="bi bi-chat-dots p-2 px-3"></i>
+          <div v-if="store.storeDetail.isFavorite === 1">
+            <button id="icon-btn" @click="swichFavorite">
+              <i
+                id="icons"
+                class="bi bi-star-fill p-2"
+                style="color: #ffc81e"
+              ></i>
             </button>
-            <button class="btn">
-                <p id="btn-type" >일일권/이용권</p>
-                <p id="btn-click">예약</p>
+          </div>
+          <div v-else>
+            <button id="icon-btn" @click="swichFavorite">
+              <i id="icons" class="bi bi-star p-2" style="color: #ffc81e"></i>
             </button>
+          </div>
         </div>
-
-        <!-- 공지사항 위치 -->
-        <StoreNotice />
+      </div>
+      <!-- 업체사진 -->
+      <div class="d-flex justify-content-around">
+        <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img" />
+        <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img" />
+      </div>
+      <!-- 상세정보 -->
+      <div id="store-detail" class="my-3 pb-3">
+        <div class="my-1">
+          <i class="bi bi-geo-alt"></i> {{ store.storeDetail.address }}
+        </div>
+        <div class="my-1">
+          <i class="bi bi-telephone-fill"></i>
+          {{ store.storeDetail.phoneNumber }}
+        </div>
+        <div class="my-1">
+          <i class="bi bi-clock-fill"></i> {{ store.storeDetail.openingHours }}
+        </div>
+      </div>
     </div>
+
+    <!-- 구매 / 예약 버튼 위치 -->
+    <div id="button" class="d-flex justify-content-around pb-3">
+      <button class="btn">
+        <p id="btn-type">정기권/다회권</p>
+        <p id="btn-click">구매</p>
+      </button>
+      <button class="btn">
+        <p id="btn-type">일일권/이용권</p>
+        <p id="btn-click">예약</p>
+      </button>
+    </div>
+
+    <!-- 공지사항 위치 -->
+    <StoreNotice />
+  </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useStoreStore } from '@/stores/store';
-import { useUserStore } from '@/stores/user'
-import { useRoute, useRouter } from 'vue-router'
-import StoreNotice from '@/components/store/StoreNotice.vue'
+import { ref, onMounted } from "vue";
+import { useStoreStore } from "@/stores/store";
+import { useUserStore } from "@/stores/user";
+import { useRoute, useRouter } from "vue-router";
+import StoreNotice from "@/components/store/StoreNotice.vue";
 
-
-const store = useStoreStore()
-const userStore = useUserStore()
-const route = useRoute()
-const router = useRouter()
+const store = useStoreStore();
+const userStore = useUserStore();
+const route = useRoute();
+const router = useRouter();
 
 const loginUserId = sessionStorage.getItem("loginUserId");
 
-
 const swichFavorite = () => {
-        userStore.updateFavorite(store.storeDetail.isFavorite, loginUserId, route.params.storeId)
+  userStore
+    .updateFavorite(
+      store.storeDetail.isFavorite,
+      loginUserId,
+      route.params.storeId
+    )
     .then(() => {
-        store.getStoreDetail(route.params.storeId, loginUserId)
+      store.getStoreDetail(route.params.storeId, loginUserId);
     })
-    .catch(() => {
-
-    })
-}
-
+    .catch(() => {});
+};
 
 onMounted(() => {
-    store.getStoreDetail(route.params.storeId, loginUserId)
-})
-
+  store.getStoreDetail(route.params.storeId, loginUserId);
+});
 </script>
 
 <style scoped>
-#detail-head{
-    margin-bottom: -6%;
+#detail-head {
+  margin-bottom: -6%;
 }
-.btn{
-    background-color: #a2d8df;
-    color: #fff;
-    border-radius: 30px;
-}
-
-#btn-type{
-    margin: -0.2rem;
+.btn {
+  background-color: #a2d8df;
+  color: #fff;
+  border-radius: 30px;
 }
 
-#btn-click{
-    margin: -0.4rem;
-    padding: 0 3.5rem;
-    font-size:x-large;
+#btn-type {
+  margin: -0.2rem;
 }
 
-#store-detail{
-    margin-left: 0.5rem;
+#btn-click {
+  margin: -0.4rem;
+  padding: 0 3.5rem;
+  font-size: x-large;
 }
 
-#head-icons{
-    padding: 0rem !important;
-    margin-right: 0.5rem;
+#store-detail {
+  margin-left: 0.5rem;
 }
 
-#icon-btn{
-    background-color: white;
-    border: none;
+#head-icons {
+  padding: 0rem !important;
+  margin-right: 0.5rem;
+}
+
+#icon-btn {
+  background-color: white;
+  border: none;
 }
 
 #icons,
-#icons-talk{
-    font-size: 1.5rem;
-    margin: 0 -0.5rem;
+#icons-talk {
+  font-size: 1.5rem;
+  margin: 0 -0.5rem;
 }
 
-#icons-talk{
-    padding: -50px;
+#icons-talk {
+  padding: -50px;
 }
 
-#store-img{
-    width: 12rem;
-    height: 10rem;
+#store-img {
+  width: 12rem;
+  height: 10rem;
 }
-
 </style>
