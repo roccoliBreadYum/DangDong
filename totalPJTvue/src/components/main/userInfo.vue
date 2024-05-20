@@ -49,12 +49,14 @@
 import { useUserStore } from "@/stores/user";
 import { useticketStore } from "@/stores/ticket";
 import { useReservationStore } from "@/stores/reservation";
+import { useAuthStore } from "@/stores/auth";
 import { ref, onMounted } from "vue";
 
 const userStore = useUserStore();
+const authStore = useAuthStore();
 const ticketStore = useticketStore();
 const reservationStore = useReservationStore();
-const loginUserId = sessionStorage.getItem("loginUserId");
+const loginUserId = authStore.getLoginUserId();
 
 onMounted(() => {
   userStore.getUserInfo(loginUserId);

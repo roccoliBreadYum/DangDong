@@ -1,11 +1,14 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
+import { useAuthStore } from "@/stores/auth";
+
 
 const REST_API_STORE = "http://localhost:8080/api-store";
 
 export const useStoreStore = defineStore("store", () => {
-  const accessToken = computed(() => sessionStorage.getItem("access-token"));
+  const store = useAuthStore()
+  const accessToken = computed(() => store.getAccessToken());
   const storeTicketList = ref([])
   const categoryNum = ref("");
   const category = ref("");
@@ -18,6 +21,7 @@ export const useStoreStore = defineStore("store", () => {
     orderBy: "none",
     orderByDir: "asc",
   });
+
 
   const searchStoreList = () => {
     axios

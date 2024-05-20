@@ -157,10 +157,12 @@ import { useUserStore } from "@/stores/user";
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
+const authStore = useAuthStore();
 const userStore = useUserStore();
-const loginUserId = sessionStorage.getItem("loginUserId");
-const accessToken = sessionStorage.getItem("access-token");
+const loginUserId = authStore.getLoginUserId();
+const accessToken = authStore.getAccessToken();
 const router = useRouter();
 
 onMounted(() => {

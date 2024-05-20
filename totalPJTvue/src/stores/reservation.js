@@ -1,12 +1,14 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
+import { useAuthStore } from "@/stores/auth";
 
 const REST_API_RESERVATION = "http://localhost:8080/api-reservation";
 
 export const useReservationStore = defineStore("reservation", () => {
-  const accessToken = sessionStorage.getItem("access-token");
-  const loginUserId = sessionStorage.getItem('loginUserId');
+  const store = useAuthStore()
+  const accessToken = store.getAccessToken();
+  const loginUserId = store.getLoginUserId();
 
   const reservationListCnt = ref(0);
   const reservationList = ref([]);

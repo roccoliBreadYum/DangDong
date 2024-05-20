@@ -8,6 +8,7 @@
           >
             <img src="" alt="이미지 자리지롱" />
           </div>
+          <div>
           <div
             id="input-form"
             class="d-flex justify-content-center align-items-center flex-column flex-grow-1"
@@ -19,6 +20,11 @@
               v-model.trim="pw"
               class="p-3" @keyup.enter="login"
             />
+          </div>
+            <div class="form-check form-switch" id="keep-login">
+              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="isKeepLogin">
+              <label class="form-check-label" for="flexSwitchCheckDefault">로그인 유지하기</label>
+            </div>
           </div>
           <div
             id="login-form-button"
@@ -42,8 +48,10 @@
   const id = ref("");
   const pw = ref("");
   
+  const isKeepLogin = ref(false);
+
   const login = () => {
-    store.userLogin(id.value, pw.value);
+    store.userLogin(id.value, pw.value, isKeepLogin.value);
   };
 
   
@@ -90,6 +98,12 @@
     font-weight: bold;
     border: none;
     text-decoration: none;
+  }
+
+  #keep-login{
+    display: flex;
+    align-items: center;    /* 세로 가운데 정렬 */
+    padding-left: 3.2rem;
   }
   </style>
   
