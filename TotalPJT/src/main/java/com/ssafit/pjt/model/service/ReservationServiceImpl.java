@@ -30,6 +30,12 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 	
 	@Override
+	public List<Reservation> getAllReservationById(String userId) {
+		return resDao.selectAllReservationById(userId);
+	}
+	
+	
+	@Override
 	public List<Reservation> getReservationById(String UserId) {
 		return resDao.selectReservationById(UserId);
 	}
@@ -46,5 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
 		tDao.increaseTicket(reservationId);
 		return resDao.deleteReservation(reservationId);
 	}
+
+
 	
 }

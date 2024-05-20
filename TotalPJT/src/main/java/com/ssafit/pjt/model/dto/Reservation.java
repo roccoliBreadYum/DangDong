@@ -18,17 +18,35 @@ public class Reservation {
 	private int lessonId;
 	private int ticketId;
 	private Timestamp date;
+	private String storeName;
+	private String exerciseCategory;
+	private int exerciseCategoryNum;
+	private String time;
+	private String ticketCategory;
 	
-	public Reservation() {	}
 	
-	public Reservation(int reservationId, String userId, int storeId, int lessonId, int ticketId, Timestamp date) {
+	
+	public Reservation() {
+		super();
+	}
+
+	public Reservation(int reservationId, String userId, int storeId, int lessonId, int ticketId, Timestamp date,
+			String storeName, String exerciseCategory, int exerciseCategoryNum, String time, String ticketCategory) {
+		super();
 		this.reservationId = reservationId;
 		this.userId = userId;
 		this.storeId = storeId;
 		this.lessonId = lessonId;
 		this.ticketId = ticketId;
 		this.date = date;
+		this.storeName = storeName;
+		this.exerciseCategory = exerciseCategory;
+		this.exerciseCategoryNum = exerciseCategoryNum;
+		this.time = time;
+		this.ticketCategory = ticketCategory;
 	}
+
+
 
 	public int getReservationId() {
 		return reservationId;
@@ -78,11 +96,57 @@ public class Reservation {
 		this.date = date;
 	}
 
+	public String getStoreName() {
+		return storeName;
+	}
+	
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
+	public String getExerciseCategory() {
+		return exerciseCategory;
+	}
+
+	public void setExerciseCategory(String exerciseCategory) {
+		this.exerciseCategory = exerciseCategory;
+	}
+	
+
+	public int getExerciseCategoryNum() {
+		return exerciseCategoryNum;
+	}
+
+	public void setExerciseCategoryNum(int exerciseCategoryNum) {
+		this.exerciseCategoryNum = exerciseCategoryNum;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+
+	public String getTicketCategory() {
+		return ticketCategory;
+	}
+
+
+	public void setTicketCategory(String ticketCategory) {
+		this.ticketCategory = ticketCategory;
+	}
+
 	@Override
 	public String toString() {
 		return "Reservation [reservationId=" + reservationId + ", userId=" + userId + ", storeId=" + storeId
-				+ ", lessonId=" + lessonId + ", ticketId=" + ticketId + ", date=" + date + "]";
+				+ ", lessonId=" + lessonId + ", ticketId=" + ticketId + ", date=" + date + ", storeName=" + storeName
+				+ ", exerciseCategory=" + exerciseCategory + ", exerciseCategoryNum=" + exerciseCategoryNum + ", time="
+				+ time + ", ticketCategory=" + ticketCategory + "]";
 	}
-	
+
+
 	
 }

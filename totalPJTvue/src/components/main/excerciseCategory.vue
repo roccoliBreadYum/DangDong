@@ -29,13 +29,17 @@
 
   const store = useStoreStore()
   const router = useRouter()
+  const searchInfo = ref({
+        category : -1,
+        key : 'none',
+        word: '',
+        orderBy: 'none',
+        orderByDir: ''
+    })
 
   const sendCategory = (num) => {
-    const searchInfo = {
-      category : num
-    }
-
-    store.searchStoreList(searchInfo)
+    store.searchCondition.category = num
+    store.searchStoreList()
     router.push({name:"storeList"})
   }
 

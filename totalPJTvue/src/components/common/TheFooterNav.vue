@@ -3,7 +3,7 @@
     <footer>
       <nav class="d-flex justify-content-evenly align-items-center">
         <div>
-          <RouterLink to="/"
+          <RouterLink to="/" @click="reset"
             ><i
               class="bi bi-house-fill"
               style="font-size: 45px; color: white"
@@ -49,7 +49,26 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useStoreStore } from '@/stores/store';
+
+const store = useStoreStore()
+
+const reset = () => {
+  const searchInfo = {
+    category: -1,
+    key: 'none',
+    word: '',
+    orderBy: 'none',
+    orderByDir: 'asc'
+  };
+
+  store.searchCondition = searchInfo
+  store.getCategory(-1)
+}
+
+</script>
+
 
 <style scoped>
 footer nav div a.router-link-exact-active i::before,

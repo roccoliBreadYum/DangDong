@@ -22,7 +22,7 @@ public class JwtUtil {
 	
 	@Value("${jwt.accesstoken.expiretime}")
 	private Long accessTokenExpireTime;
-	
+	   
 	@Value("${jwt.refreshtoken.expiretime}")
 	private Long refreshTokenExpireTime;
 	
