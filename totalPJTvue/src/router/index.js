@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 import MainView from "@/views/MainView.vue";
 import CalendarView from "@/views/CalendarView.vue";
 import HomeView from "@/views/HomeView.vue";
@@ -13,12 +13,12 @@ import UserCreate from "@/components/user/UserCreate.vue";
 import StoreList from "@/components/store/StoreList.vue";
 import StoreDetail from "@/components/store/StoreDetail.vue";
 import StoreView from "@/views/StoreView.vue";
-import UserPage from "@/components/user/UserPage.vue"
-import UserUpdate from '@/components/user/UserUpdate.vue';
+import UserPage from "@/components/user/UserPage.vue";
+import UserUpdate from "@/components/user/UserUpdate.vue";
 
-const getCookie = function(name) {
+const getCookie = function (name) {
   return Cookies.get(name);
-}
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,23 +42,23 @@ const router = createRouter({
       path: "/store",
       name: "storeView",
       component: StoreView,
-      children:[
+      children: [
         {
           path: "",
           name: "storeList",
           component: StoreList,
         },
         {
-          path:":storeId",
-          name:"storeDetail",
+          path: ":storeId",
+          name: "storeDetail",
           component: StoreDetail,
-        }
-      ]
+        },
+      ],
     },
     {
       path: "/my",
       component: UserView,
-      children:[
+      children: [
         {
           path: "",
           name: "userPage",
@@ -68,8 +68,8 @@ const router = createRouter({
           path: "/update",
           name: "userUpdate",
           component: UserUpdate,
-        }
-      ]
+        },
+      ],
     },
     {
       path: "/favorite",
@@ -102,11 +102,11 @@ router.beforeEach((to, from, next) => {
   const refreshToken = getCookie("refreshToken");
 
   // 현재 경로가 회원가입 페이지인지 확인
-  if(to.name==="userCreate"){
+  if (to.name === "userCreate") {
     return next();
   }
-    
-    // 현재 경로가 로그인 페이지인지 확인
+
+  // 현재 경로가 로그인 페이지인지 확인
   if (to.name === "login" && !accessToken && !refreshToken) {
     return next();
   }
@@ -126,7 +126,7 @@ router.beforeEach((to, from, next) => {
       router.push({ name: "login" });
     });
 
-    next();
+  next();
 });
 
 export default router;

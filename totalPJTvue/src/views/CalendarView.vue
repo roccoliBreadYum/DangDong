@@ -1,10 +1,20 @@
 <template>
   <div class="container">
-    <VDatePicker type="date" v-model="date" @change="onDateSelected" expanded borderless :attributes="attributes" />
+    <VDatePicker
+      type="date"
+      v-model="date"
+      @change="onDateSelected"
+      expanded
+      borderless
+      :attributes="attributes"
+    />
     <div v-for="list in store.filterReservationList" :key="list.reservationId">
       <div id="card" class="card my-2">
         <div class="card-row">
-          <div id="color-belt" :style="getStyle(list.exerciseCategoryNum)"></div>
+          <div
+            id="color-belt"
+            :style="getStyle(list.exerciseCategoryNum)"
+          ></div>
           <div class="card-body">
             <h5>{{ list.storeName }}</h5>
             <h6>{{ list.exerciseCategory }}</h6>
@@ -20,15 +30,15 @@
 </template>
 
 <script setup>
-import { useReservationStore } from '@/stores/reservation';
-import { ref, watch, computed, onMounted } from 'vue';
+import { useReservationStore } from "@/stores/reservation";
+import { ref, watch, computed, onMounted } from "vue";
 
 // Helper function to format date as java.sql.Timestamp
 const formatToTimestamp = (date) => {
   const d = new Date(date);
   const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 };
 
@@ -39,40 +49,39 @@ const attributes = ref([]);
 const formattedDate = computed(() => formatToTimestamp(date.value));
 
 watch(date, () => {
-  console.log('Selected date:', formattedDate.value);
+  console.log("Selected date:", formattedDate.value);
   store.getReservationByDate(formattedDate.value); // 날짜로 필터링된 예약 목록 요청
 });
 
 // Function to determine the style based on exerciseCategoryNum
 const getStyle = (exerciseCategoryNum) => {
   const colors = {
-    1: 'lightpink',
-    2: 'lightblue',
-    3: 'lightcoral',
-    4: 'lightgreen',
-    5: 'lightsalmon',
-    6: 'lightseagreen',
-    7: 'lightgoldenrodyellow',
-    8: 'lightsteelblue',
-    9: 'lightcyan',
+    1: "lightpink",
+    2: "lightblue",
+    3: "lightcoral",
+    4: "lightgreen",
+    5: "lightsalmon",
+    6: "lightseagreen",
+    7: "lightgoldenrodyellow",
+    8: "lightsteelblue",
+    9: "lightcyan",
   };
   return {
-    backgroundColor: colors[exerciseCategoryNum] || 'gray',
+    backgroundColor: colors[exerciseCategoryNum] || "gray",
   };
 };
-
 
 // Function to handle date selection
 const onDateSelected = (event) => {
   const selectedDate = new Date(event.target.value).toISOString();
-  console.log('Date selected:', formatToTimestamp(selectedDate));
+  console.log("Date selected:", formatToTimestamp(selectedDate));
   date.value = selectedDate;
 };
 
 onMounted(() => {
   store.getReservationByDate(formattedDate.value);
   console.log(attributes.value);
-  console.log('출력됐나요?');
+  console.log("출력됐나요?");
 });
 </script>
 
@@ -82,6 +91,8 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  margin-top: 90px;
+  margin-bottom: 90.5px;
 }
 
 input[type="date"] {

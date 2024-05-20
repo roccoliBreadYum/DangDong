@@ -95,9 +95,11 @@ const deleteFavorite = function (storeId) {
 <style scoped>
 #background {
   background-color: #ecf5fe;
-  height: 100vh;
   width: 100vw;
   padding: 15px 15px;
+  margin-top: 66px;
+  margin-bottom: 90.5px;
+  min-height: 1000px;
 }
 
 #name {
