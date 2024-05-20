@@ -52,6 +52,13 @@ public class StoreController {
 		return new ResponseEntity<>(store, store != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/category/{exerciseId}")
+	@Operation(summary = "가게 페이지", description = "리스트에서 선택한 가게의 상세페이지")
+	public ResponseEntity<?> selectStoreDetail(@PathVariable("exerciseId") int exerciseId){
+		String name = storeService.getCategory(exerciseId);
+		return new ResponseEntity<>(name, name != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
+	
 	
 //	@PostMapping("")
 //	@Operation(summary = "(사업자) 가게 내용 수정", description = "가게 상세페이지 내 내용 수정")

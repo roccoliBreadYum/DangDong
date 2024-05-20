@@ -29,6 +29,12 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.selectStoreDetail(map);
 	}
 
+
+	@Override
+	public String getCategory(int exerciseId) {
+		return storeDao.selectCategory(exerciseId);
+	}
+
 //	@Override
 //	public int modifyStore(Store store) {
 //		return storeDao.updateStore(store);

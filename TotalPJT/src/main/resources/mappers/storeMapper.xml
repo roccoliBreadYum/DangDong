@@ -21,19 +21,29 @@
 	
 	<!-- 필터별 store 리스트 -->
 	<select id="selectStore" parameterType="StoreSearchCondition" resultType="Store">
-	    SELECT *
-	    FROM stores
+	    SELECT s.*, 
+	           (SELECT COUNT(*) 
+	            FROM teacher t 
+	            WHERE t.store_id = s.store_id) AS teacherCount
+	    FROM stores s
 	    <where>
-	        <if test="key != null">
+	        <if test="key != 'none'">
 	            AND ${key} LIKE concat ('%', #{word}, '%')
 	        </if>
 	        <if test="category != -1">
-	            AND exercise_id = #{category}
+	            AND s.exercise_id = #{category}
 	        </if>        
 	    </where>
-	    <if test="orderBy != null">
+	    <if test="orderBy != 'none'">
 	        ORDER BY ${orderBy} ${orderByDir}
 	    </if>
+	</select>
+	
+	<select id="selectCategory" parameterType="int" resultType="String">
+		SELECT category
+		FROM exercise_category
+		WHERE exercise_id = ${exerciseId}
+	
 	</select>
 
 

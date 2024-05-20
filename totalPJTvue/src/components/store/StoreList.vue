@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <storeSearch style="margin-bottom: 1rem;"/>
         <div v-for="st in store.storeList" :key="st.storeId" class="store-item mb-3 rounded-5 shadow">
             <RouterLink :to="`/store/${st.storeId}`" class="store-link">
                 <img src="@/assets/temp.png" alt="..." class="store-image rounded-3">
@@ -19,17 +20,18 @@ import { useStoreStore } from '@/stores/store';
 import { useUserStore } from '@/stores/user';
 import { onMounted, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import storeSearch from '@/components/store/StoreSearch.vue';
 
 const store = useStoreStore()
 const userStore = useUserStore()
 const router = useRouter()
 
 
-
-
 onMounted(() => {
-
+    store.getCategory(store.searchCondition.category)
+    store.searchStoreList(store.searchCondition.category)
 })
+
 </script>
 
 <style scoped>

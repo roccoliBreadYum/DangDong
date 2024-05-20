@@ -14,6 +14,8 @@ public interface StoreDao {
 	// 리스트에서 선택한 가게의 상세페이지
 	public Store selectStoreDetail(Map<String, Object> map);
 	
+	public String selectCategory(int excerciseId);
+	
 	// 가게 상세페이지 내 내용 수정
 	//public int updateStore(Store store);
 

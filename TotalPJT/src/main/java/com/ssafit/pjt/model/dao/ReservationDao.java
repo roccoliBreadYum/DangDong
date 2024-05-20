@@ -11,6 +11,9 @@ public interface ReservationDao {
 	public int insertReservation(Reservation reservation);
 	
 	// 특정 인원의 전쳬 예약 리스트
+	public List<Reservation> selectAllReservationById (String userId);
+	
+	// 특정 인원 오늘 이후의 전쳬 예약 리스트
 	public List<Reservation> selectReservationById (String userId);
 	
 	// 해당 날짜에 따른 예약 리스트 반환

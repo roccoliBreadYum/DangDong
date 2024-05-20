@@ -36,6 +36,13 @@ public class ReservationController {
 		this.resService = resService;
 	}
 	
+	@GetMapping("/now/{userId}")
+	@Operation(summary = "예약리스트(현재 이후) 반환", description = "현재 접속한 아이디 기준 현재 이후의 전체 예약목록 반환")
+	public ResponseEntity<?> getAllReservationById (@PathVariable("userId") String userId){
+		List<Reservation> list = resService.getAllReservationById(userId);
+		return new ResponseEntity<>(list, list != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
+	
 	@GetMapping("/{userId}")
 	@Operation(summary = "예약리스트(현재 이후) 반환", description = "현재 접속한 아이디 기준 현재 이후의 전체 예약목록 반환")
 	public ResponseEntity<?> getReservationById (@PathVariable("userId") String userId){
@@ -45,13 +52,14 @@ public class ReservationController {
 	
 	@GetMapping("/{date}/{userId}")
 	@Operation(summary = "예약리스트 반환", description = "현재 접속한 아이디 및 날짜 기준 전체 예약목록 반환")
-	public ResponseEntity<?> getReservationByDate (@PathVariable("date") Timestamp date, @PathVariable("userId") String userId){
-		Map<String, Object> map = new HashMap();
-		map.put("date", date);
-		map.put("userId", userId);
-		List<Reservation> list = resService.getReservationByDate(map);
-		return new ResponseEntity<>(list, list != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	public ResponseEntity<?> getReservationByDate (@PathVariable("date") String date, @PathVariable("userId") String userId) {
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("date", date);
+	    map.put("userId", userId);
+	    List<Reservation> list = resService.getReservationByDate(map);
+	    return new ResponseEntity<>(list, list != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
+
 	
 	@PostMapping("")
 	@Operation(summary = "예약내역 추가", description = "결제 완료 후 reservation DB에 예약 내용 추가")

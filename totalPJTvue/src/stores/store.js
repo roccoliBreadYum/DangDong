@@ -1,46 +1,73 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 
+const REST_API_STORE = "http://localhost:8080/api-store";
 
-const REST_API_STORE ="http://localhost:8080/api-store";
 export const useStoreStore = defineStore("store", () => {
-
     const accessToken = sessionStorage.getItem("access-token");
-    const storeList = ref([])
-    const storeDetail = ref({})
+    const categoryNum = ref('')
+    const category = ref('')
+    const storeList = ref([]);
+    const storeDetail = ref({});
+    const searchCondition = ref({
+        category: -1,
+        key: 'none',
+        word: '',
+        orderBy: 'none',
+        orderByDir: 'asc'
+    });
 
-    const searchStoreList = (searchCondition) => {
-        axios.get(REST_API_STORE,{
-            params: searchCondition,
+    const searchStoreList = () => {
+        axios.get(REST_API_STORE, {
+            params: searchCondition.value,
             headers: {
                 "access-token": accessToken,
-              }
+            }
         })
         .then((res) => {
-            storeList.value = res.data
+            console.log(res)
+            storeList.value = res.data;
         })
-    }
+        .catch((error) => {
+            console.error("Error fetching store list:", error);
+        });
+    };
 
     const getStoreDetail = (storeId, userId) => {
         axios.get(`${REST_API_STORE}/${storeId}/${userId}`, {
             headers: {
-              "access-token": accessToken,
-            },
-          })
+                "access-token": accessToken,
+            }
+        })
+        .then((res) => {
+            console.log(res);
+            storeDetail.value = res.data;
+        })
+        .catch((error) => {
+            console.error("Error fetching store detail:", error);
+        });
+    };
+
+    const getCategory = (exerciseId) => {
+        axios.get(`${REST_API_STORE}/category/${exerciseId}`, {
+            headers: {
+                "access-token": accessToken,
+            }
+        })
         .then((res) => {
             console.log(res)
-            storeDetail.value = res.data
+            category.value = res.data
         })
     }
 
-
-  
-
     return {
+        category,
         storeList,
         storeDetail,
+        searchCondition,
         searchStoreList,
         getStoreDetail,
+        getCategory,
     };
 });

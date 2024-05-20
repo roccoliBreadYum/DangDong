@@ -2,9 +2,9 @@ package com.ssafit.pjt.util;
 
 public class StoreSearchCondition {
 	private int category = -1;
-	private String key = null;
+	private String key = "none";
 	private String word;
-	private String orderBy = null;
+	private String orderBy = "none";
 	private String orderByDir;
 	
 	public StoreSearchCondition() {
