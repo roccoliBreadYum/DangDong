@@ -3,34 +3,45 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafit.pjt.model.dao.FavoriteDao">
-	
+
 	<!-- 생성 -->
 	<insert id="insert" parameterType="Favorite">
 		INSERT INTO favorites
 		VALUES(#{userId}, #{storeId})
 	</insert>
-	
+
 	<!-- 삭제 -->
 	<delete id="delete" parameterType="Favorite">
 		DELETE FROM favorites
-		WHERE user_id=#{userId} AND store_id=#{storeId}
+		WHERE
+		user_id=#{userId} AND store_id=#{storeId}
 	</delete>
-	
-	<!-- 사용자별 즐겨찾기 항목 조회 -->
-<!-- 	<select id="selectFavoriteInfo" parameterType="String" resultType="Store">
-		SELECT `store_id`, `store_name`, `description`, (SELECT COUNT(*) FROM teacher t WHERE t.store_id = s.store_id)`teacherCount`
-		FROM  stores s
-		WHERE store_id in (SELECT store_id FROM favorites WHERE user_id=#{userId}) 
-	</select> -->
-	
- 	<select id="selectFavoriteInfo" parameterType="String" resultType="Store">
-		SELECT s.`store_id`, s.`store_name`, s.`description`, count(s.store_id) `teacherCount`
-		FROM stores s, teacher t
-		WHERE t.store_id = s.store_id
-		AND s.store_id in (SELECT store_id FROM favorites WHERE user_id=#{userId})
-		GROUP BY s.store_id
-	</select> 
-	
 
-	
+	<!-- 사용자별 즐겨찾기 항목 조회 -->
+	<!-- <select id="selectFavoriteInfo" parameterType="String" resultType="Store"> 
+		SELECT `store_id`, `store_name`, `description`, (SELECT COUNT(*) FROM teacher 
+		t WHERE t.store_id = s.store_id)`teacherCount` FROM stores s WHERE store_id 
+		in (SELECT store_id FROM favorites WHERE user_id=#{userId}) </select> -->
+
+	<select id="selectFavoriteInfo" parameterType="String"
+		resultType="Store">
+		SELECT
+		s.store_id,
+		s.store_name,
+		s.description,
+		COUNT(t.store_id) AS teacherCount,
+		s.favorite_count,
+		s.opening_hours
+		FROM
+		stores s
+		LEFT JOIN
+		teacher t ON t.store_id = s.store_id
+		WHERE
+		s.store_id IN (SELECT store_id FROM favorites WHERE user_id = #{userId})
+		GROUP BY
+		s.store_id;
+	</select>
+
+
+
 </mapper>
