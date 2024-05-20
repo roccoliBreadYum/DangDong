@@ -19,8 +19,8 @@
 
 	<!-- 사용자 등록 -->
 	<insert id="insert" parameterType="User">
-		INSERT INTO users (id, password, name, email, address,gender, nick_name,birth, category, comment)
-		VALUES (#{id}, #{password}, #{name}, #{email}, #{address}, #{gender}, #{nickName}, #{birth}, #{category}, #{comment})
+		INSERT INTO users (id, password, name, email, address,gender, nick_name,birth, category, comment, img)
+		VALUES (#{id}, #{password}, #{name}, #{email}, #{address}, #{gender}, #{nickName}, #{birth}, #{category}, #{comment}, #{img})
 	</insert>
 
 	<!-- 사용자 삭제 -->
@@ -51,6 +51,9 @@
 	        	</if>
 	        	<if test="comment != null">
 	        		, comment = #{comment}
+	        	</if>
+	        	<if test="img != null">
+	        		, img = #{img}
 	        	</if>
        	</trim>
 		WHERE id = #{id}

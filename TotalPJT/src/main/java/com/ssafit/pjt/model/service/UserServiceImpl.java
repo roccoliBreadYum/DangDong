@@ -2,6 +2,9 @@ package com.ssafit.pjt.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,14 +56,18 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int signUser(User user) {
+	public int signUser(User user, MultipartFile file) {
 		/*
 		 * 이미지 파일 처리
 		 * 
 		 * */
-//		fileHandling(user, file); //비즈니스 로직
+		try {
+			return fileHandling(user, file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
 		
-		return uDao.insert(user);
+		return 0;
 	}
 
 	@Override
@@ -73,24 +80,40 @@ public class UserServiceImpl implements UserService{
 		return uDao.update(user);
 	}
 	
-	private void fileHandling(User user, MultipartFile file) throws IOException {
-		// 파일을 저장할 폴더 지정
-		Resource res = resLoader.getResource("resources/upload");
-		//파일 저장할 때 이렇게 resource폴더에 하는게 좋음...
-		if(!res.getFile().exists()) {
-			res.getFile().mkdirs(); // 두 경로이므로 이겋게해야함.
-		}
+	private int fileHandling(User user, MultipartFile file) throws IOException {
+//		// 파일을 저장할 폴더 지정 (아래는 자바 폴더 내에 지정)
+//		Resource res = resLoader.getResource("resources/upload");
+//		//파일 저장할 때 이렇게 resource폴더에 하는게 좋음...
+//		if(!res.getFile().exists()) {
+//			res.getFile().mkdirs(); // 두 경로이므로 이겋게해야함.
+//		}
+//		
+//		if (file != null && file.getSize() > 0) {
+//			// prefix를 포함한 전체 이름
+//			user.setImg(System.currentTimeMillis() + "_" + file.getOriginalFilename());
+//			user.setOrgImg(file.getOriginalFilename());
+//
+//			// 변경된 파일 이름이 적용된 Movie MovieService를 통해 DB에 저장한다.
+//
+//			file.transferTo(new File(res.getFile().getCanonicalPath() + "/" + user.getImg()));
+//		}
 		
-		if (file != null && file.getSize() > 0) {
-			// prefix를 포함한 전체 이름
-			user.setImg(System.currentTimeMillis() + "_" + file.getOriginalFilename());
-			user.setOrgImg(file.getOriginalFilename());
-
-			// 변경된 파일 이름이 적용된 Movie MovieService를 통해 DB에 저장한다.
-
-			file.transferTo(new File(res.getFile().getCanonicalPath() + "/" + user.getImg()));
-		}
-
+		
+		//로컬에 저장
+		if (file != null && !file.isEmpty()) {
+            String userHome = System.getProperty("user.home");
+            String uploadDirPath = userHome + "/Desktop/createUser";
+            Path uploadPath = Paths.get(uploadDirPath);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            String filename = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            file.transferTo(new File(uploadDirPath, filename));
+            user.setImg(filename); // 파일 이름을 img 필드에 설정
+            user.setOrgImg(file.getOriginalFilename());
+        }
+		
+		return uDao.insert(user);
 	}
 
 	public Map<String, Object> loginUser(User user, HttpServletResponse response) {
@@ -130,7 +153,7 @@ public class UserServiceImpl implements UserService{
 		response.addCookie(cookie);
 
 		result.put("access-token", accessToken);
-		result.put("name", dbUser.getName());
+//		result.put("name", dbUser.getName());
 		
 		return result;
 	}
@@ -141,7 +164,6 @@ public class UserServiceImpl implements UserService{
 		Map<String, Object> result = new HashMap<>();
 		
 		//쿠키에서 refreshToken 정보 받아오기
-//		System.out.println("cookie");
 		Cookie[] cookies = request.getCookies();
 		String refreshToken = null;
 		for(Cookie c : cookies) {
@@ -149,17 +171,14 @@ public class UserServiceImpl implements UserService{
 				refreshToken = c.getValue();
 			}
 		}
-//		System.out.println("refreshToken"+refreshToken);
 		//db에서 토큰으로 저장된 유저 아이디 값 가져오기
 		String dbUserId = rDao.selectUserIdByRefreshToken(refreshToken);
 		
 		//요청에서 acessToken가져오기
 		String accessToken = request.getHeader("access-token");
-//		System.out.println("access-token"+accessToken);
 
 		//토큰의 유저아이디 가져오기
 		String tokenUserId = jwtUtil.getId(accessToken);
-//		System.out.println("id"+tokenUserId);
 		if(dbUserId==null) {
 			//리프래시 토큰이 없음
 			result.put("message", "잘못된 토큰의 접근입니다.");

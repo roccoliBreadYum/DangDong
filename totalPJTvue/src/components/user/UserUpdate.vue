@@ -11,58 +11,131 @@
             id="img-area"
             class="d-flex flex-row justify-content-center align-item-center"
           >
-            <div id="img-box" class="d-flex align-item-center">
+            <div id="img-box" class="d-flex">
               <img src="@/assets/tmp_user.png" alt="user img" />
             </div>
             <input type="file" />
           </div>
           <div class="d-flex flex-column justify-content-around p-3">
-            <input
-              type="text"
-              v-model="user.name"
-              readonly
-              required
-              class="readonly"
-              id="name"
-            />
-            <input type="email" v-model="user.email" required placeholder="이메일" />
-            <input
-              type="date"
-              v-model="user.birth"
-              readonly
-              class="readonly"
-              required
-              placeholder="생년월일"
-            />
-            <input type="text" placeholder="주소" v-model="user.address" />
-            <select v-model="user.gender" disabled required class="readonly">
-              <option value="" disabled selected hidden>--성별--</option>
-              <option value="0">남</option>
-              <option value="1">여</option>
-            </select>
-            <input
-              type="text"
-              v-model="user.id"
-              readonly
-              required
-              class="readonly"
-              placeholder="아이디"
-            />
-            <input
-              type="password"
-              required
-              v-model="user.password"
-              placeholder="비밀번호"
-            />
-            <input
-              type="text"
-              v-model="user.nickName"
-              required
-              placeholder="닉네임"
-            />
-            <textarea placeholder="소개글" v-model="user.comment"></textarea>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="name">이름 : </label>
+              <input
+                type="text"
+                v-model="user.name"
+                readonly
+                required
+                class="readonly"
+                id="name"
+              />
+            </div>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="email">email : </label>
+              <input
+                type="email"
+                v-model="user.email"
+                required
+                placeholder="이메일"
+                id="email"
+              />
+            </div>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="birth">생년월일 : </label>
+              <input
+                type="date"
+                v-model="user.birth"
+                readonly
+                class="readonly"
+                required
+                placeholder="생년월일"
+                id="birth"
+              />
+            </div>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="address">주소 : </label>
+              <input
+                type="text"
+                placeholder="주소"
+                v-model="user.address"
+                id="address"
+              />
+            </div>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="gender">성별 : </label>
+              <select
+                v-model="user.gender"
+                disabled
+                required
+                class="readonly"
+                id="gender"
+              >
+                <option value="" disabled selected hidden>--성별--</option>
+                <option value="0">남</option>
+                <option value="1">여</option>
+              </select>
+            </div>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="id">아이디 : </label>
+              <input
+                type="text"
+                v-model="user.id"
+                readonly
+                required
+                class="readonly"
+                placeholder="아이디"
+                id="id"
+              />
+            </div>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="password">비밀번호 : </label>
+              <input
+                type="password"
+                required
+                v-model="user.password"
+                placeholder="비밀번호"
+                autocomplete="current-password"
+                id="password"
+              />
+            </div>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="nickName">닉네임 : </label>
+              <input
+                type="text"
+                v-model="user.nickName"
+                required
+                placeholder="닉네임"
+                id="nickName"
+              />
+            </div>
+            <div
+              class="d-flex flex-row justify-content-between align-items-center"
+            >
+              <label for="comment">소개글 : </label>
+              <textarea
+                placeholder="소개글"
+                v-model="user.comment"
+                id="comment"
+              ></textarea>
+            </div>
           </div>
-          <div class="d-flex flex-row align-items-center justify-content-center">
+          <div
+            class="d-flex flex-row align-items-center justify-content-center"
+          >
             <button type="submit" id="update-btn">수정</button>
             <button @click.prevent="backButton" id="back-btn">뒤로</button>
           </div>
@@ -105,9 +178,9 @@ const updateUser = function () {
   userStore.updateUser(user.value);
 };
 const backButton = function () {
-    router.go(-1);
-    // router.back();
-}
+  router.go(-1);
+  // router.back();
+};
 </script>
 
 <style scoped>
@@ -139,6 +212,7 @@ select {
   margin: 10px;
   background-color: #d7fefe;
   border: none;
+  width: 197px;
 }
 #update-form input.readonly,
 #update-form select.readonly,
@@ -151,9 +225,11 @@ select {
   background-color: #d7fefe;
   border: none;
   height: 70px;
+  width: 197px;
 }
 
-#update-btn, #back-btn {
+#update-btn,
+#back-btn {
   border-radius: 10px;
   margin: 10px;
   background-color: #a2d8df;

@@ -2,10 +2,13 @@
   <div class="container" id="background">
     <div
       id="user-info"
-      class="d-flex flex-row justify-content-around align-items-stretch p-4 m-2 "
+      class="d-flex flex-row justify-content-around align-items-stretch p-4 m-2"
     >
       <div id="user-img" class="d-flex">
-        <img src="@/assets/tmp_user.png" alt="user img" />
+        <img
+          :src="`C:/Users/SSAFY/Desktop/createUser/${userStore.loginUserInfo.img}`"
+          alt="user img"
+        />
       </div>
       <div
         id="user-name"
@@ -158,7 +161,7 @@ import { useRouter } from "vue-router";
 const userStore = useUserStore();
 const loginUserId = sessionStorage.getItem("loginUserId");
 const accessToken = sessionStorage.getItem("access-token");
-const router = useRouter()
+const router = useRouter();
 
 onMounted(() => {
   userStore.getUserInfo(loginUserId);
@@ -178,9 +181,7 @@ const withdrawal = function () {
         sessionStorage.removeItem("loginUserId");
         router.push({ name: "enter" });
       })
-      .catch((e)=>{
-        
-      });
+      .catch((e) => {});
   }
 };
 </script>

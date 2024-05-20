@@ -2,6 +2,8 @@ package com.ssafit.pjt.model.service;
 
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.ssafit.pjt.model.dto.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,7 +13,9 @@ public interface UserService {
 
 	User findUser(String id);
 
-	int signUser(User user);
+//	int signUser(User user);
+
+	int signUser(User user, MultipartFile file);
 
 	int withdrawalUser(String id);
 
