@@ -35,6 +35,9 @@
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { confirmPayment } from "@/confirmPayment";
+import axios from "axios";
+import { useticketStore } from "@/stores/ticket";
+import { useAuthStore } from "@/stores/auth";
 
 export default {
   setup() {
@@ -53,12 +56,18 @@ export default {
       async function confirm() {
         try {
           const { response, json } = await confirmPayment(requestData);
-          console.log(json);
+          // console.log(json);
           if (!response.ok) {
             router.push(`/pay/fail?message=${json.message}&code=${json.code}`);
           } else {
             confirmed.value = true;
             jsonData.value = json;
+
+            const ticketStore = useticketStore()
+            const authStore = useAuthStore()
+      
+            // console.log(jsonData.value.orderName)
+            ticketStore.createTicket(jsonData.value.orderName)
           }
         } catch (error) {}
       }

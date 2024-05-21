@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafit.pjt.model.dto.SellTicket;
 import com.ssafit.pjt.model.dto.Ticket;
 import com.ssafit.pjt.model.service.TicketService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api-ticket/ticket")
@@ -42,8 +44,8 @@ public class TicketController {
 	
 	@PostMapping("")
 	@Operation(summary = "이용권 생성")
-	public ResponseEntity<?> createTicket(@RequestBody Ticket ticket){
-		int res = tService.createTicket(ticket);
+	public ResponseEntity<?> createTicket(@RequestBody SellTicket sellTicket, HttpServletRequest request){
+		int res = tService.createTicket(sellTicket, request);
 		return new ResponseEntity<>(res, res==1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 	
