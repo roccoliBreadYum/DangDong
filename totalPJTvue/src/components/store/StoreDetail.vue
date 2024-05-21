@@ -10,10 +10,8 @@
         <div id="head-title" class="p-2">
           <h3>{{ store.storeDetail.storeName }}</h3>
         </div>
-        <div
-          id="head-icons"
-          class="p-2 d-flex flex-row mb-3 align-items-center"
-        >
+        <div id="head-icons" class="p-2 d-flex flex-row mb-3 align-items-center">
+          <button v-if="isOwner" class="modifyButton" @click="moveUpdate">수정</button>
           <i id="icons-talk" class="bi bi-chat-dots p-2 px-3"></i>
           <div v-if="store.storeDetail.isFavorite === 1">
             <button id="icon-btn" @click="swichFavorite">
@@ -33,8 +31,14 @@
       </div>
       <!-- 업체사진 -->
       <div class="d-flex justify-content-around">
-        <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img" />
-        <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img" />
+        <img v-for="(image, index) in store.storeImg" 
+        :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/${image}`" 
+        :key="index" 
+        class="p-2 rounded-3" 
+        id="store-img" />            
+        <!-- <img :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/${img}`"/> -->
+          <!-- <img :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/${store.storeDetail.logoImage}`" class="p-2 rounded-3" id="store-img" /> -->
+          <!-- <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img" /> -->
       </div>
       <!-- 상세정보 -->
       <div id="store-detail" class="my-3 pb-3">
@@ -69,7 +73,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { useStoreStore } from "@/stores/store";
 import { useUserStore } from "@/stores/user";
 import { useAuthStore } from "@/stores/auth";
@@ -94,8 +98,15 @@ const swichFavorite = () => {
     });
 };
 
+const isOwner = computed(() => store.storeDetail.ownerId === loginUserId.value);
+
+const moveUpdate = () => {
+  router.push({name:'storeUpdate', params:{storeId: route.params.storeId }});
+}
+
 onMounted(() => {
   store.getStoreDetail(route.params.storeId, loginUserId.value);
+  store.getImg(route.params.storeId)
 });
 </script>
 
@@ -146,5 +157,11 @@ onMounted(() => {
 #store-img {
   width: 12rem;
   height: 10rem;
+}
+
+.modifyButton{
+  background-color:orange ;
+  border-radius: 25%;
+  border: none;
 }
 </style>
