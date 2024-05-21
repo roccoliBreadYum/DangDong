@@ -2,7 +2,8 @@
   <div class="container">
     <div id="total">
       <div id="searchIcon">
-        <i class="bi bi-search"></i>
+        <!-- <i class="bi bi-emoji-surprise" style="color: #a2d8df">👀</i> -->
+        <p style="color: gray; opacity: 0.8">👀</p>
       </div>
       <div id="search-bar">
         <div id="search-text">
@@ -48,7 +49,8 @@ const search = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to bottom, white, #c2e8fa);
+  background-color: #ecf5fe;
+  min-height: 1000px;
 }
 
 #searchIcon {
@@ -65,10 +67,24 @@ const search = () => {
 }
 
 #search-bar {
-  margin-bottom: 10rem;
+  margin-bottom: 23rem;
 }
 
 .form-control {
-  height: 2.5rem;
+  height: 5rem;
+  border: 4px solid #a2d8df;
+  text-align: center;
+  font-weight: 600;
+}
+
+.input-group-text {
+  background-color: #a2d8df;
+  border-color: #a2d8df;
+}
+
+.input-group-text i {
+  color: white;
+  font-size: 30px;
+  font-weight: 800;
 }
 </style>

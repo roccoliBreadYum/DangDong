@@ -188,8 +188,22 @@ const withdrawal = function () {
         headers: { "access-token": accessToken },
       })
       .then(() => {
-        sessionStorage.removeItem("access-token");
-        sessionStorage.removeItem("loginUserId");
+        if (
+          localStorage.getItem("access-token") &&
+          localStorage.getItem("loginUserId")
+        ) {
+          localStorage.removeItem("access-token");
+          sessionStorage.removeItem("access-token");
+          localStorage.removeItem("loginUserId");
+        }
+
+        if (
+          sessionStorage.getItem("access-token") &&
+          sessionStorage.getItem("loginUserId")
+        ) {
+          sessionStorage.removeItem("access-token");
+          sessionStorage.removeItem("loginUserId");
+        }
         router.push({ name: "enter" });
       })
       .catch((e) => {});
@@ -227,6 +241,10 @@ a {
   /* 이미지 상자의 크기를 조정하여 이미지를 중앙에 배치합니다. */
   width: 60px;
   height: 60px;
+}
+#user-img img {
+  width: 55px;
+  height: 55px;
 }
 
 #user-nav {

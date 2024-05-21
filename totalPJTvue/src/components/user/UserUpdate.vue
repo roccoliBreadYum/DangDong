@@ -161,10 +161,12 @@
 import { ref, onMounted } from "vue";
 import { useUserStore } from "@/stores/user";
 import { useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
 const userStore = useUserStore();
 const router = useRouter();
-const loginUserId = sessionStorage.getItem("loginUserId");
+const authStore = useAuthStore();
+const loginUserId = authStore.getLoginUserId();
 const file = ref(null);
 const handleFileChange = (event) => {
   file.value = event.target.files[0];
@@ -223,6 +225,10 @@ const backButton = function () {
   width: 60px;
   height: 60px;
   margin-right: 50px;
+}
+#img-box img {
+  width: 55px;
+  height: 55px;
 }
 #update-form input,
 select {

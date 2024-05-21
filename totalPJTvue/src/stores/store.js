@@ -3,13 +3,12 @@ import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "@/stores/auth";
 
-
 const REST_API_STORE = "http://localhost:8080/api-store";
 
 export const useStoreStore = defineStore("store", () => {
-  const store = useAuthStore()
+  const store = useAuthStore();
   const accessToken = computed(() => store.getAccessToken());
-  const storeTicketList = ref([])
+  const storeTicketList = ref([]);
   const categoryNum = ref("");
   const category = ref("");
   const storeList = ref([]);
@@ -21,7 +20,6 @@ export const useStoreStore = defineStore("store", () => {
     orderBy: "none",
     orderByDir: "asc",
   });
-
 
   const searchStoreList = () => {
     axios
@@ -70,15 +68,30 @@ export const useStoreStore = defineStore("store", () => {
   };
 
   const getStoreTicketList = (storeId) => {
-    axios.get(`${REST_API_STORE}/${storeId}/ticket`, {
+    axios
+      .get(`${REST_API_STORE}/${storeId}/ticket`, {
         headers: {
-            "access-token": accessToken.value,
-        }
-    })
-    .then((res) => {
-        console.log(res)
-        storeTicketList.value = res.data
-    })
+          "access-token": accessToken.value,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        storeTicketList.value = res.data;
+      });
+  };
+
+  const forBuyTicketInfo = ref({});
+  const getTicket = function (id) {
+    axios
+      .get(`${REST_API_STORE}/buy/${id}`, {
+        headers: {
+          "access-token": accessToken,
+        },
+      })
+      .then((res) => {
+        forBuyTicketInfo.value = res.data;
+        console.log(forBuyTicketInfo.value);
+      });
   };
 
   return {
@@ -91,5 +104,7 @@ export const useStoreStore = defineStore("store", () => {
     getCategory,
     storeTicketList,
     getStoreTicketList,
+    getTicket,
+    forBuyTicketInfo,
   };
 });
