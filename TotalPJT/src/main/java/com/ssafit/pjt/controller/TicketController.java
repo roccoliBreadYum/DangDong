@@ -1,6 +1,8 @@
 package com.ssafit.pjt.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,5 +54,15 @@ public class TicketController {
 	public ResponseEntity<?> deleteTicket(@PathVariable("ticketId") int ticketId){
 		int res = tService.removeTicket(ticketId);
 		return new ResponseEntity<>(res, res==1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+	
+	@GetMapping("/{storeId}/{userId}")
+	public ResponseEntity<?> getTicketByStoreId(@PathVariable("StoreId") int StoreId, @PathVariable("userId") String userId){
+		Map<String, Object> map = new HashMap<>();
+		Ticket ticket = tService.selectTicketByStoreId(map);
+		if(ticket != null) {
+			return new ResponseEntity<>(ticket, HttpStatus.OK);
+		}
+		return null;
 	}
 }

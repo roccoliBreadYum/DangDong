@@ -1,6 +1,7 @@
 package com.ssafit.pjt.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ssafit.pjt.model.dto.Ticket;
 
@@ -15,4 +16,6 @@ public interface TicketService {
 	// 이용권 삭제
 	int removeTicket(int ticketId);
 
+	// 해당 가게 관련 티켓 반환
+	Ticket selectTicketByStoreId(Map<String, Object> map);
 }

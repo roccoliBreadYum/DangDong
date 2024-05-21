@@ -1,6 +1,7 @@
 package com.ssafit.pjt.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,11 @@ public class TicketServiceImpl implements TicketService {
 	@Override
 	public int removeTicket(int ticketId) {
 		return tDao.deleteTicket(ticketId);
+	}
+
+	@Override
+	public Ticket selectTicketByStoreId(Map<String, Object> map) {
+		return tDao.selectTicketByStoreId(map);
 	}
 
 

@@ -11,7 +11,6 @@ export const useStoreStore = defineStore("store", () => {
   const store = useAuthStore();
   const accessToken = computed(() => store.getAccessToken());
   const storeTicketList = ref([]);
-  const categoryNum = ref("");
   const category = ref("");
   const storeList = ref([]);
   const storeDetail = ref({});
@@ -165,4 +164,4 @@ export const useStoreStore = defineStore("store", () => {
     getTicket,
     forBuyTicketInfo,
   };
-});
+}, {persist:true});

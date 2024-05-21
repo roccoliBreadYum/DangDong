@@ -55,4 +55,10 @@
 									
 	</update>
 	
+	<select id="selectTicketByStoreId" parameterType="map" resultType="Ticket">
+		SELECT *
+		FROM tickets
+		WHERE user_id = #{userId} AND store_id = #{storeId}
+	</select>
+	
 </mapper>
