@@ -16,6 +16,7 @@ import StoreTicketList from "@/components/store/StoreTicketList.vue";
 import StoreDetail from "@/components/store/StoreDetail.vue";
 import StoreRegist from "@/components/store/StoreRegist.vue";
 import StoreUpdate from "@/components/store/StoreUpdate.vue";
+import StoreLesson from "@/components/store/StoreLesson.vue";
 import StoreView from "@/views/StoreView.vue";
 import UserPage from "@/components/user/UserPage.vue";
 import UserUpdate from "@/components/user/UserUpdate.vue";
@@ -103,6 +104,11 @@ const router = createRouter({
           path: ":storeId/update",
           name: "storeUpdate",
           component: StoreUpdate,
+        },
+        {
+          path: ":storeId/lesson",
+          name: "storeLesson",
+          component: StoreLesson,
         }
       ],
     },
