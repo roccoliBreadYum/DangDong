@@ -2,6 +2,8 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "@/stores/auth";
+import router from "@/router";
+
 
 
 const REST_API_STORE = "http://localhost:8080/api-store";
@@ -10,10 +12,10 @@ export const useStoreStore = defineStore("store", () => {
   const store = useAuthStore()
   const accessToken = computed(() => store.getAccessToken());
   const storeTicketList = ref([])
-  const categoryNum = ref("");
   const category = ref("");
   const storeList = ref([]);
   const storeDetail = ref({});
+  const storeImg = ref([]);
   const searchCondition = ref({
     category: -1,
     key: "none",
@@ -69,6 +71,18 @@ export const useStoreStore = defineStore("store", () => {
       });
   };
 
+  const getImg = (storeId) => {
+    axios.get(`${REST_API_STORE}/${storeId}/image`, {
+      headers: {
+        "access-token": accessToken.value,
+      },
+    })
+    .then((res) => {
+      console.log(res)
+      storeImg.value = res.data;
+    })
+  }
+
   const getStoreTicketList = (storeId) => {
     axios.get(`${REST_API_STORE}/${storeId}/ticket`, {
         headers: {
@@ -81,6 +95,45 @@ export const useStoreStore = defineStore("store", () => {
     })
   };
 
+  const registStore = (store, file) => {
+    const formData = new FormData();
+    formData.append(
+      "store",
+      new Blob([JSON.stringify(store)], { type: "application/json" })
+    );
+    formData.append("file", file);
+
+    axios.post(`${REST_API_STORE}/regist`, formData, {
+      headers: {
+        "access-token": accessToken.value,
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then(() => {
+      router.push({ name: "home" });
+    })
+  }
+
+  const updateStore = (store, file) => {
+    const formData = new FormData();
+    formData.append(
+      "store",
+      new Blob([JSON.stringify(store)], { type: "application/json" })
+    );
+
+    formData.append("file", file);
+
+    axios.put(`${REST_API_STORE}/update`, formData,{
+        headers: {
+            "access-token": accessToken.value,
+        }
+    })
+    .then(() => {
+      router.push({ name: "home" });
+    })
+  };
+  
+
   return {
     category,
     storeList,
@@ -91,5 +144,10 @@ export const useStoreStore = defineStore("store", () => {
     getCategory,
     storeTicketList,
     getStoreTicketList,
+    registStore,
+    updateStore,
+    getImg,
+    storeImg,
+
   };
 });

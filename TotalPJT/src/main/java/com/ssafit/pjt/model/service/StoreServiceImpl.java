@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafit.pjt.model.dao.StoreDao;
+import com.ssafit.pjt.model.dto.PictureStorage;
 import com.ssafit.pjt.model.dto.SellTicket;
 import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.util.StoreSearchCondition;
@@ -41,9 +43,43 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.selectCategory(exerciseId);
 	}
 
-//	@Override
-//	public int modifyStore(Store store) {
-//		return storeDao.updateStore(store);
-//	}
+
+	@Override
+	@Transactional
+	public int rigistStore(Store store) {
+		storeDao.insertStore(store);
+		
+		int storeId = store.getStoreId();
+		
+		if(store.getLogoImage() != null) {
+			PictureStorage ps = new PictureStorage();
+			ps.setPictureId(store.getLogoImage());
+			ps.setStoreId(storeId);
+			return storeDao.insertStorePicture(ps);
+		}
+		return 1;
+	}
+
+	@Override
+	public int modifyStore(Store store) {
+		storeDao.updateStore(store);
+		
+		int storeId = store.getStoreId();
+		
+		if(store.getLogoImage() != null) {
+			PictureStorage ps = new PictureStorage();
+			ps.setPictureId(store.getLogoImage());
+			ps.setStoreId(storeId);
+			return storeDao.insertStorePicture(ps);
+		}
+		return 1;
+		
+	}
+
+
+	@Override
+	public List<String> getAllImg(int storeId) {
+		return storeDao.selectAllimg(storeId);
+	}
 
 }

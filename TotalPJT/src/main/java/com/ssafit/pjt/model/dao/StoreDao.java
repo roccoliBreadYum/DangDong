@@ -3,6 +3,7 @@ package com.ssafit.pjt.model.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafit.pjt.model.dto.PictureStorage;
 import com.ssafit.pjt.model.dto.SellTicket;
 import com.ssafit.pjt.model.dto.Store;
 import com.ssafit.pjt.util.StoreSearchCondition;
@@ -19,7 +20,13 @@ public interface StoreDao {
 	
 	public String selectCategory(int excerciseId);
 	
+	public int insertStore(Store store);
+	
+	public int insertStorePicture(PictureStorage pictureStorage);
+	
 	// 가게 상세페이지 내 내용 수정
-	//public int updateStore(Store store);
+	public int updateStore(Store store);
+	
+	public List<String> selectAllimg (int storeId);
 
 }

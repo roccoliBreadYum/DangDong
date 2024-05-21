@@ -53,21 +53,48 @@
 		WHERE store_id = #{storeId}
 		ORDER BY `price`
 	</select>
-
-
 	
+	
+	<insert id="insertStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeId">
+		INSERT INTO stores (exercise_id, store_name, address, phone_number, opening_hours, logo_image, owner_id)
+		VALUES (#{excersiceId}, #{storeName}, #{address}, #{phoneNumber}, #{openingHours}, #{logoImage}, #{ownerId})
+    </insert>
+
+    <insert id="insertStorePicture" parameterType="PictureStorage">
+        INSERT INTO store_pictures (picture_id, store_id)
+        VALUES (#{pictureId}, #{storeId})
+    </insert>
+    
+    <!-- 사용자 정보 수정 -->
 	<update id="updateStore" parameterType="Store">
-	    UPDATE stores
-		    <set>
-		        storeName = #{store_name},
-		        address = #{address},
-		        phoneNumber = #{phone_number},
-		        description = #{description},
-		        opening_hours = #{opening_hours},
-		        logoImage = #{logo_image},
-		        exerciseId = #{exercise_id}
-		    </set>
-	    WHERE store_id = #{store_id}
+		UPDATE stores
+		SET 
+		<trim prefixOverrides=",">
+	        	<if test="excersiceId != null">
+	        		, exercise_id = #{excersiceId}
+	        	</if>
+	        	<if test="address != null">
+	        		, address = #{address}
+	        	</if>
+	        	<if test="phoneNumber != null">
+	        		, phone_number = #{phoneNumber}
+	        	</if>
+	        	<if test="openingHours != null">
+	        		, opening_hours = #{openingHours}
+	        	</if>
+	        	<if test="logoImage != null">
+	        		, logo_image = #{logoImage}
+	        	</if>
+       	</trim>
+		WHERE store_id = #{storeId}
 	</update>
+	
+	<select id="selectAllimg" parameterType="int" resultType="String">
+		SELECT picture_id
+		FROM store_pictures
+		WHERE store_id = #{storeId}
+		ORDER BY create_date DESC
+		LIMIT 2;
+	</select>
 
 </mapper>

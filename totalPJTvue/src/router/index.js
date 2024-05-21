@@ -14,6 +14,8 @@ import UserCreate from "@/components/user/UserCreate.vue";
 import StoreList from "@/components/store/StoreList.vue";
 import StoreTicketList from "@/components/store/StoreTicketList.vue";
 import StoreDetail from "@/components/store/StoreDetail.vue";
+import StoreRegist from "@/components/store/StoreRegist.vue";
+import StoreUpdate from "@/components/store/StoreUpdate.vue";
 import StoreView from "@/views/StoreView.vue";
 import UserPage from "@/components/user/UserPage.vue";
 import UserUpdate from "@/components/user/UserUpdate.vue";
@@ -60,6 +62,16 @@ const router = createRouter({
           path: ":storeId/ticket",
           name: "sellTicket",
           component: StoreTicketList,
+        },
+        {
+          path: "regist",
+          name: "storeRegist",
+          component: StoreRegist,
+        },
+        {
+          path: ":storeId/update",
+          name: "storeUpdate",
+          component: StoreUpdate,
         }
       ],
     },
