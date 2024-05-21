@@ -96,17 +96,19 @@ export const useStoreStore = defineStore("store", () => {
   };
 
   const forBuyTicketInfo = ref({});
-  const getTicket = function (id) {
-    axios
-      .get(`${REST_API_STORE}/buy/${id}`, {
+  const getTicket = async function (id) {
+    try {
+      const response = await axios.get(`${REST_API_STORE}/buy/${id}`, {
         headers: {
-          "access-token": accessToken,
+          "access-token": accessToken.value,
         },
-      })
-      .then((res) => {
-        forBuyTicketInfo.value = res.data;
-        console.log(forBuyTicketInfo.value);
       });
+      forBuyTicketInfo.value = response.data;
+      return forBuyTicketInfo.value;
+    } catch (error) {
+      console.error("Error fetching ticket:", error);
+      throw error;
+    }
   };
 
   const registStore = (store, file) => {
@@ -147,7 +149,6 @@ export const useStoreStore = defineStore("store", () => {
     })
   };
   
-
   return {
     category,
     storeList,

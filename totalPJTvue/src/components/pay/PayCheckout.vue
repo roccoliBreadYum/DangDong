@@ -64,7 +64,7 @@ export default {
       amount: null,
       inputEnabled: false,
       userStore: useUserStore(),
-      storeStore: useStoreStore,
+      storeStore: useStoreStore(),
       authStore: useAuthStore(),
       route: useRoute(),
       router: useRouter(),
@@ -80,7 +80,7 @@ export default {
           // @docs https://docs.tosspayments.com/reference/widget-sdk#requestpayment결제-정보
           await this.paymentWidget.requestPayment({
             orderId: nanoid(),
-            orderName: this.storeStore.forBuyTicketInfo.name,
+            orderName: this.storeStore.forBuyTicketInfo.ticketId,
             customerName: this.userStore.getUserInfo.name,
             customerEmail: this.userStore.getUserInfo.email,
             customerMobilePhone: "01012341234",
@@ -107,8 +107,8 @@ export default {
   async mounted() {
     // console.log(this.authStore.getLoginUserId());
     this.userStore.getUserInfo(this.authStore.getLoginUserId());
-    this.storeStore.getTicket(this.route.params.ticketId);
-    console.log(`금액 + ${this.storeStore.forBuyTicketInfo.price}`);
+    await this.storeStore.getTicket(this.route.params.ticketId);
+    // console.log(`금액 + ${this.storeStore.forBuyTicketInfo.price}`);
     this.amount = this.storeStore.forBuyTicketInfo.price;
 
     // ------  결제위젯 초기화 ------
