@@ -34,7 +34,8 @@
       <div class="d-flex flex-wrap">
         <div v-for="ticket in store.storeTicketList" :key="ticket.ticketId">
           <div v-if="ticket.category === 0">
-            <button class="ticket btn btn-white p-2">
+            <button class="ticket btn btn-white p-2"
+            @click.prevent="buyTicket(ticket.ticketId)">
               <img src="@/assets/Transparent_Ticket.png" id="ticket-img" />
               <div class="main_image_text">
                 <div id="ticket-name">{{ ticket.name }}</div>
