@@ -2,11 +2,22 @@
   <div class="container">
     <div class="border rounded-5 my-2">
       <div style="display: inline">
-        <img
-          class="rounded-circle my-3 mx-2"
-          style="width: 27%"
-          :src="`http://localhost:8080/resources/${userStore.loginUserInfo.img}`"
-        />
+        <template v-if="userStore.loginUserInfo.img !== null">
+          <img
+            :src="`http://localhost:8080/resources/${userStore.loginUserInfo.img}`"
+            class="my-3 mx-2"
+            style="width: 100px; height: 100px; border-radius: 500px"
+            alt="user img"
+          />
+        </template>
+        <template v-else>
+          <img
+            src="@/assets/tmp_user.png"
+            alt="user img"
+            class="my-3 mx-2"
+            style="width: 100px; height: 100px; border-radius: 500px"
+          />
+        </template>
       </div>
       <div class="px-3" style="display: inline-block">
         <h3>{{ userStore.loginUserInfo.nickName }}님 반갑습니다.</h3>

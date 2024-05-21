@@ -17,7 +17,6 @@ import io.jsonwebtoken.security.Keys;
 public class JwtUtil {
 	
 	
-//	@Value("${jwt.key}")
 	private String key = "SSAFIT_TOTAL_PROJECT_YJ_JH_SSAFIT";
 	
 	@Value("${jwt.accesstoken.expiretime}")
@@ -62,6 +61,20 @@ public class JwtUtil {
 		return (String)Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("id");
 	}
 	
+//	public static void main(String[] args) throws InterruptedException {
+//		JwtUtil u = new JwtUtil();
+//		String token = u.createAccessToken("user1");
+//		String Id="";
+//		Thread.sleep(4000);
+//		try {
+//			Id = u.getId(token);
+//			System.out.println("성공 : "+Id);
+//		} catch (Exception e) {
+////			Id = u.getId(token);
+//			System.out.println("실패 :"+Id);
+//		}
+//		System.out.println("넘어옴");
+//		}
 }
 
 

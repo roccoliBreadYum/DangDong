@@ -51,6 +51,13 @@ public class StoreController {
 		return new ResponseEntity<>(list, list != null? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/buy/{ticketId}")
+	@Operation(summary = "사용자가 사고자하는 이용권 반환")
+	public ResponseEntity<?> getTicket(@PathVariable("ticketId") int ticketId){
+		SellTicket sellTicket = storeService.getSellTicket(ticketId);
+		return new ResponseEntity<>(sellTicket, HttpStatus.OK);
+	}
+	
 	@GetMapping("/{storeId}/{userId}")
 	@Operation(summary = "가게 페이지", description = "리스트에서 선택한 가게의 상세페이지")
 	public ResponseEntity<?> selectStoreDetail(@PathVariable("storeId") int storeId, @PathVariable("userId") String userId){

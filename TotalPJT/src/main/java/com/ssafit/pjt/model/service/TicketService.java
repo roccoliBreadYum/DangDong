@@ -14,5 +14,5 @@ public interface TicketService {
 	
 	// 이용권 삭제
 	int removeTicket(int ticketId);
-	
+
 }

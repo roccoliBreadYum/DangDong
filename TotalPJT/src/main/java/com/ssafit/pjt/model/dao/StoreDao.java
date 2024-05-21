@@ -19,6 +19,8 @@ public interface StoreDao {
 	public List<SellTicket> selectTicketlist(int storeId);
 	
 	public String selectCategory(int excerciseId);
+
+	public SellTicket selectSellTicketById(int ticketId);
 	
 	public int insertStore(Store store);
 	
