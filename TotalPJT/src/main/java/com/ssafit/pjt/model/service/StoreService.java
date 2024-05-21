@@ -24,6 +24,8 @@ public interface StoreService {
 	
 	/** 등록된 Store 수정 (필요할지 의문, 또는 이런식으로 사용되는것이 맞느지 의문)*/
 //	public int modifyStore(Store store);
-
+	
+	// 티켓아이디로 티켓 가져오기
+	public	SellTicket getSellTicket(int ticketId);
 	
 }

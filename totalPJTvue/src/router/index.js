@@ -17,7 +17,11 @@ import StoreDetail from "@/components/store/StoreDetail.vue";
 import StoreView from "@/views/StoreView.vue";
 import UserPage from "@/components/user/UserPage.vue";
 import UserUpdate from "@/components/user/UserUpdate.vue";
-
+import PayView from "@/views/PayView.vue";
+import PayCheckout from "@/components/pay/PayCheckout.vue";
+import PaySuccess from "@/components/pay/PaySuccess.vue";
+import PayFail from "@/components/pay/PayFail.vue";
+import PayHow from "@/components/pay/PayHow.vue";
 
 const getCookie = function (name) {
   return Cookies.get(name);
@@ -42,6 +46,33 @@ const router = createRouter({
       component: SearchView,
     },
     {
+      path: "/pay",
+      name: "pay",
+      component: PayView,
+      children: [
+        {
+          path: "",
+          name: "payHow",
+          component: PayHow,
+        },
+        {
+          path: "checkout/:ticketId",
+          name: "payCheckout",
+          component: PayCheckout,
+        },
+        {
+          path: "success",
+          name: "paySuccess",
+          component: PaySuccess,
+        },
+        {
+          path: "fail",
+          name: "payFail",
+          component: PayFail,
+        },
+      ],
+    },
+    {
       path: "/store",
       name: "storeView",
       component: StoreView,
@@ -60,7 +91,7 @@ const router = createRouter({
           path: ":storeId/ticket",
           name: "sellTicket",
           component: StoreTicketList,
-        }
+        },
       ],
     },
     {

@@ -18,6 +18,8 @@ public interface StoreDao {
 	public List<SellTicket> selectTicketlist(int storeId);
 	
 	public String selectCategory(int excerciseId);
+
+	public SellTicket selectSellTicketById(int ticketId);
 	
 	// 가게 상세페이지 내 내용 수정
 	//public int updateStore(Store store);

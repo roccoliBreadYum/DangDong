@@ -69,7 +69,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public int withdrawalUser(String id) {
-		return uDao.delete(id);
+		return uDao.delete(id); 
 	}
 
 	@Override

@@ -45,5 +45,9 @@ public class StoreServiceImpl implements StoreService{
 //	public int modifyStore(Store store) {
 //		return storeDao.updateStore(store);
 //	}
-
+	
+	@Override
+	public SellTicket getSellTicket(int ticketId) {
+		return storeDao.selectSellTicketById(ticketId);
+	}
 }

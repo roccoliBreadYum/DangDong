@@ -112,7 +112,9 @@ export const useUserStore = defineStore("user", () => {
 
   const updateFavorite = (nowStatus, userId, storeId) => {
     if (nowStatus === 0) {
-      return axios.post(`${REST_API_FAVORITE}`,{
+      return axios.post(
+        `${REST_API_FAVORITE}`,
+        {
           userId: userId,
           storeId: storeId,
         },
