@@ -32,7 +32,6 @@ const router = useRouter();
 
 onMounted(() => {
   store.getCategory(store.searchCondition.category);
-  store.searchStoreList();
 });
 </script>
 
