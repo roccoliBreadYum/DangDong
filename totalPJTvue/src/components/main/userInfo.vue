@@ -48,18 +48,18 @@
               <i class="bi bi-ticket-perforated"></i><br />보유 이용권<br />
               {{ ticketStore.userTicketCnt }} 개
             </p>
-            <button type="button" class="btn btn-outline-info btn-sm">
+            <RouterLink :to="{name: 'userTicket'}" type="button" class="btn btn-outline-info btn-sm">
               이용권 확인
-            </button>
+            </RouterLink>
           </div>
           <div class="p-2 rounded-4 shadow">
             <p>
               <i class="bi bi-alarm"></i> <br />예약된 일정 <br />
               {{ reservationStore.reservationListCnt }} 개
             </p>
-            <button type="button" class="btn btn-outline-info btn-sm">
+            <RouterLink :to="{name : 'calendar'}" type="button" class="btn btn-outline-info btn-sm">
               일정 확인
-            </button>
+            </RouterLink>
           </div>
         </div>
       </div>

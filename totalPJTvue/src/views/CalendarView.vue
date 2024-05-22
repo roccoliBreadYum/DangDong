@@ -94,7 +94,7 @@ onMounted(() => {
   margin-top: 90px;
   margin-bottom: 90.5px;
   background-color: #ecf5fe;
-  height: 90vh;
+  height: 200vh;
   width: 100vw;
   padding: 15px 15px;
   margin-top: 73px;

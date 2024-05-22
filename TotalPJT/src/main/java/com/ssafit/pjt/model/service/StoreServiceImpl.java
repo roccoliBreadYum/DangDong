@@ -90,4 +90,10 @@ public class StoreServiceImpl implements StoreService{
 		return storeDao.selectSellTicketById(ticketId);
 	}
 
+
+	@Override
+	public String getNamebyId(int storeId) {
+		return storeDao.selectNamebyId(storeId);
+	}
+
 }

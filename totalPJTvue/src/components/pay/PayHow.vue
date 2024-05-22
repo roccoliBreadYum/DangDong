@@ -25,7 +25,7 @@
       </div>
       <div v-if="showTicketList" class="ticket-list mt-3">
         <select class="form-select" aria-label="Default select example" v-model="selectTicket">
-          <option selected>Open this select menu</option>
+          <option value="" selected disabled>Open this select menu</option>
           <option v-for="ticket in store.usableTicket" :key="ticket.ticketId" :value="ticket.ticketId">
             {{ ticket.ticketName }} - 
             {{ ticket.category === 0 ? '다회권' : '정기권' }} - 

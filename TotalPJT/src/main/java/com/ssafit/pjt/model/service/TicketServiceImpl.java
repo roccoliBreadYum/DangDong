@@ -51,11 +51,11 @@ public class TicketServiceImpl implements TicketService {
 	        
 	        // LocalDateTime을 Timestamp로 변환
 	        Timestamp timestamp = Timestamp.valueOf(futureDateTime);
-			ticket.setExexpirationDate(timestamp);
+			ticket.setExpirationDate(timestamp);
 		}
 		ticket.setStoreId(sellTicket.getStoreId());
 		ticket.setBuyTicketId(sellTicket.getTicketId());
-		ticket.setTicketName(sellTicket.getName());
+		ticket.setName(sellTicket.getName());
 
 		// 요청에서 acessToken가져오기
 		String accessToken = request.getHeader("access-token");

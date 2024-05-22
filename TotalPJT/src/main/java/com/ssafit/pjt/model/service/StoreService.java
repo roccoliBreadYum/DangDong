@@ -35,5 +35,6 @@ public interface StoreService {
 	// 티켓아이디로 티켓 가져오기
 	public	SellTicket getSellTicket(int ticketId);
 
+	public String getNamebyId(int storeId);
 	
 }

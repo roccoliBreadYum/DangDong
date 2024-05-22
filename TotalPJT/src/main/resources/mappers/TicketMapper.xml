@@ -25,9 +25,14 @@
 	
 	<!-- 이용권 리스트 읽기 -->
 	<select id="selectTicketList" parameterType="String" resultType="Ticket">
-		SELECT *
-		FROM tickets
+		SELECT * , s.store_name AS storeName
+		FROM tickets t
+		JOIN stores s ON s.store_id = t.store_id 
 		WHERE user_id = #{userId}
+		AND (
+		    (category = 0 AND remaining_quantity != 0) OR 
+		    (category = 1 AND (expiration_date IS NULL OR expiration_date >= CURRENT_DATE))
+		);
 	</select>
 	
 	<!-- 이용권 사용 -->
@@ -59,7 +64,7 @@
 	<select id="selectTicketByStoreId" parameterType="map" resultType="Ticket">
 	  SELECT *
 	  FROM tickets
-	  WHERE user_id = #{userId} AND store_id = #{storeId} AND expiration_date >= NOW()
+	  WHERE user_id = #{userId} AND store_id = #{storeId} AND (expiration_date >= NOW() OR remaining_quantity > 0)
 	</select>
 
 	

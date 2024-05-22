@@ -113,4 +113,12 @@ public class StoreController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
+	@GetMapping("{storeId}/getName")
+	@Operation(summary = "이름 찾", description = "넘어온 storeId로 가게 이름 반환")
+	public ResponseEntity<String> getNamebyId(@PathVariable("storeId")int storeId){
+		String str = storeService.getNamebyId(storeId);
+		return new ResponseEntity<>(str, str != null? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+	}
+
+	
 }
