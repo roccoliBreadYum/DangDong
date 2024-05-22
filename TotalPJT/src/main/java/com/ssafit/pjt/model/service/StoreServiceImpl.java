@@ -44,6 +44,7 @@ public class StoreServiceImpl implements StoreService{
 	}
 
 
+
 	@Override
 	@Transactional
 	public int rigistStore(Store store) {
@@ -80,6 +81,13 @@ public class StoreServiceImpl implements StoreService{
 	@Override
 	public List<String> getAllImg(int storeId) {
 		return storeDao.selectAllimg(storeId);
+	}
+
+
+	
+	@Override
+	public SellTicket getSellTicket(int ticketId) {
+		return storeDao.selectSellTicketById(ticketId);
 	}
 
 }

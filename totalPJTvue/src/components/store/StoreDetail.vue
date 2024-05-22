@@ -61,10 +61,10 @@
           <p id="btn-type">정기권/다회권</p>
           <p id="btn-click">구매</p>
       </RouterLink>
-      <button class="btn">
+      <RouterLink :to="{name: 'storeLesson', params:{storeId: route.params.storeId}}" class="btn">
         <p id="btn-type">일일권/이용권</p>
         <p id="btn-click">예약</p>
-      </button>
+      </RouterLink>
     </div>
 
     <!-- 공지사항 위치 -->

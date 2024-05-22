@@ -16,10 +16,15 @@ import StoreTicketList from "@/components/store/StoreTicketList.vue";
 import StoreDetail from "@/components/store/StoreDetail.vue";
 import StoreRegist from "@/components/store/StoreRegist.vue";
 import StoreUpdate from "@/components/store/StoreUpdate.vue";
+import StoreLesson from "@/components/store/StoreLesson.vue";
 import StoreView from "@/views/StoreView.vue";
 import UserPage from "@/components/user/UserPage.vue";
 import UserUpdate from "@/components/user/UserUpdate.vue";
-
+import PayView from "@/views/PayView.vue";
+import PayCheckout from "@/components/pay/PayCheckout.vue";
+import PaySuccess from "@/components/pay/PaySuccess.vue";
+import PayFail from "@/components/pay/PayFail.vue";
+import PayHow from "@/components/pay/PayHow.vue";
 
 const getCookie = function (name) {
   return Cookies.get(name);
@@ -42,6 +47,33 @@ const router = createRouter({
       path: "/search",
       name: "search",
       component: SearchView,
+    },
+    {
+      path: "/pay",
+      name: "pay",
+      component: PayView,
+      children: [
+        {
+          path: "",
+          name: "payHow",
+          component: PayHow,
+        },
+        {
+          path: "checkout/:ticketId",
+          name: "payCheckout",
+          component: PayCheckout,
+        },
+        {
+          path: "success",
+          name: "paySuccess",
+          component: PaySuccess,
+        },
+        {
+          path: "fail",
+          name: "payFail",
+          component: PayFail,
+        },
+      ],
     },
     {
       path: "/store",
@@ -72,6 +104,11 @@ const router = createRouter({
           path: ":storeId/update",
           name: "storeUpdate",
           component: StoreUpdate,
+        },
+        {
+          path: ":storeId/lesson",
+          name: "storeLesson",
+          component: StoreLesson,
         }
       ],
     },

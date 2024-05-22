@@ -53,8 +53,17 @@
 		WHERE store_id = #{storeId}
 		ORDER BY `price`
 	</select>
+
 	
-	
+	<!-- 티켓 한개 가져오기 -->
+	<select id="selectSellTicketById" parameterType="int" resultType="SellTicket">
+		SELECT *
+		FROM sell_ticket
+		WHERE ticket_id = #{ticketId}
+	</select>
+
+
+	<!-- Store 추가 -->
 	<insert id="insertStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeId">
 		INSERT INTO stores (exercise_id, store_name, address, phone_number, opening_hours, logo_image, owner_id)
 		VALUES (#{excersiceId}, #{storeName}, #{address}, #{phoneNumber}, #{openingHours}, #{logoImage}, #{ownerId})
@@ -65,7 +74,7 @@
         VALUES (#{pictureId}, #{storeId})
     </insert>
     
-    <!-- 사용자 정보 수정 -->
+    <!-- Store 수정 -->
 	<update id="updateStore" parameterType="Store">
 		UPDATE stores
 		SET 
@@ -89,6 +98,7 @@
 		WHERE store_id = #{storeId}
 	</update>
 	
+  <!-- 이미지 선택 (2개) -->
 	<select id="selectAllimg" parameterType="int" resultType="String">
 		SELECT picture_id
 		FROM store_pictures

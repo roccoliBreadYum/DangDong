@@ -31,5 +31,9 @@ public interface StoreService {
 
 	/** 선택된 가게 이미지 불러오기*/
 	public List<String> getAllImg (int storeId);
+
+	// 티켓아이디로 티켓 가져오기
+	public	SellTicket getSellTicket(int ticketId);
+
 	
 }
