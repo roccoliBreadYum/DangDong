@@ -30,5 +30,7 @@ public interface StoreDao {
 	public int updateStore(Store store);
 	
 	public List<String> selectAllimg (int storeId);
+	
+	public String selectNamebyId (int storeId);
 
 }

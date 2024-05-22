@@ -107,4 +107,9 @@
 		LIMIT 2;
 	</select>
 
+	<select id="selectNamebyId" parameterType="int" resultType="String">
+		SELECT store_name
+		FROM stores
+		WHERE store_id = #{storeId}
+	</select>
 </mapper>

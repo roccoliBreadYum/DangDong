@@ -6,6 +6,7 @@ import { useAuthStore } from "@/stores/auth";
 import { useStoreStore } from "./store";
 
 const REST_API_TICKET = "http://localhost:8080/api-ticket/ticket";
+const REST_API_STORE = "http://localhost:8080/api-store";
 
 export const useticketStore = defineStore("ticket", () => {
   const authStore = useAuthStore();
@@ -14,7 +15,7 @@ export const useticketStore = defineStore("ticket", () => {
   const storeStore = useStoreStore();
   const loginUserId = userStore.loginUserId;
 
-  const userTicket = ref({});
+  const userTicket = ref([]);
   const userTicketCnt = ref(0);
   const getUserTicketCount = (id) => {
     // console.log(`ticket: ${id}`);
@@ -25,11 +26,23 @@ export const useticketStore = defineStore("ticket", () => {
         },
       })
       .then((res) => {
-        //console.log(res)
+        console.log(res)
         userTicket.value = res.data;
         userTicketCnt.value = res.data.length;
       });
   };
+
+  const getStoreNamebyStoreId = (storeId) => {
+    axios.get(`${REST_API_STORE}/${storeId}/getName`, {
+      headers: {
+        "access-token": accessToken,
+      },
+    })
+    .then((res) => {
+      console.log(res)
+      return res.data
+    })
+  }
 
   // const createTicket = async function(sellTicketid){
   //   await storeStore.getTicket(sellTicketid);
@@ -72,5 +85,6 @@ export const useticketStore = defineStore("ticket", () => {
     userTicket,
     getUserTicketCount,
     createTicket,
+    getStoreNamebyStoreId,
   };
-});
+}, {persist:true});

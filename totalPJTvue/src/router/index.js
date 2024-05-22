@@ -19,6 +19,7 @@ import StoreLesson from "@/components/store/StoreLesson.vue";
 import StoreView from "@/views/StoreView.vue";
 import UserPage from "@/components/user/UserPage.vue";
 import UserUpdate from "@/components/user/UserUpdate.vue";
+import UserTicket from "@/components/user/UserTicket.vue";
 import PayView from "@/views/PayView.vue";
 import PayCheckout from "@/components/pay/PayCheckout.vue";
 import PaySuccess from "@/components/pay/PaySuccess.vue";
@@ -127,6 +128,11 @@ const router = createRouter({
           name: "userUpdate",
           component: UserUpdate,
         },
+        {
+          path: "ticket",
+          name: "userTicket",
+          component: UserTicket
+        }
       ],
     },
     {

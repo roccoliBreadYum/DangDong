@@ -13,50 +13,24 @@ public class Ticket {
 	private int storeId;
 	private String name; // 판매되는 티켓 이름
 	private int buyTicketId; //-- 판매되는 티켓 고유번호
+	private String storeName; // 업체이름
 	
 	public Ticket() {}
-	
 
-	public int getBuyTicketId() {
-		return buyTicketId;
-	}
-
-
-public void setBuyTicketId(int buyTicketId) {
-		this.buyTicketId = buyTicketId;
-	}
-
-
-	public Timestamp getExpirationDate() {
-		return expirationDate;
-	}
-
-
-
-	public void setExpirationDate(Timestamp expirationDate) {
+	public Ticket(int ticketId, Timestamp regDate, Timestamp expirationDate, int totalQuantity, int remainingQuantity,
+			int category, String userId, int storeId, String name, int buyTicketId, String storeName) {
+		super();
+		this.ticketId = ticketId;
+		this.regDate = regDate;
 		this.expirationDate = expirationDate;
-	}
-
-
-
-	public String getTicketName() {
-		return name;
-	}
-
-
-
-	public void setTicketName(String name) {
-		this.name = name;
-	}
-
-
-	public int getTotalQuantity() {
-		return totalQuantity;
-	}
-
-	public void setTotalQuantity(int totalQuantity) {
 		this.totalQuantity = totalQuantity;
-		this.setRemainingQuantity(totalQuantity);
+		this.remainingQuantity = remainingQuantity;
+		this.category = category;
+		this.userId = userId;
+		this.storeId = storeId;
+		this.name = name;
+		this.buyTicketId = buyTicketId;
+		this.storeName = storeName;
 	}
 
 	public int getTicketId() {
@@ -75,12 +49,20 @@ public void setBuyTicketId(int buyTicketId) {
 		this.regDate = regDate;
 	}
 
-	public Timestamp getExexpirationDate() {
+	public Timestamp getExpirationDate() {
 		return expirationDate;
 	}
 
-	public void setExexpirationDate(Timestamp expirationDate) {
+	public void setExpirationDate(Timestamp expirationDate) {
 		this.expirationDate = expirationDate;
+	}
+
+	public int getTotalQuantity() {
+		return totalQuantity;
+	}
+
+	public void setTotalQuantity(int totalQuantity) {
+		this.totalQuantity = totalQuantity;
 	}
 
 	public int getRemainingQuantity() {
@@ -115,14 +97,39 @@ public void setBuyTicketId(int buyTicketId) {
 		this.storeId = storeId;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getBuyTicketId() {
+		return buyTicketId;
+	}
+
+	public void setBuyTicketId(int buyTicketId) {
+		this.buyTicketId = buyTicketId;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
 
 	@Override
 	public String toString() {
 		return "Ticket [ticketId=" + ticketId + ", regDate=" + regDate + ", expirationDate=" + expirationDate
 				+ ", totalQuantity=" + totalQuantity + ", remainingQuantity=" + remainingQuantity + ", category="
-				+ category + ", userId=" + userId + ", storeId=" + storeId + ", name=" + name
-				+ ", buyTicketId=" + buyTicketId + "]";
+				+ category + ", userId=" + userId + ", storeId=" + storeId + ", name=" + name + ", buyTicketId="
+				+ buyTicketId + ", storeName=" + storeName + "]";
 	}
+	
 
+	
 	
 }

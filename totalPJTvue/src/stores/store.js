@@ -41,8 +41,7 @@ export const useStoreStore = defineStore("store", () => {
   };
 
   const getStoreDetail = (storeId, userId) => {
-    axios
-      .get(`${REST_API_STORE}/${storeId}/${userId}`, {
+    axios.get(`${REST_API_STORE}/${storeId}/${userId}`, {
         headers: {
           "access-token": accessToken.value,
         },
