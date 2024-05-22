@@ -59,11 +59,14 @@ public class TicketController {
 	}
 	
 	@GetMapping("/{storeId}/{userId}")
-	public ResponseEntity<?> getTicketByStoreId(@PathVariable("StoreId") int StoreId, @PathVariable("userId") String userId){
+	@Operation(summary = "사용자가 해당 업체에서 사용할 수 있는 이용권 리스트")
+	public ResponseEntity<?> getTicketByStoreId(@PathVariable("storeId") int storeId, @PathVariable("userId") String userId){
 		Map<String, Object> map = new HashMap<>();
-		Ticket ticket = tService.selectTicketByStoreId(map);
-		if(ticket != null) {
-			return new ResponseEntity<>(ticket, HttpStatus.OK);
+		map.put("storeId", storeId);
+		map.put("userId", userId);
+		List<Ticket> list = tService.selectTicketByStoreId(map);
+		if(list != null) {
+			return new ResponseEntity<>(list, HttpStatus.OK);
 		}
 		return null;
 	}

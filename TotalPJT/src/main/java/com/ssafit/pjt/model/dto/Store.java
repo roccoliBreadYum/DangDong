@@ -14,12 +14,13 @@ public class Store {
 	private int teacherCount; // 강사진 수  -> 즐겨찾기에서 사용하기위해 작성했던 것 같은데 확인 필요 (DB에 없음)
 	private int isFavorite; // 1: 해당유저의 즐겨찾기에 등록되어있음, 0: 미등록
 	private String ownerId;
+	private int coin = 0;
 	// 평점, 휴면계정, push알림동의, 휴무일
 	
 	public Store() {}
 	
 	public Store(int storeId, int exerciseId, String storeName, String address, String phoneNumber, String description,
-			int favoriteCount, String createdAt, String openingHours, String logoImage, int teacherCount, String ownerId) {
+			int coin, int favoriteCount, String createdAt, String openingHours, String logoImage, int teacherCount, String ownerId) {
 		this.storeId = storeId;
 		this.exerciseId = exerciseId;
 		this.storeName = storeName;
@@ -32,6 +33,24 @@ public class Store {
 		this.logoImage = logoImage;
 		this.teacherCount = teacherCount;
 		this.ownerId = ownerId;
+		this.coin = coin;
+	}
+	
+
+	public int getExerciseId() {
+		return exerciseId;
+	}
+
+	public void setExerciseId(int exerciseId) {
+		this.exerciseId = exerciseId;
+	}
+
+	public int getCoin() {
+		return coin;
+	}
+
+	public void setCoin(int coin) {
+		this.coin = coin;
 	}
 
 	public int getStoreId() {
@@ -40,14 +59,6 @@ public class Store {
 
 	public void setStoreId(int storeId) {
 		this.storeId = storeId;
-	}
-
-	public int getExcersiceId() {
-		return exerciseId;
-	}
-
-	public void setExcersiceId(int exerciseId) {
-		this.exerciseId = exerciseId;
 	}
 
 	public String getStoreName() {
@@ -145,7 +156,7 @@ public class Store {
 				+ address + ", phoneNumber=" + phoneNumber + ", description=" + description + ", favoriteCount="
 				+ favoriteCount + ", createdAt=" + createdAt + ", openingHours=" + openingHours + ", logoImage="
 				+ logoImage + ", teacherCount=" + teacherCount + ", isFavorite=" + isFavorite + ", ownerId=" + ownerId
-				+ "]";
+				+ ", coin=" + coin + "]";
 	}
 
 	

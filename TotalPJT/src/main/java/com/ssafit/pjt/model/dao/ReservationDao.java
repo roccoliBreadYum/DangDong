@@ -21,5 +21,7 @@ public interface ReservationDao {
 	
 	// 예약 취소
 	public int deleteReservation(int reservationId);
-
+	
+	// 코인으로 예약진행 시 코인 차감 (coinDao가 없어서 여기서 처리)
+	public int decreaseCoin(Map<String, Object> map);
 }

@@ -14,4 +14,8 @@ public interface LessonDao {
 	public List<Lesson> selectAllLessonByIdAndDate (Map<String, Object> map);
 	
 	public List<Teacher> SelectAllTeachers(Map<String, Object> map);
+	
+	public Lesson selectLesson(int lessonId);
+	
+	public int decreaseLesson(int lessonId);
 }

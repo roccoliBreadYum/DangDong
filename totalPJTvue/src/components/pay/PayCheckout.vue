@@ -89,10 +89,10 @@ export default {
           });
         }
       } catch (error) {
-        // 에러 처리하기
+        // 에러 처리하기 
         console.error(error);
       }
-    },
+    }, 
     // async updateAmount() {
     //   const coupon = document.getElementById("coupon-box");
     //   // ------  결제 금액 업데이트 ------

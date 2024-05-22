@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class Reservation {
 	/*
+	 * div: 코인결제인지 이용권 결제인지 확인. 1: 이용권, 2: 코인
+	 * coin: 코인 결제시 사용한 코인 수
 	 * reservationId: 예약 ID(PK)
 	 * userId: 유저 ID(FK)
 	 * storeId: 가게 ID(FK)
@@ -12,6 +14,8 @@ public class Reservation {
 	 * ticketId : 티켓 ID(FK)
 	 * date : 예약 날짜
 	 */
+	private int payment;
+	private int coin;
 	private int reservationId; 
 	private String userId;
 	private int storeId;
@@ -30,9 +34,11 @@ public class Reservation {
 		super();
 	}
 
-	public Reservation(int reservationId, String userId, int storeId, int lessonId, int ticketId, Timestamp date,
+	public Reservation(int payment, int coin, int reservationId, String userId, int storeId, int lessonId, int ticketId, Timestamp date,
 			String storeName, String exerciseCategory, int exerciseCategoryNum, String time, String ticketCategory) {
 		super();
+		this.payment = payment;
+		this.coin = coin;
 		this.reservationId = reservationId;
 		this.userId = userId;
 		this.storeId = storeId;
@@ -46,7 +52,23 @@ public class Reservation {
 		this.ticketCategory = ticketCategory;
 	}
 
+	
 
+	public int getCoin() {
+		return coin;
+	}
+
+	public void setCoin(int coin) {
+		this.coin = coin;
+	}
+
+	public int getPayment() {
+		return payment;
+	}
+
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
 
 	public int getReservationId() {
 		return reservationId;
@@ -141,11 +163,14 @@ public class Reservation {
 
 	@Override
 	public String toString() {
-		return "Reservation [reservationId=" + reservationId + ", userId=" + userId + ", storeId=" + storeId
-				+ ", lessonId=" + lessonId + ", ticketId=" + ticketId + ", date=" + date + ", storeName=" + storeName
-				+ ", exerciseCategory=" + exerciseCategory + ", exerciseCategoryNum=" + exerciseCategoryNum + ", time="
-				+ time + ", ticketCategory=" + ticketCategory + "]";
+		return "Reservation [payment=" + payment + ", coin=" + coin + ", reservationId=" + reservationId + ", userId=" + userId
+				+ ", storeId=" + storeId + ", lessonId=" + lessonId + ", ticketId=" + ticketId + ", date=" + date
+				+ ", storeName=" + storeName + ", exerciseCategory=" + exerciseCategory + ", exerciseCategoryNum="
+				+ exerciseCategoryNum + ", time=" + time + ", ticketCategory=" + ticketCategory + "]";
 	}
+
+
+
 
 
 	

@@ -20,5 +20,5 @@ public interface TicketService {
 	int removeTicket(int ticketId);
 
 	// 해당 가게 관련 티켓 반환
-	Ticket selectTicketByStoreId(Map<String, Object> map);
+	List<Ticket> selectTicketByStoreId(Map<String, Object> map);
 }

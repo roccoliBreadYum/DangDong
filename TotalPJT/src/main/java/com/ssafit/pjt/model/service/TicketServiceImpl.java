@@ -54,6 +54,8 @@ public class TicketServiceImpl implements TicketService {
 			ticket.setExexpirationDate(timestamp);
 		}
 		ticket.setStoreId(sellTicket.getStoreId());
+		ticket.setBuyTicketId(sellTicket.getTicketId());
+		ticket.setTicketName(sellTicket.getName());
 
 		// 요청에서 acessToken가져오기
 		String accessToken = request.getHeader("access-token");
@@ -75,7 +77,7 @@ public class TicketServiceImpl implements TicketService {
 	}
 
 	@Override
-	public Ticket selectTicketByStoreId(Map<String, Object> map) {
+	public List<Ticket> selectTicketByStoreId(Map<String, Object> map) {
 		return tDao.selectTicketByStoreId(map);
 	}
 

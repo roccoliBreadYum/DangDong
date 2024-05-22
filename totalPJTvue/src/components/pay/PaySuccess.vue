@@ -56,7 +56,7 @@ export default {
       async function confirm() {
         try {
           const { response, json } = await confirmPayment(requestData);
-          // console.log(json);
+          console.log(json);
           if (!response.ok) {
             router.push(`/pay/fail?message=${json.message}&code=${json.code}`);
           } else {

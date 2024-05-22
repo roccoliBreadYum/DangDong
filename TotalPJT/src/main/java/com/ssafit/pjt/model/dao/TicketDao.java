@@ -19,6 +19,6 @@ public interface TicketDao {
 	
 	int decreaseTicket(int ticketId);
 	
-	Ticket selectTicketByStoreId(Map<String, Object> map);
+	List<Ticket> selectTicketByStoreId(Map<String, Object> map);
 	
 }

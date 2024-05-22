@@ -11,20 +11,44 @@ public class Ticket {
 	private int category; //다회권(0)인지 정기권(1)인지 분류
 	private String userId;
 	private int storeId;
+	private String name; // 판매되는 티켓 이름
+	private int buyTicketId; //-- 판매되는 티켓 고유번호
 	
 	public Ticket() {}
 	
-	public Ticket(int ticketId, Timestamp regDate, Timestamp expirationDate, int totalQuantity, int remainingQuantity,
-			int category, String userId, int storeId) {
-		this.ticketId = ticketId;
-		this.regDate = regDate;
-		this.expirationDate = expirationDate;
-		this.totalQuantity = totalQuantity;
-		this.remainingQuantity = remainingQuantity;
-		this.category = category;
-		this.userId = userId;
-		this.storeId = storeId;
+
+	public int getBuyTicketId() {
+		return buyTicketId;
 	}
+
+
+public void setBuyTicketId(int buyTicketId) {
+		this.buyTicketId = buyTicketId;
+	}
+
+
+	public Timestamp getExpirationDate() {
+		return expirationDate;
+	}
+
+
+
+	public void setExpirationDate(Timestamp expirationDate) {
+		this.expirationDate = expirationDate;
+	}
+
+
+
+	public String getTicketName() {
+		return name;
+	}
+
+
+
+	public void setTicketName(String name) {
+		this.name = name;
+	}
+
 
 	public int getTotalQuantity() {
 		return totalQuantity;
@@ -91,12 +115,14 @@ public class Ticket {
 		this.storeId = storeId;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Ticket [ticketId=" + ticketId + ", regDate=" + regDate + ", expirationDate=" + expirationDate
-				+ ", remainingQuantity=" + remainingQuantity + ", category=" + category + ", userId=" + userId
-				+ ", storeId=" + storeId + "]";
+				+ ", totalQuantity=" + totalQuantity + ", remainingQuantity=" + remainingQuantity + ", category="
+				+ category + ", userId=" + userId + ", storeId=" + storeId + ", name=" + name
+				+ ", buyTicketId=" + buyTicketId + "]";
 	}
-	
+
 	
 }

@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `stores` (
     `opening_hours` VARCHAR(255) NULL, # 운영시간
     `logo_image` VARCHAR(255) NULL,
     `owner_id` VARCHAR(20) NOT NULL,
+    `coin` INT DEFAULT 0,
 	# `rating` DECIMAL(3, 2) NULL CHECK (rating >= 0.0 AND rating <= 5.0), # 평점
     # `dormant_account` BOOLEAN DEFAULT FALSE, #휴면계정
     # `push_notification_agreement` BOOLEAN DEFAULT FALSE, # push 알림동의
@@ -78,17 +79,17 @@ CREATE TABLE IF NOT EXISTS `stores` (
 	FOREIGN KEY (`owner_id`) REFERENCES `users`(`id`) ON DELETE CASCADE -- 사용자가 삭제되면 삭제..? 
 );
 
-INSERT INTO `stores` (`exercise_id`, `store_name`, `address`, `phone_number`, `description`, `favorite_count`, `created_at`, `opening_hours`, `logo_image`, `owner_id`) VALUES
-(1, 'Pilates Studio', '123 Main St, City, Country', '123-456-7890', 'A great place for Pilates!', 100, CURRENT_TIMESTAMP, '9:00 AM - 8:00 PM', 'pilates_logo.jpg', 'user1'),
-(2, 'Fitness Center', '456 Park Ave, City, Country', '456-789-0123', 'Your one-stop fitness destination!', 200, CURRENT_TIMESTAMP, '6:00 AM - 10:00 PM', 'fitness_logo.jpg', 'user1'),
-(3, 'Boxing Gym', '789 Elm St, City, Country', '789-012-3456', 'Train like a boxer!', 300, CURRENT_TIMESTAMP, '10:00 AM - 9:00 PM', 'boxing_logo.jpg', 'user1'),
-(4, 'CrossFit Box', '101 Oak St, City, Country', '101-234-5678', 'Get fit with CrossFit!', 400, CURRENT_TIMESTAMP, '7:00 AM - 7:00 PM', 'crossfit_logo.jpg', 'user1'),
-(5, 'Climbing Gym', '111 Pine St, City, Country', '111-222-3333', 'Reach new heights!', 500, CURRENT_TIMESTAMP, '12:00 PM - 10:00 PM', 'climbing_logo.jpg', 'user1'),
-(6, 'Swimming Pool', '222 Cedar St, City, Country', '222-333-4444', 'Dive into fitness!', 600, CURRENT_TIMESTAMP, '8:00 AM - 8:00 PM', 'swimming_logo.jpg', 'user1'),
-(7, 'Taekwondo Dojang', '333 Maple St, City, Country', '333-444-5555', 'Learn Taekwondo!', 700, CURRENT_TIMESTAMP, '2:00 PM - 9:00 PM', 'taekwondo_logo.jpg', 'user1'),
-(8, 'Jiu-Jitsu Academy', '444 Walnut St, City, Country', '444-555-6666', 'Train in Jiu-Jitsu!', 800, CURRENT_TIMESTAMP, '10:00 AM - 7:00 PM', 'jiujitsu_logo.jpg', 'user1'),
-(9, 'Yoga Studio', '555 Birch St, City, Country', '555-666-7777', 'Find your inner peace with yoga!', 900, CURRENT_TIMESTAMP, '6:00 AM - 9:00 PM', 'yoga_logo.jpg', 'user1'),
-(1, 'Running Club', '666 Spruce St, City, Country', '666-777-8888', 'Run with us!', 1000, CURRENT_TIMESTAMP, '5:00 AM - 8:00 PM', 'running_logo.jpg', 'user1');
+INSERT INTO `stores` (`exercise_id`, `store_name`, `address`, `phone_number`, `description`, `favorite_count`, `created_at`, `opening_hours`, `logo_image`, `owner_id`, `coin`) VALUES
+(1, 'Pilates Studio', '123 Main St, City, Country', '123-456-7890', 'A great place for Pilates!', 100, CURRENT_TIMESTAMP, '9:00 AM - 8:00 PM', 'pilates_logo.jpg', 'user1', 20),
+(2, 'Fitness Center', '456 Park Ave, City, Country', '456-789-0123', 'Your one-stop fitness destination!', 200, CURRENT_TIMESTAMP, '6:00 AM - 10:00 PM', 'fitness_logo.jpg', 'user1', 30),
+(3, 'Boxing Gym', '789 Elm St, City, Country', '789-012-3456', 'Train like a boxer!', 300, CURRENT_TIMESTAMP, '10:00 AM - 9:00 PM', 'boxing_logo.jpg', 'user1', 10),
+(4, 'CrossFit Box', '101 Oak St, City, Country', '101-234-5678', 'Get fit with CrossFit!', 400, CURRENT_TIMESTAMP, '7:00 AM - 7:00 PM', 'crossfit_logo.jpg', 'user1', 30),
+(5, 'Climbing Gym', '111 Pine St, City, Country', '111-222-3333', 'Reach new heights!', 500, CURRENT_TIMESTAMP, '12:00 PM - 10:00 PM', 'climbing_logo.jpg', 'user1', 20),
+(6, 'Swimming Pool', '222 Cedar St, City, Country', '222-333-4444', 'Dive into fitness!', 600, CURRENT_TIMESTAMP, '8:00 AM - 8:00 PM', 'swimming_logo.jpg', 'user1', 40),
+(7, 'Taekwondo Dojang', '333 Maple St, City, Country', '333-444-5555', 'Learn Taekwondo!', 700, CURRENT_TIMESTAMP, '2:00 PM - 9:00 PM', 'taekwondo_logo.jpg', 'user1', 10),
+(8, 'Jiu-Jitsu Academy', '444 Walnut St, City, Country', '444-555-6666', 'Train in Jiu-Jitsu!', 800, CURRENT_TIMESTAMP, '10:00 AM - 7:00 PM', 'jiujitsu_logo.jpg', 'user1', 50),
+(9, 'Yoga Studio', '555 Birch St, City, Country', '555-666-7777', 'Find your inner peace with yoga!', 900, CURRENT_TIMESTAMP, '6:00 AM - 9:00 PM', 'yoga_logo.jpg', 'user1', 20),
+(1, 'Running Club', '666 Spruce St, City, Country', '666-777-8888', 'Run with us!', 1000, CURRENT_TIMESTAMP, '5:00 AM - 8:00 PM', 'running_logo.jpg', 'user1', 30);
 
 CREATE TABLE IF NOT EXISTS `teacher` (
     `teacher_id` INT NOT NULL AUTO_INCREMENT,
@@ -138,6 +139,42 @@ VALUES
 ('user9', 9),
 ('user10', 1);
 
+CREATE TABLE IF NOT EXISTS `sell_ticket` (
+	`ticket_id` INT NOT NULL AUTO_INCREMENT,
+    `store_id` INT NOT NULL,
+    `name` varchar(255) NOT NULL,
+	`category` INT NOT NULL, -- 정기권 1, 다회권 0
+	`expire_date` INT NULL, -- category 1일때만
+	`quantity` INT NULL, -- category 2일때만
+    `price` int NOT NULL,
+	PRIMARY KEY (`ticket_id`),
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE
+);
+
+INSERT INTO `sell_ticket` (`store_id`, `name`, `category`, `expire_date`, `quantity`, `price`) VALUES
+(1, 'Monthly Pass', 1, 30, NULL, 50000),
+(1, '10 Visit Pass', 0, NULL, 10, 45000),
+(1, 'Quarterly Pass', 1, 90, NULL, 120000),
+(1, '20 Visit Pass', 0, NULL, 20, 80000),
+(1, 'Weekly Pass', 1, 7, NULL, 20000),
+(1, '5 Visit Pass', 0, NULL, 5, 25000),
+(2, 'Yearly Pass', 1, 365, NULL, 450000),
+(2, '50 Visit Pass', 0, NULL, 50, 180000),
+(2, 'Monthly Pass', 1, 30, NULL, 52000),
+(2, '15 Visit Pass', 0, NULL, 15, 70000),
+(2, 'Bi-Annual Pass', 1, 180, NULL, 250000),
+(2, '30 Visit Pass', 0, NULL, 30, 120000),
+(3, 'Monthly Pass', 1, 30, NULL, 49000),
+(3, '8 Visit Pass', 0, NULL, 8, 36000),
+(3, 'Quarterly Pass', 1, 90, NULL, 115000),
+(3, '25 Visit Pass', 0, NULL, 25, 90000),
+(3, 'Weekly Pass', 1, 7, NULL, 21000),
+(3, '12 Visit Pass', 0, NULL, 12, 55000),
+(4, 'Monthly Pass', 1, 30, NULL, 51000),
+(4, '6 Visit Pass', 0, NULL, 6, 28000);
+
+
+
 CREATE TABLE `tickets` (
     `ticket_id` INT NOT NULL AUTO_INCREMENT,
     `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 생성일
@@ -147,16 +184,28 @@ CREATE TABLE `tickets` (
     `category` INT NOT NULL, -- 이용권 분류 0:다회권 / 1:정기권
     `user_id` VARCHAR(20) NOT NULL,
     `store_id` INT NOT NULL,
+    `buy_ticket_id` INT NOT NULL,
+    `ticket_name` VARCHAR(255) NOT NULL,
     PRIMARY KEY (`ticket_id`),
     FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE, -- 사용자가 삭제되면 삭제..? 
-    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE,
+    FOREIGN KEY (`buy_ticket_id`) REFERENCES `sell_ticket`(`ticket_id`) ON DELETE CASCADE
  );
 
-INSERT INTO `tickets` (`reg_date`, `expiration_date`, `total_quantity`, `remaining_quantity`, `category`, `user_id`, `store_id`)
+
+INSERT INTO `tickets` (`ticket_id`, `reg_date`, `expiration_date`, `total_quantity`, `remaining_quantity`, `category`, `user_id`, `store_id`, `buy_ticket_id`, `ticket_name`)
 VALUES
-    ('2024-05-10 12:00:00', '2024-06-10 12:00:00', 10, 10, 0, 'user1', 1), -- 다회권, 10회권, 만료일까지 10회 남음
-    ('2024-05-10 12:00:00', '2024-07-10 12:00:00', 1, 1, 1, 'user2', 2),  -- 정기권, 1개월 유효, 만료일까지 1회 남음
-    ('2024-05-10 12:00:00', NULL, 20, 20, 0, 'user3', 3); -- 다회권, 단순히 횟수만 제공, 만료일 없음
+(1, '2024-05-22 04:20:42', NULL, 20, 20, 0, 'user2', 1, 1, '20 Visit Pass'),
+(2, '2024-05-22 04:20:42', '2024-06-21 04:20:42', 0, 0, 1, 'user2', 1, 2, 'Monthly Pass'),
+(3, '2024-05-22 04:20:42', NULL, 10, 10, 0, 'user2', 1, 3, '10 Visit Pass'),
+(4, '2024-05-22 04:20:42', NULL, 5, 5, 0, 'user1', 1, 4, '5 Visit Pass'),
+(5, '2024-05-22 04:20:42', '2024-08-20 04:20:42', 0, 0, 1, 'user1', 1, 5, 'Quarterly Pass'),
+(6, '2024-05-22 04:20:42', NULL, 5, 5, 0, 'user2', 1, 6, '5 Visit Pass'),
+(7, '2024-05-22 04:20:42', '2024-08-20 04:20:42', 0, 0, 1, 'user2', 1, 7, 'Quarterly Pass'),
+(8, '2024-05-22 04:20:42', NULL, 20, 20, 0, 'user2', 1, 8, '20 Visit Pass'),
+(9, '2024-05-22 04:20:42', '2024-06-21 04:20:42', 0, 0, 1, 'user2', 1, 9, 'Monthly Pass'),
+(10, '2024-05-22 04:20:42', NULL, 10, 10, 0, 'user1', 1, 10, '10 Visit Pass');
+
 
 
 CREATE TABLE IF NOT EXISTS `lesson` (
@@ -203,16 +252,18 @@ VALUES
 
 CREATE TABLE IF NOT EXISTS `reservation` (
 	`reservation_id` INT NOT NULL AUTO_INCREMENT,
+    `payment` INT, 
 	`user_id` VARCHAR(20) NOT NULL,
 	`store_id` INT NOT NULL,
 	`lesson_id` INT NOT NULL,
-	`ticket_id` INT NOT NULL,
+	`ticket_id` INT NULL,
+    `coin` INT,
     `date` TIMESTAMP NOT NULL,
 	PRIMARY KEY (`reservation_id`),
 	FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
     FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE,
-    FOREIGN KEY (`lesson_id`) REFERENCES `lesson`(`lesson_id`) ON DELETE CASCADE,
-	FOREIGN KEY (`ticket_id`) REFERENCES `tickets`(`ticket_id`) ON DELETE CASCADE
+    FOREIGN KEY (`lesson_id`) REFERENCES `lesson`(`lesson_id`) ON DELETE CASCADE
+	-- FOREIGN KEY (`ticket_id`) REFERENCES `tickets`(`ticket_id`) ON DELETE CASCADE
 );
 
 
@@ -246,40 +297,6 @@ CREATE TABLE `refresh_token` (
 );
 
 
-CREATE TABLE IF NOT EXISTS `sell_ticket` (
-	`ticket_id` INT NOT NULL AUTO_INCREMENT,
-    `store_id` INT NOT NULL,
-    `name` varchar(255) NOT NULL,
-	`category` INT NOT NULL, -- 정기권 1, 다회권 0
-	`expire_date` INT NULL, -- category 1일때만
-	`quantity` INT NULL, -- category 2일때만
-    `price` int NOT NULL,
-	PRIMARY KEY (`ticket_id`),
-    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE
-);
-
-INSERT INTO `sell_ticket` (`store_id`, `name`, `category`, `expire_date`, `quantity`, `price`) VALUES
-(1, 'Monthly Pass', 1, 30, NULL, 50000),
-(1, '10 Visit Pass', 0, NULL, 10, 45000),
-(1, 'Quarterly Pass', 1, 90, NULL, 120000),
-(1, '20 Visit Pass', 0, NULL, 20, 80000),
-(1, 'Weekly Pass', 1, 7, NULL, 20000),
-(1, '5 Visit Pass', 0, NULL, 5, 25000),
-(2, 'Yearly Pass', 1, 365, NULL, 450000),
-(2, '50 Visit Pass', 0, NULL, 50, 180000),
-(2, 'Monthly Pass', 1, 30, NULL, 52000),
-(2, '15 Visit Pass', 0, NULL, 15, 70000),
-(2, 'Bi-Annual Pass', 1, 180, NULL, 250000),
-(2, '30 Visit Pass', 0, NULL, 30, 120000),
-(3, 'Monthly Pass', 1, 30, NULL, 49000),
-(3, '8 Visit Pass', 0, NULL, 8, 36000),
-(3, 'Quarterly Pass', 1, 90, NULL, 115000),
-(3, '25 Visit Pass', 0, NULL, 25, 90000),
-(3, 'Weekly Pass', 1, 7, NULL, 21000),
-(3, '12 Visit Pass', 0, NULL, 12, 55000),
-(4, 'Monthly Pass', 1, 30, NULL, 51000),
-(4, '6 Visit Pass', 0, NULL, 6, 28000);
-
 
 CREATE TABLE `store_pictures` (
     `picture_id` VARCHAR(255) NOT NULL,
@@ -288,10 +305,6 @@ CREATE TABLE `store_pictures` (
     PRIMARY KEY (`picture_id`),
     FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE
  );
-
-
-commit;
-
 
 
 commit;
