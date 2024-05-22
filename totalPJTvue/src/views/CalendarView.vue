@@ -93,6 +93,12 @@ onMounted(() => {
   height: 100vh;
   margin-top: 90px;
   margin-bottom: 90.5px;
+  background-color: #ecf5fe;
+  height: 90vh;
+  width: 100vw;
+  padding: 15px 15px;
+  margin-top: 73px;
+  margin-bottom: 90.5px;
 }
 
 input[type="date"] {

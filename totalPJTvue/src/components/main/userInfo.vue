@@ -1,55 +1,66 @@
 <template>
   <div class="container">
-    <div class="border rounded-5 my-2">
-      <div style="display: inline">
-        <template v-if="userStore.loginUserInfo.img !== null">
-          <img
-            :src="`http://localhost:8080/resources/${userStore.loginUserInfo.img}`"
-            class="my-3 mx-2"
-            style="width: 100px; height: 100px; border-radius: 500px"
-            alt="user img"
-          />
-        </template>
-        <template v-else>
-          <img
-            src="@/assets/tmp_user.png"
-            alt="user img"
-            class="my-3 mx-2"
-            style="width: 100px; height: 100px; border-radius: 500px"
-          />
-        </template>
-      </div>
-      <div class="px-3" style="display: inline-block">
-        <h3>{{ userStore.loginUserInfo.nickName }}님 반갑습니다.</h3>
-      </div>
-      <div class="d-flex justify-content-around align-items-center">
-        <div class="p-2 rounded-4 shadow">
-          <p>
-            <i class="bi bi-cash-coin" style="color: yellowgreen"></i><br />보유
-            코인<br />
-            {{ userStore.loginUserInfo.coin }} 개
-          </p>
-          <button type="button" class="btn btn-outline-info btn-sm">
-            충전하기
-          </button>
+    <div id="background" style="margin-top: 43px">
+      <br />
+      <div
+        class="border rounded-5 p-2"
+        style="background-color: white; margin-top: 20px"
+      >
+        <div style="display: inline">
+          <template v-if="userStore.loginUserInfo.img !== null">
+            <img
+              :src="`http://localhost:8080/resources/${userStore.loginUserInfo.img}`"
+              class="my-3 mx-2"
+              style="width: 100px; height: 100px; border-radius: 500px"
+              alt="user img"
+            />
+          </template>
+          <template v-else>
+            <img
+              src="@/assets/tmp_user.png"
+              alt="user img"
+              class="my-3 mx-2"
+              style="width: 100px; height: 100px; border-radius: 500px"
+            />
+          </template>
         </div>
-        <div class="p-2 rounded-4 shadow">
-          <p>
-            <i class="bi bi-ticket-perforated"></i><br />보유 이용권<br />
-            {{ ticketStore.userTicketCnt }} 개
-          </p>
-          <button type="button" class="btn btn-outline-info btn-sm">
-            이용권 확인
-          </button>
+        <div class="px-3" style="display: inline-block">
+          <h4 style="font-weight: 600">
+            ⭐{{ userStore.loginUserInfo.nickName }}⭐님 반갑습니다.
+          </h4>
         </div>
-        <div class="p-2 rounded-4 shadow">
-          <p>
-            <i class="bi bi-alarm"></i> <br />예약된 일정 <br />
-            {{ reservationStore.reservationListCnt }} 개
-          </p>
-          <button type="button" class="btn btn-outline-info btn-sm">
-            일정 확인
-          </button>
+        <div class="d-flex justify-content-around align-items-center">
+          <div class="p-2 rounded-4 shadow">
+            <p>
+              <i
+                class="bi bi-coin"
+                style="color: #ffbf01ba; font-weight: 700"
+              ></i
+              ><br />보유 코인<br />
+              {{ userStore.loginUserInfo.coin }} 개
+            </p>
+            <button type="button" class="btn btn-outline-info btn-sm">
+              충전하기
+            </button>
+          </div>
+          <div class="p-2 rounded-4 shadow">
+            <p>
+              <i class="bi bi-ticket-perforated"></i><br />보유 이용권<br />
+              {{ ticketStore.userTicketCnt }} 개
+            </p>
+            <button type="button" class="btn btn-outline-info btn-sm">
+              이용권 확인
+            </button>
+          </div>
+          <div class="p-2 rounded-4 shadow">
+            <p>
+              <i class="bi bi-alarm"></i> <br />예약된 일정 <br />
+              {{ reservationStore.reservationListCnt }} 개
+            </p>
+            <button type="button" class="btn btn-outline-info btn-sm">
+              일정 확인
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -82,8 +93,5 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-.container {
-  margin-top: 80px;
 }
 </style>
