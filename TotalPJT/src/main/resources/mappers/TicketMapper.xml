@@ -6,8 +6,8 @@
 	
 	<!-- 이용권 생성 -->
 	<insert id="insertTicket" parameterType="Ticket">
-		INSERT INTO tickets (expiration_date, total_quantity, remaining_quantity, category, user_id, store_id)
-		VALUES(#{exexpirationDate}, #{totalQuantity}, #{remainingQuantity}, #{category}, #{userId}, #{storeId})
+		INSERT INTO tickets (expiration_date, total_quantity, remaining_quantity, category, user_id, store_id, buy_ticket_id, ticket_name)
+		VALUES(#{exexpirationDate}, #{totalQuantity}, #{remainingQuantity}, #{category}, #{userId}, #{storeId}, #{buyTicketId}, #{name})
 	</insert>
 	
 	<!-- 이용권 삭제 -->
@@ -55,10 +55,12 @@
 									
 	</update>
 	
+	<!-- 이용자가 해당 업체에서 사용할 수 있는 티켓 리스트 반환 -->
 	<select id="selectTicketByStoreId" parameterType="map" resultType="Ticket">
-		SELECT *
-		FROM tickets
-		WHERE user_id = #{userId} AND store_id = #{storeId}
+	  SELECT *
+	  FROM tickets
+	  WHERE user_id = #{userId} AND store_id = #{storeId} AND expiration_date >= NOW()
 	</select>
+
 	
 </mapper>

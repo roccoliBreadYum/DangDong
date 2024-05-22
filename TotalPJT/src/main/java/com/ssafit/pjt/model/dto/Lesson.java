@@ -10,16 +10,22 @@ public class Lesson {
 	private Timestamp date; // 해당 수업의 날짜와 시간
 	private int userCnt; // 해당 수업을 신청한 유저 수
 	private int capacity; // 해당 수업 총 수용량
+	private String teacherName;
+	private String storeName;
 	
 	public Lesson() {}
-	
-	public Lesson(int lessonId, int teacherId, int storeId, Timestamp date, int userCnt, int capacity) {
+
+	public Lesson(int lessonId, int teacherId, int storeId, Timestamp date, int userCnt, int capacity,
+			String teacherName, String storeName) {
+		super();
 		this.lessonId = lessonId;
 		this.teacherId = teacherId;
 		this.storeId = storeId;
 		this.date = date;
 		this.userCnt = userCnt;
 		this.capacity = capacity;
+		this.teacherName = teacherName;
+		this.storeName = storeName;
 	}
 
 	public int getLessonId() {
@@ -70,10 +76,28 @@ public class Lesson {
 		this.capacity = capacity;
 	}
 
+	public String getTeacherName() {
+		return teacherName;
+	}
+
+	public void setTeacherName(String teacherName) {
+		this.teacherName = teacherName;
+	}
+
+	public String getStoreName() {
+		return storeName;
+	}
+
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
+
 	@Override
 	public String toString() {
 		return "Lesson [lessonId=" + lessonId + ", teacherId=" + teacherId + ", storeId=" + storeId + ", date=" + date
-				+ ", userCnt=" + userCnt + ", capacity=" + capacity + "]";
+				+ ", userCnt=" + userCnt + ", capacity=" + capacity + ", teacherName=" + teacherName + ", storeName="
+				+ storeName + "]";
 	}
+	
 	
 }

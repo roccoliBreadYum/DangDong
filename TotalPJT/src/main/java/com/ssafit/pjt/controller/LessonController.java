@@ -58,4 +58,11 @@ public class LessonController {
 	    List<Teacher> list = lService.SelectAllTeachers(map);
 	    return new ResponseEntity<>(list, list != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
 	}
+	
+	@GetMapping("/lesson/{lessonId}")
+	@Operation(summary = "특정 lesson", description = "선택한 lesson정보 반환")
+	public ResponseEntity<?> getLesson(@PathVariable("lessonId") int lessonId) {
+		Lesson lesson = lService.selectLesson(lessonId);
+	    return new ResponseEntity<>(lesson, lesson != null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+	}
 }

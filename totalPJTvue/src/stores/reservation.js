@@ -2,10 +2,13 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "@/stores/auth";
+import { useUserStore } from "@/stores/user";
+import { useRouter } from "vue-router";
 
 const REST_API_RESERVATION = "http://localhost:8080/api-reservation";
 
 export const useReservationStore = defineStore("reservation", () => {
+  const userStore = useUserStore();
   const store = useAuthStore()
   const accessToken = store.getAccessToken();
   const loginUserId = store.getLoginUserId();
@@ -14,6 +17,7 @@ export const useReservationStore = defineStore("reservation", () => {
   const reservationList = ref([]);
   const reservationAllList = ref([]);
   const filterReservationList = ref([]);
+  const router = useRouter();
 
   const getReservation = () => {
     axios.get(`${REST_API_RESERVATION}/${loginUserId}`, {
@@ -59,6 +63,35 @@ export const useReservationStore = defineStore("reservation", () => {
     });
   };
 
+  const makeReservation = (reservationInfo) => {
+    if(reservationInfo.payment === 2 && userStore.loginUserInfo.coin < reservationInfo.coin){
+      const userConfirm = confirm("보유 코인이 부족합니다. 충전하시겠습니까?");
+      if(userConfirm){
+        router.push({name:"payCheckout", params:{ticketId:1}});
+      } else{
+        router.push({name:"home"});
+      }
+      return;
+    }
+    axios.post(`${REST_API_RESERVATION}`, reservationInfo, {
+      headers: {
+        "access-token": accessToken,
+      },
+    })
+    .then(() => {
+      alert("예약 완료!")
+      router.push({name:"calendar"});
+    })
+    .catch(() => {
+      const userConfirm = confirm("예상치 못한 오류가 발생했습니다. 관리자에게 문의하세요");
+      if(userConfirm){
+        router.push({name:"home"});
+      } else{
+        router.push({name:"home"});
+      }
+    })
+  }
+
   return {
     filterReservationList,
     reservationAllList,
@@ -67,5 +100,6 @@ export const useReservationStore = defineStore("reservation", () => {
     getReservation,
     getReservationByDate,
     getAllReservations,
+    makeReservation,
   };
 });

@@ -18,7 +18,7 @@
             <div class="card-body">
               <div v-for="lesson in store.lessonList" :key="lesson.lessonId" class="mb-2">
                 <div v-if="teacher.teacherId === lesson.teacherId">
-                  <button 
+                  <button @click="movePayHow(lesson.lessonId)"
                     :disabled="lesson.userCnt === lesson.capacity"
                     :class="{'btn-enabled': lesson.userCnt !== lesson.capacity, 
                             'btn-disabled': lesson.userCnt === lesson.capacity}"
@@ -37,11 +37,12 @@
   
   <script setup>
   import { ref, watch, onMounted } from 'vue'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { uselessonStore } from "@/stores/lesson";
   
   const store = uselessonStore()
   const route = useRoute()
+  const router = useRouter()
   
   const getTodayDate = () => {
     const today = new Date();
@@ -71,6 +72,10 @@
     currentDate.setDate(currentDate.getDate() + 1);
     selectedDate.value = currentDate.toISOString().substr(0, 10);
   };
+
+  const movePayHow = (id) => {
+    router.push({name:'payHow', params:{lessonId: id}})
+  }
   
   watch(selectedDate, () => {
       console.log("Selected date:", selectedDate.value);
@@ -83,6 +88,8 @@
       store.getTeacherList(route.params.storeId, selectedDate.value)
       console.log(store.lessonList)
   })
+
+
   </script>
   
   <style scoped>

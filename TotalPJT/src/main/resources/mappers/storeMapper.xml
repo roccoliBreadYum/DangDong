@@ -65,8 +65,8 @@
 
 	<!-- Store 추가 -->
 	<insert id="insertStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeId">
-		INSERT INTO stores (exercise_id, store_name, address, phone_number, opening_hours, logo_image, owner_id)
-		VALUES (#{excersiceId}, #{storeName}, #{address}, #{phoneNumber}, #{openingHours}, #{logoImage}, #{ownerId})
+		INSERT INTO stores (exercise_id, store_name, address, phone_number, opening_hours, logo_image, owner_id, coin)
+		VALUES (#{excersiceId}, #{storeName}, #{address}, #{phoneNumber}, #{openingHours}, #{logoImage}, #{ownerId}, #{coin})
     </insert>
 
     <insert id="insertStorePicture" parameterType="PictureStorage">

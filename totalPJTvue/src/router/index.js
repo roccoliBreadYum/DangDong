@@ -55,7 +55,7 @@ const router = createRouter({
       component: PayView,
       children: [
         {
-          path: "",
+          path: ":lessonId",
           name: "payHow",
           component: PayHow,
         },

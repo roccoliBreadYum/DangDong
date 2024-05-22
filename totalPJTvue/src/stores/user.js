@@ -158,4 +158,4 @@ export const useUserStore = defineStore("user", () => {
     getFavoriteStoreList,
     favoriteStoreList,
   };
-});
+}, {persist:true});

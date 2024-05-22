@@ -32,6 +32,11 @@ public class LessonServiceImpl implements LessonService{
 	public List<Teacher> SelectAllTeachers(Map<String, Object> map) {
 		return lDao.SelectAllTeachers(map);
 	}
+
+	@Override
+	public Lesson selectLesson(int lessonId) {
+		return lDao.selectLesson(lessonId);
+	}
 	
 
 }
