@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/auth";
-import MainView from "@/views/MainView.vue";
 import CalendarView from "@/views/CalendarView.vue";
 import HomeView from "@/views/HomeView.vue";
 import SearchView from "@/views/SearchView.vue";
@@ -25,6 +24,8 @@ import PayCheckout from "@/components/pay/PayCheckout.vue";
 import PaySuccess from "@/components/pay/PaySuccess.vue";
 import PayFail from "@/components/pay/PayFail.vue";
 import PayHow from "@/components/pay/PayHow.vue";
+import VideoView from "@/views/VideoView.vue";
+import Video from "@/components/video/Video.vue";
 
 const getCookie = function (name) {
   return Cookies.get(name);
@@ -109,7 +110,7 @@ const router = createRouter({
           path: ":storeId/lesson",
           name: "storeLesson",
           component: StoreLesson,
-        }
+        },
       ],
     },
     {
@@ -148,6 +149,17 @@ const router = createRouter({
           path: "create",
           name: "userCreate",
           component: UserCreate,
+        },
+      ],
+    },
+    {
+      path: "/video",
+      component: VideoView,
+      children: [
+        {
+          path: "",
+          name: "video",
+          component: Video,
         },
       ],
     },

@@ -1,6 +1,6 @@
 <template>
-  <div id="background">
-    <div class="container">
+  <div class="container" id="background">
+    <div>
       <template
         v-if="
           !userStore.favoriteStoreList ||
@@ -66,8 +66,8 @@ import axios from "axios";
 const userStore = useUserStore();
 const authStore = useAuthStore();
 const router = useRouter();
-const loginUserId = authStore.getLoginUserId()
-const accessToken = authStore.getAccessToken()
+const loginUserId = authStore.getLoginUserId();
+const accessToken = authStore.getAccessToken();
 
 onMounted(() => {
   userStore.getFavoriteStoreList(loginUserId);
@@ -99,7 +99,7 @@ const deleteFavorite = function (storeId) {
   background-color: #ecf5fe;
   width: 100vw;
   padding: 15px 15px;
-  margin-top: 66px;
+  margin-top: 75px;
   margin-bottom: 90.5px;
   min-height: 1000px;
 }
