@@ -55,7 +55,7 @@ const moveDetail = (id) => [
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between; /* 이용권 간 간격 조정 */
-  margin-top: 4rem;
+  margin-top: 50%;
   margin-left: 2.3rem;
 }
 

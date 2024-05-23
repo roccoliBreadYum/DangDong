@@ -37,6 +37,7 @@ public class TicketServiceImpl implements TicketService {
 		if (ticket.getCategory() == 0) {
 			// 다회권
 			ticket.setTotalQuantity(sellTicket.getQuantity());
+			ticket.setRemainingQuantity(sellTicket.getQuantity());
 		} else {
 			// 정기권
 			// 오늘 날짜 가져오기

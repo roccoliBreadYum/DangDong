@@ -7,7 +7,7 @@
 	<!-- 이용권 생성 -->
 	<insert id="insertTicket" parameterType="Ticket">
 		INSERT INTO tickets (expiration_date, total_quantity, remaining_quantity, category, user_id, store_id, buy_ticket_id, ticket_name)
-		VALUES(#{exexpirationDate}, #{totalQuantity}, #{remainingQuantity}, #{category}, #{userId}, #{storeId}, #{buyTicketId}, #{name})
+		VALUES(#{expirationDate}, #{totalQuantity}, #{remainingQuantity}, #{category}, #{userId}, #{storeId}, #{buyTicketId}, #{name})
 	</insert>
 	
 	<!-- 이용권 삭제 -->
