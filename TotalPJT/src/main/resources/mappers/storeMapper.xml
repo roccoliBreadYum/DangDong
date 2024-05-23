@@ -79,8 +79,8 @@
 		UPDATE stores
 		SET 
 		<trim prefixOverrides=",">
-	        	<if test="excerciseId != null">
-	        		, exercise_id = #{excerciseId}
+	        	<if test="exerciseId != null">
+	        		, exercise_id = #{exerciseId}
 	        	</if>
 	        	<if test="address != null">
 	        		, address = #{address}
