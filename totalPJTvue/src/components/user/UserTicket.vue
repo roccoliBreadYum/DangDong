@@ -1,30 +1,40 @@
 <template>
-    <div class="container">
-      <div class="ticket-list ">
-          <button class = "btn" v-for="ticket in store.userTicket" :key="ticket.ticketId" @click="moveDetail(ticket.storeId)">
-            <div class="ticket-item ">
-                <div class="ticket-info">
-                    <div class="ticket-name">{{ ticket.storeName }}</div>
-                    <div class="ticket-type">{{ ticket.category === 1 ? "기간권" : "다회권" }}</div>
-                </div>
-                    <div class="ticket-detail">
-                        <div class="ticket-status">
-                            <span>{{ ticket.category === 1 ? "만료일:" : "잔여횟수:" }}</span>
-                            <span>{{ ticket.category === 1 ? formatToTimestamp(ticket.expirationDate) : ticket.remainingQuantity }}</span>
-                        </div>
-                </div>
+  <div class="container" id="background">
+    <div class="ticket-list">
+      <button
+        class="btn"
+        v-for="ticket in store.userTicket"
+        :key="ticket.ticketId"
+        @click="moveDetail(ticket.storeId)"
+      >
+        <div class="ticket-item">
+          <div class="ticket-info">
+            <div class="ticket-name">{{ ticket.storeName }}</div>
+            <div class="ticket-type">
+              {{ ticket.category === 1 ? "기간권" : "다회권" }}
             </div>
-        </button>
-      </div>
+          </div>
+          <div class="ticket-detail">
+            <div class="ticket-status">
+              <span>{{ ticket.category === 1 ? "만료일:" : "잔여횟수:" }}</span>
+              <span>{{
+                ticket.category === 1
+                  ? formatToTimestamp(ticket.expirationDate)
+                  : ticket.remainingQuantity
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </button>
     </div>
-  </template>
-  
+  </div>
+</template>
 
 <script setup>
-import { useticketStore } from '@/stores/ticket';
-import { useRouter } from 'vue-router';
-const store = useticketStore()
-const router = useRouter()
+import { useticketStore } from "@/stores/ticket";
+import { useRouter } from "vue-router";
+const store = useticketStore();
+const router = useRouter();
 
 const formatToTimestamp = (date) => {
   const d = new Date(date);
@@ -35,27 +45,24 @@ const formatToTimestamp = (date) => {
 };
 
 const moveDetail = (id) => [
-    router.push({name:'storeDetail', params:{storeId: id}})
-]
-
-
-
+  router.push({ name: "storeDetail", params: { storeId: id } }),
+];
 </script>
 
 <style scoped>
-.container {
-  display: flex;
-  justify-content: center; /* 가로 가운데 정렬 */
-  align-items: center;    /* 세로 가운데 정렬 */
-  height: 60vh;          /* 부모 요소의 높이를 설정하여 세로 중앙 정렬이 적용되도록 함 */
+#background {
+  background-color: #ecf5fe;
+  width: 100vw;
+  padding: 15px 15px;
+  margin-top: 40px;
+  margin-bottom: 90.5px;
+  min-height: 1000px;
 }
-
 
 .ticket-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* 이용권 간 간격 조정 */
-  margin-top: 50%;
+  margin-top: 4rem;
   margin-left: 2.3rem;
 }
 
@@ -109,6 +116,4 @@ const moveDetail = (id) => [
 .ticket-status span:first-child {
   margin-right: 5px;
 }
-
-
 </style>
