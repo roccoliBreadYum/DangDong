@@ -7,11 +7,17 @@ import com.ssafit.pjt.model.dto.Reservation;
 
 public interface ReservationService {
 
+	
 	public int addReservation (Reservation reservation);
+	
+	public List<Reservation> getAllReservationById(String userId);
+	
+	public List<Reservation> getReservationById(String userId);
 	
 	public List<Reservation> getReservationByDate(Map<String, Object> map);
 
 	public int removeReservation(int reservationId);
-	
+		
+
 	
 }

@@ -9,12 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@tosspayments/payment-widget-sdk": "^0.10.2",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",
-    "vue": "^3.4.21",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "v-calendar": "^3.1.2",
+    "vue-cookies": "^1.8.4",
     "vue-router": "^4.3.0"
   },
   "devDependencies": {

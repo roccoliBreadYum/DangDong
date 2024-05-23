@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafit.pjt.model.dao.LessonDao">
+
 	
 	<select id="selectAllLessonById" parameterType="int" resultType="Lesson">
 		SELECT *
@@ -10,5 +11,33 @@
 		WHERE store_id = ${storeId}
 	</select>
 
+	<select id="selectAllLessonByIdAndDate" parameterType="map" resultType="Lesson">
+	    SELECT *
+	    FROM lesson
+	    WHERE store_id = #{storeId} AND DATE(`date`) = #{date}
+	    ORDER BY `date` ASC
+	</select>
+	
+	<select id="SelectAllTeachers" parameterType="map" resultType="Teacher">
+	    SELECT DISTINCT t.teacher_id, t.name
+	    FROM lesson l
+	    INNER JOIN teacher t ON l.teacher_id = t.teacher_id
+	    WHERE l.store_id = #{storeId} AND DATE(l.date) = #{date}
+	</select>
+	
+	<select id="selectLesson" parameterType="int" resultType="Lesson">
+	    SELECT l.*, t.name AS teacherName, s.store_name AS storeName
+	    FROM lesson l
+	    JOIN teacher t ON l.teacher_id = t.teacher_id
+	    JOIN stores s ON t.store_id = s.store_id
+	    WHERE l.lesson_id = #{lessonId}
+	</select>
+	
+	<update id="decreaseLesson" parameterType="int">
+		UPDATE lesson
+		SET user_cnt = user_cnt + 1
+		WHERE lesson_id = #{lessonId}
+	</update>
 
+	
 </mapper>

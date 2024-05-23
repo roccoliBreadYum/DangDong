@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ssafit.pjt.model.dao.StoreDao">
 	
-	<!-- 필터별 store 리스트 -->
+	<!-- 특정 store detail -->
 	<select id="selectStoreDetail" parameterType="Map" resultType="Store">
 		SELECT *,
            CASE WHEN EXISTS (
@@ -20,39 +20,96 @@
 	</select>
 	
 	<!-- 필터별 store 리스트 -->
-<select id="selectStore" parameterType="StoreSearchCondition" resultType="Store">
-    SELECT *
-    FROM stores
-    <where>
-        <if test="key != null">
-            AND ${key} LIKE concat ('%', #{word}, '%')
-        </if>
-        <if test="category != -1">
-            AND exercise_id IN (
-                SELECT exercise_id
-                FROM exercise_category
-                WHERE category = #{category}
-            )
-        </if>        
-    </where>
-    <if test="orderBy != null">
-        ORDER BY ${orderBy} ${orderByDir}
-    </if>
-</select>
+	<select id="selectStore" parameterType="StoreSearchCondition" resultType="Store">
+	    SELECT s.*, 
+	           (SELECT COUNT(*) 
+	            FROM teacher t 
+	            WHERE t.store_id = s.store_id) AS teacherCount
+	    FROM stores s
+	    <where>
+	        <if test="key != 'none'">
+	            AND ${key} LIKE concat ('%', #{word}, '%')
+	        </if>
+	        <if test="category != -1">
+	            AND s.exercise_id = #{category}
+	        </if>        
+	    </where>
+	    <if test="orderBy != 'none'">
+	        ORDER BY ${orderBy} ${orderByDir}
+	    </if>
+	</select>
+	
+	<select id="selectCategory" parameterType="int" resultType="String">
+		SELECT category
+		FROM exercise_category
+		WHERE exercise_id = ${exerciseId}
+	
+	</select>
+	
+	<!-- 티켓 리스트 -->
+	<select id="selectTicketlist" parameterType="int" resultType="SellTicket">
+		SELECT *
+		FROM sell_ticket
+		WHERE store_id = #{storeId}
+		ORDER BY `price`
+	</select>
 
 	
-	<update id="updateStore" parameterType="Store">
-	    UPDATE stores
-		    <set>
-		        storeName = #{store_name},
-		        address = #{address},
-		        phoneNumber = #{phone_number},
-		        description = #{description},
-		        opening_hours = #{opening_hours},
-		        logoImage = #{logo_image},
-		        exerciseId = #{exercise_id}
-		    </set>
-	    WHERE store_id = #{store_id}
-	</update>
+	<!-- 티켓 한개 가져오기 -->
+	<select id="selectSellTicketById" parameterType="int" resultType="SellTicket">
+		SELECT *
+		FROM sell_ticket
+		WHERE ticket_id = #{ticketId}
+	</select>
 
+
+	<!-- Store 추가 -->
+	<insert id="insertStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeId">
+	    INSERT INTO stores (exercise_id, store_name, address, phone_number, opening_hours, logo_image, owner_id, coin, thumbnail_img)
+	    VALUES (#{exerciseId}, #{storeName}, #{address}, #{phoneNumber}, #{openingHours}, #{logoImage}, #{ownerId}, #{coin}, #{thumbnailImg})
+	</insert>
+
+    <insert id="insertStorePicture" parameterType="PictureStorage">
+        INSERT INTO store_pictures (picture_id, store_id)
+        VALUES (#{pictureId}, #{storeId})
+    </insert>
+    
+    <!-- Store 수정 -->
+	<update id="updateStore" parameterType="Store">
+		UPDATE stores
+		SET 
+		<trim prefixOverrides=",">
+	        	<if test="exerciseId != null">
+	        		, exercise_id = #{exerciseId}
+	        	</if>
+	        	<if test="address != null">
+	        		, address = #{address}
+	        	</if>
+	        	<if test="phoneNumber != null">
+	        		, phone_number = #{phoneNumber}
+	        	</if>
+	        	<if test="openingHours != null">
+	        		, opening_hours = #{openingHours}
+	        	</if>
+	        	<if test="logoImage != null">
+	        		, logo_image = #{logoImage}
+	        	</if>
+       	</trim>
+		WHERE store_id = #{storeId}
+	</update>
+	
+  <!-- 이미지 선택 (2개) -->
+	<select id="selectAllimg" parameterType="int" resultType="String">
+		SELECT picture_id
+		FROM store_pictures
+		WHERE store_id = #{storeId}
+		ORDER BY create_date DESC
+		LIMIT 2;
+	</select>
+
+	<select id="selectNamebyId" parameterType="int" resultType="String">
+		SELECT store_name
+		FROM stores
+		WHERE store_id = #{storeId}
+	</select>
 </mapper>

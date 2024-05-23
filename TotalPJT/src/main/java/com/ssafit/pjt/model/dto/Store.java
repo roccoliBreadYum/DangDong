@@ -2,7 +2,7 @@ package com.ssafit.pjt.model.dto;
 
 public class Store {
 	private int storeId; // PK 
-	private int excersiceId; // 카테고리 id 
+	private int exerciseId; // 카테고리 id 
 	private String storeName; // 이름  
 	private String address; // 주소 
 	private String phoneNumber; // 연락처 
@@ -13,14 +13,17 @@ public class Store {
 	private String logoImage;// 이미지 
 	private int teacherCount; // 강사진 수  -> 즐겨찾기에서 사용하기위해 작성했던 것 같은데 확인 필요 (DB에 없음)
 	private int isFavorite; // 1: 해당유저의 즐겨찾기에 등록되어있음, 0: 미등록
+	private String ownerId;
+	private int coin = 0;
+	private String thumbnailImg;
 	// 평점, 휴면계정, push알림동의, 휴무일
 	
 	public Store() {}
 	
-	public Store(int storeId, int excersiceId, String storeName, String address, String phoneNumber, String description,
-			int favoriteCount, String createdAt, String openingHours, String logoImage, int teacherCount) {
+	public Store(int storeId, int exerciseId, String storeName, String address, String phoneNumber, String description,
+			int coin, int favoriteCount, String createdAt, String openingHours, String logoImage, int teacherCount, String ownerId, String thumbnailImg) {
 		this.storeId = storeId;
-		this.excersiceId = excersiceId;
+		this.exerciseId = exerciseId;
 		this.storeName = storeName;
 		this.address = address;
 		this.phoneNumber = phoneNumber;
@@ -30,6 +33,34 @@ public class Store {
 		this.openingHours = openingHours;
 		this.logoImage = logoImage;
 		this.teacherCount = teacherCount;
+		this.ownerId = ownerId;
+		this.coin = coin;
+		this.thumbnailImg = thumbnailImg;
+	}
+	
+
+	public String getThumbnailImg() {
+		return thumbnailImg;
+	}
+
+	public void setThumbnailImg(String thumbnailImg) {
+		this.thumbnailImg = thumbnailImg;
+	}
+
+	public int getExerciseId() {
+		return exerciseId;
+	}
+
+	public void setExerciseId(int exerciseId) {
+		this.exerciseId = exerciseId;
+	}
+
+	public int getCoin() {
+		return coin;
+	}
+
+	public void setCoin(int coin) {
+		this.coin = coin;
 	}
 
 	public int getStoreId() {
@@ -38,14 +69,6 @@ public class Store {
 
 	public void setStoreId(int storeId) {
 		this.storeId = storeId;
-	}
-
-	public int getExcersiceId() {
-		return excersiceId;
-	}
-
-	public void setExcersiceId(int excersiceId) {
-		this.excersiceId = excersiceId;
 	}
 
 	public String getStoreName() {
@@ -127,14 +150,26 @@ public class Store {
 	public void setIsFavorite(int isFavorite) {
 		this.isFavorite = isFavorite;
 	}
+	
+
+	public String getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
 
 	@Override
 	public String toString() {
-		return "Store [storeId=" + storeId + ", excersiceId=" + excersiceId + ", storeName=" + storeName + ", address="
+		return "Store [storeId=" + storeId + ", exerciseId=" + exerciseId + ", storeName=" + storeName + ", address="
 				+ address + ", phoneNumber=" + phoneNumber + ", description=" + description + ", favoriteCount="
 				+ favoriteCount + ", createdAt=" + createdAt + ", openingHours=" + openingHours + ", logoImage="
-				+ logoImage + ", teacherCount=" + teacherCount + ", isFavorite=" + isFavorite + "]";
+				+ logoImage + ", teacherCount=" + teacherCount + ", isFavorite=" + isFavorite + ", ownerId=" + ownerId
+				+ ", coin=" + coin + ", thumbnailImg=" + thumbnailImg + "]";
 	}
-	
 
+
+
+	
 }
