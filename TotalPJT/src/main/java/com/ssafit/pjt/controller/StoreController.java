@@ -83,12 +83,12 @@ public class StoreController {
 	}
 	
 	@PostMapping("/regist")
-	@Operation(summary = "가게 페이지", description = "리스트에서 선택한 가게의 상세페이지")
+	@Operation(summary = "가게 페이지 등록", description = "업체 첫 등록과정")
 	public ResponseEntity<?> registStore(@RequestPart("store") Store store,
             @RequestPart(value = "file", required = false) MultipartFile file){
 		if(file != null) {
 			String resultFile = storageService.uploadFile(file);
-			store.setLogoImage(resultFile);			
+			store.setThumbnailImg(resultFile);
 		}
 		int result = storeService.rigistStore(store);
 		return new ResponseEntity<>(result, result == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -99,7 +99,7 @@ public class StoreController {
 	public ResponseEntity<?> modifyStore(@RequestPart("store") Store store,
             @RequestPart(value = "file", required = false) MultipartFile file){
 		if(file != null) {
-			String resultFile = storageService.uploadFile(file);
+			String resultFile = storageService.updateFile(file);
 			store.setLogoImage(resultFile);			
 		}
 		int result = storeService.modifyStore(store);
@@ -114,7 +114,7 @@ public class StoreController {
 	}
 	
 	@GetMapping("{storeId}/getName")
-	@Operation(summary = "이름 찾", description = "넘어온 storeId로 가게 이름 반환")
+	@Operation(summary = "이름 찾기", description = "넘어온 storeId로 가게 이름 반환")
 	public ResponseEntity<String> getNamebyId(@PathVariable("storeId")int storeId){
 		String str = storeService.getNamebyId(storeId);
 		return new ResponseEntity<>(str, str != null? HttpStatus.OK : HttpStatus.BAD_REQUEST);

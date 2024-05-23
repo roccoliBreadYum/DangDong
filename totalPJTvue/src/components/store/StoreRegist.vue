@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div id="regist-img" class="mb-4">
-                <label for="logoImage" class="form-label">이미지</label>
+                <label for="logoImage" class="form-label">업체 대표이미지 등록</label>
                 <input type="file" id="logoImage" class="form-control" @change="handleFileChange" />
             </div>
             <div id="buttons" class="d-flex justify-content-between">

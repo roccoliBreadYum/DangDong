@@ -2,12 +2,14 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useAuthStore } from "@/stores/auth";
-import router from "@/router";
+import { useRouter, useRoute } from "vue-router";
 
 
 const REST_API_STORE = "http://localhost:8080/api-store";
 
 export const useStoreStore = defineStore("store", () => {
+  const route = useRoute()
+  const router = useRouter()
   const store = useAuthStore();
   const accessToken = computed(() => store.getAccessToken());
   const storeTicketList = ref([]);
@@ -140,10 +142,12 @@ export const useStoreStore = defineStore("store", () => {
     axios.put(`${REST_API_STORE}/update`, formData,{
         headers: {
             "access-token": accessToken.value,
+            "Content-Type": "multipart/form-data",
         }
     })
     .then(() => {
-      router.push({ name: "home" });
+      const storeId = route.params.storeId;
+      router.push({ name: "storeDetail", params: { storeId } });
     })
   };
   
