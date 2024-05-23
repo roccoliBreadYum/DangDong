@@ -1,5 +1,6 @@
-
-
+<div align="center">
+  <img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/7f0afa11-0d56-4af5-b000-5b4bdb4d9035" width=600px height=400px>
+</div>
 
 ## <img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/97b2196a-d861-424a-aa95-9472e1ada4ba" width=100px height=33px> 소개
 - 운동은 해야겠지만 무슨 운동을 해야할지 아직 감을 잡지 못한 소비자들을 위한 길잡이
@@ -32,39 +33,42 @@
 
 ## 3. 기능
 
-### 로그인
+### 🔓로그인
 <img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/9e7c6c52-a8d5-4850-b479-e4c7ccb0783e" width=700px height=400px>
 
+### ⭐메인
 <img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/c9422a48-b224-4fa7-9a2b-c41809ae77b3" width=700px height=400px>
 
+### 🧾 메뉴
 <img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/b40c93f8-1ed9-4204-a6b5-6e8f8e06849b" width=700px height=400px>
 
+<img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/6454002d-bc20-4dd7-8b23-d7641fc91ed7" width=700px height=400px>
+
+<img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/7c7a307d-bf4a-4854-a9b0-c97bc69b89c2" width=700px height=400px>
+
+### 🧾 업체 기능
+<img src = "https://github.com/SSAFIT-FITTICKET/DangDong/assets/155591951/35d21285-2c67-4071-b11d-781bd07313ce" width=700px height=400px>
+
+<img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/f0d2c402-1064-4da2-b812-9b45cae36165" width=700px height=400px>
+
+### 💸결제
+<img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/8e33b272-ecfb-4ef2-a046-2bea3a84818e" width=700px height=400px>
 
 
-
-SSAFY 1학기 관통프로젝트
-
-
-1. 앱 내 화폐
-2. 예약관리
-3. 댜회/정기권 관리
-4. 커뮤니티
-5. 예약페이지
-  - 강사별
-------
-+a 지도
----------
-### dto
-
-1. 회원
-2. 가게
-3. 강사
-4. 강사수업
-5. 즐겨찾기
-6. 운동분류
-7. 이용권분류
-8. 예약현황
-9. 이용권현황
-
+## 4. 🖥Developers
+<br/>
+<div align="center">
+    <table border=""4 width="50%">
+        <tr>
+            <td align="center"><a href="https://github.com/songsongyejin"><img src="https://github.com/SSAFIT-FITTICKET/DangDong/assets/155591951/474c2914-3e33-4e19-a666-36a4aebbd276" width="180px;" style="vertical-align:top" alt=""></td>
+            <td align="center"><a href="https://github.com/occoli"><img src="https://github.com/SSAFIT-FITTICKET/DangDong/assets/155591951/c581c692-07e0-4747-8cad-91c4572434b2" width="160px;" style="vertical-align:top" alt=""></td>
+        </tr>
+        <tr>
+            <td align="center"><a href="https://github.com/OlMinJe">송예진</td>
+            <td align="center"><a href="https://github.com/loadraw">황정현</td>
+        </tr>
+    </table>
+</div>
+<hr>
 
 
