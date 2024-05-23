@@ -10,7 +10,7 @@
                 </div>
                 <div id="category" class="mb-3">
                 <label for="categorySelect" class="form-label">카테고리</label>
-                <select id="categorySelect" class="form-select" v-model="storeObj.excersiceId">
+                <select id="categorySelect" class="form-select" v-model="storeObj.excerciseId">
                     <option value="none">구분</option>
                     <option value="1">필라테스</option>
                     <option value="2">헬스</option>
@@ -68,7 +68,7 @@ const loginUserId = authStore.getLoginUserId();
 
 const storeObj = ref({
     storeName:"",
-    excersiceId:"",
+    excerciseId:"",
     address:"",
     phoneNumber:"",
     openingHours:"",
