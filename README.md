@@ -44,7 +44,7 @@
 
 <img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/6454002d-bc20-4dd7-8b23-d7641fc91ed7" width=700px height=400px>
 
-<img src = "https://github.com/SSAFIT-FITTICKET/SSAFIT/assets/155591951/7c7a307d-bf4a-4854-a9b0-c97bc69b89c2" width=700px height=400px>
+<img src = "https://github.com/SSAFIT-FITTICKET/DangDong/assets/155591951/d8ac638b-dba4-4c8a-984a-8243bdfa618f" width=700px height=400px>
 
 ### 🧾 업체 기능
 <img src = "https://github.com/SSAFIT-FITTICKET/DangDong/assets/155591951/35d21285-2c67-4071-b11d-781bd07313ce" width=700px height=400px>
