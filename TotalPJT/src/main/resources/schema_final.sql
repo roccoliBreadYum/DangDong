@@ -313,10 +313,10 @@ CREATE TABLE `store_pictures` (
     FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE
  );
  
--- INSERT INTO `store_pictures` (`picture_id`, `store_id`, `create_date`)
--- VALUES
-
-
+INSERT INTO `store_pictures` (`picture_id`, `store_id`, `create_date`)
+VALUES
+('1716452181358_onthepilates1.jpg', 1, CURRENT_TIMESTAMP),
+('1716452209739_onthepilates2.jpg', 1, CURRENT_TIMESTAMP);
 
 
 commit;
