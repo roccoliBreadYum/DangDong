@@ -304,6 +304,17 @@ CREATE TABLE `refresh_token` (
 );
 
 
+CREATE TABLE IF NOT EXISTS `sell_ticket` (
+	`ticket_id` INT NOT NULL AUTO_INCREMENT,
+    `store_id` INT NOT NULL,
+    `name` varchar(255) NOT NULL,
+	`category` INT NOT NULL, -- 정기권 1, 다회권 0
+	`expire_date` INT NULL, -- category 1일때만
+	`quantity` INT NULL, -- category 2일때만
+    `price` int NOT NULL,
+	PRIMARY KEY (`ticket_id`),
+    FOREIGN KEY (`store_id`) REFERENCES `stores`(`store_id`) ON DELETE CASCADE
+);
 
 CREATE TABLE `store_pictures` (
     `picture_id` VARCHAR(255) NOT NULL,
@@ -317,6 +328,7 @@ INSERT INTO `store_pictures` (`picture_id`, `store_id`, `create_date`)
 VALUES
 ('1716452181358_onthepilates1.jpg', 1, CURRENT_TIMESTAMP),
 ('1716452209739_onthepilates2.jpg', 1, CURRENT_TIMESTAMP);
+
 
 
 commit;
