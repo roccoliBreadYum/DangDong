@@ -63,7 +63,7 @@ const moveDetail = (id) => [
   display: flex;
   flex-wrap: wrap;
   margin-top: 4rem;
-  margin-left: 2.3rem;
+  margin-left: 1.85rem;
 }
 
 .ticket-item {

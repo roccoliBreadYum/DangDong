@@ -23,7 +23,7 @@
         id="user-name"
         class="d-flex align-items-center justify-content-center"
       >
-        <p>{{ userStore.loginUserInfo.name }} ❤</p>
+        <p style="margin-bottom: 0">{{ userStore.loginUserInfo.name }} ❤</p>
       </div>
       <div id="user-state-nav" class="d-flex flex-column">
         <div
@@ -121,7 +121,7 @@
             />
           </svg>
         </div>
-        <p>이용권 현황</p>
+        <RouterLink to="/my/ticket">이용권 현황</RouterLink>
       </div>
       <div id="reservation-manage" class="d-flex flex-row">
         <div class="mx-3">
@@ -141,7 +141,7 @@
             />
           </svg>
         </div>
-        <p>나의 예약 내역</p>
+        <RouterLink to="/calendar">나의 예약 내역</RouterLink>
       </div>
       <div id="user-manage" class="d-flex flex-row">
         <div class="mx-3">

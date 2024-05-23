@@ -32,6 +32,7 @@
 <script setup>
 import { useReservationStore } from "@/stores/reservation";
 import { ref, watch, computed, onMounted } from "vue";
+import { useAuthStore } from "@/stores/auth";
 
 // Helper function to format date as java.sql.Timestamp
 const formatToTimestamp = (date) => {
@@ -45,12 +46,12 @@ const formatToTimestamp = (date) => {
 const date = ref(new Date().toISOString().substr(0, 10)); // 기본 날짜 설정
 const store = useReservationStore();
 const attributes = ref([]);
-
+const authStore = useAuthStore();
+const loginUserId = authStore.getLoginUserId();
 const formattedDate = computed(() => formatToTimestamp(date.value));
 
 watch(date, () => {
-  console.log("Selected date:", formattedDate.value);
-  store.getReservationByDate(formattedDate.value); // 날짜로 필터링된 예약 목록 요청
+  store.getReservationByDate(formattedDate.value, loginUserId); // 날짜로 필터링된 예약 목록 요청
 });
 
 // Function to determine the style based on exerciseCategoryNum
@@ -74,14 +75,11 @@ const getStyle = (exerciseCategoryNum) => {
 // Function to handle date selection
 const onDateSelected = (event) => {
   const selectedDate = new Date(event.target.value).toISOString();
-  console.log("Date selected:", formatToTimestamp(selectedDate));
   date.value = selectedDate;
 };
 
 onMounted(() => {
-  store.getReservationByDate(formattedDate.value);
-  console.log(attributes.value);
-  console.log("출력됐나요?");
+  store.getReservationByDate(formattedDate.value, loginUserId);
 });
 </script>
 
