@@ -93,7 +93,7 @@ const registStore = ()=>  {
   background-color: #ecf5fe;
   width: 100vw;
   padding: 15px 15px;
-  margin-top: -4.5rem;
+  margin-top: -4.2rem;
   margin-bottom: 90.5px;
   min-height: 1000px;
   margin-left: -0.75rem

@@ -58,8 +58,8 @@ const getStyle = (exerciseCategoryNum) => {
   const colors = {
     1: "lightpink",
     2: "lightblue",
-    3: "lightcoral",
-    4: "lightgreen",
+    3: "lightgreen",
+    4: "lightcoral",
     5: "lightsalmon",
     6: "lightseagreen",
     7: "lightgoldenrodyellow",

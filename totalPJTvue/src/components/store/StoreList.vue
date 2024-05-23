@@ -7,7 +7,8 @@
       class="store-item mb-3 rounded-5 shadow"
     >
       <RouterLink :to="`/store/${st.storeId}`" class="store-link">
-        <img src="@/assets/temp.png" alt="..." class="store-image rounded-3" />
+        <img :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/storeThumbnail/${st.thumbnailImg}`"
+        alt="..." class="store-image rounded-3" />
         <div class="store-info" style="color: black">
           <h5>{{ st.storeName }}</h5>
           <div>{{ st.description }}</div>

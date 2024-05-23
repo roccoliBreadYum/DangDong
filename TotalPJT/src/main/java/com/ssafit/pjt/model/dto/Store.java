@@ -15,12 +15,13 @@ public class Store {
 	private int isFavorite; // 1: 해당유저의 즐겨찾기에 등록되어있음, 0: 미등록
 	private String ownerId;
 	private int coin = 0;
+	private String thumbnailImg;
 	// 평점, 휴면계정, push알림동의, 휴무일
 	
 	public Store() {}
 	
 	public Store(int storeId, int exerciseId, String storeName, String address, String phoneNumber, String description,
-			int coin, int favoriteCount, String createdAt, String openingHours, String logoImage, int teacherCount, String ownerId) {
+			int coin, int favoriteCount, String createdAt, String openingHours, String logoImage, int teacherCount, String ownerId, String thumbnailImg) {
 		this.storeId = storeId;
 		this.exerciseId = exerciseId;
 		this.storeName = storeName;
@@ -34,8 +35,17 @@ public class Store {
 		this.teacherCount = teacherCount;
 		this.ownerId = ownerId;
 		this.coin = coin;
+		this.thumbnailImg = thumbnailImg;
 	}
 	
+
+	public String getThumbnailImg() {
+		return thumbnailImg;
+	}
+
+	public void setThumbnailImg(String thumbnailImg) {
+		this.thumbnailImg = thumbnailImg;
+	}
 
 	public int getExerciseId() {
 		return exerciseId;
@@ -156,8 +166,10 @@ public class Store {
 				+ address + ", phoneNumber=" + phoneNumber + ", description=" + description + ", favoriteCount="
 				+ favoriteCount + ", createdAt=" + createdAt + ", openingHours=" + openingHours + ", logoImage="
 				+ logoImage + ", teacherCount=" + teacherCount + ", isFavorite=" + isFavorite + ", ownerId=" + ownerId
-				+ ", coin=" + coin + "]";
+				+ ", coin=" + coin + ", thumbnailImg=" + thumbnailImg + "]";
 	}
+
+
 
 	
 }

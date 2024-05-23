@@ -1,7 +1,7 @@
 <template>
     <div id="background">
         <div class="container my-5 p-5 bg-white rounded-4 shadow">
-            <h3 class="text-center mb-4">업체 등록</h3>
+            <h3 class="text-center mb-4">업체 수정</h3>
             <form @submit.prevent="updateStore">
             <div id="regist-header" class="mb-4">
                 <div id="name" class="mb-3">
@@ -100,7 +100,7 @@ onMounted(() => {
   background-color: #ecf5fe;
   width: 100vw;
   padding: 15px 15px;
-  margin-top: -4.5rem;
+  margin-top: -4.2rem;
   margin-bottom: 90.5px;
   min-height: 1000px;
   margin-left: -0.75rem
