@@ -130,7 +130,6 @@ public class UserServiceImpl implements UserService{
 			user.setOrgImg(file.getOriginalFilename());
 
 			// 변경된 파일 이름이 적용된 Movie MovieService를 통해 DB에 저장한다.
-
 			file.transferTo(new File(res.getFile(), user.getImg()));
 		}
 		

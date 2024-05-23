@@ -3,7 +3,8 @@
     <div id="background" style="margin-top: 43px">
       <br />
       <div
-        class="border rounded-5 p-2"
+        class="border rounded-5"
+        id="p-2"
         style="background-color: white; margin-top: 20px"
       >
         <div style="display: inline">
@@ -24,41 +25,56 @@
             />
           </template>
         </div>
-        <div class="px-3" style="display: inline-block">
+        <div style="display: inline-block">
           <h4 style="font-weight: 600">
-            ⭐{{ userStore.loginUserInfo.nickName }}⭐님 반갑습니다.
+            ⭐<u>{{ userStore.loginUserInfo.nickName }}</u
+            >⭐님 반갑습니다.
           </h4>
         </div>
-        <div class="d-flex justify-content-around align-items-center">
-          <div class="p-2 rounded-4 shadow">
-            <p>
-              <i
-                class="bi bi-coin"
-                style="color: #ffbf01ba; font-weight: 700"
-              ></i
-              ><br />보유 코인<br />
-              {{ userStore.loginUserInfo.coin }} 개
-            </p>
-            <button type="button" class="btn btn-outline-info btn-sm">
-              충전하기
-            </button>
+        <div id="comment">
+          <div>{{ userStore.loginUserInfo.comment }}</div>
+        </div>
+        <div
+          id="detail-info-box"
+          class="d-flex flex-column justify-content-center p-2"
+          style="width: 100%; height: 120px; border-radius: 20px"
+        >
+          <div
+            id="coin-box"
+            class="d-flex justify-content-around flex-row align-items-center m-1"
+          >
+            <i
+              class="bi bi-coin"
+              id="coin-icon"
+              style="color: #ffbf01ba; font-weight: 700"
+            ></i>
+            <div id="coin-text" style="font-size: 13px">
+              보유 코인: {{ userStore.loginUserInfo.coin }} 개
+            </div>
+            <button type="button">충전하기</button>
           </div>
-          <div class="p-2 rounded-4 shadow">
-            <p>
-              <i class="bi bi-ticket-perforated"></i><br />보유 이용권<br />
-              {{ ticketStore.userTicketCnt }} 개
-            </p>
-            <RouterLink :to="{name: 'userTicket'}" type="button" class="btn btn-outline-info btn-sm">
-              이용권 확인
+          <div
+            id="ticket-box"
+            class="d-flex justify-content-around flex-row align-items-center m-1"
+          >
+            <i class="bi bi-ticket-perforated" id="ticket-icon"></i>
+            <div id="ticket-text" style="font-size: 13px">
+              보유 이용권: {{ ticketStore.userTicketCnt }} 개
+            </div>
+            <RouterLink :to="{ name: 'userTicket' }" type="button">
+              <div>이용권 확인</div>
             </RouterLink>
           </div>
-          <div class="p-2 rounded-4 shadow">
-            <p>
-              <i class="bi bi-alarm"></i> <br />예약된 일정 <br />
-              {{ reservationStore.reservationListCnt }} 개
-            </p>
-            <RouterLink :to="{name : 'calendar'}" type="button" class="btn btn-outline-info btn-sm">
-              일정 확인
+          <div
+            id="reservation-box"
+            class="d-flex justify-content-around flex-row items-align-center m-1"
+          >
+            <i class="bi bi-alarm" id="reservation-icon"></i>
+            <div id="reservation-text" style="font-size: 13px">
+              예약된 일정: {{ reservationStore.reservationListCnt }} 개
+            </div>
+            <RouterLink :to="{ name: 'calendar' }" type="button">
+              <div>일정 확인</div>
             </RouterLink>
           </div>
         </div>
@@ -88,10 +104,39 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.p-2 {
+#p-2 {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+#p-3 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 0px;
+}
+p {
+  margin-bottom: 0px;
+}
+a,
+button {
+  border-radius: 10px;
+  background-color: #a2d8df;
+  border: none;
+  width: 80px;
+  height: 30px;
+  font-size: 13px;
+  text-align: center;
+}
+a {
+  text-decoration: none;
+  margin-top: 0px;
+  color: black;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

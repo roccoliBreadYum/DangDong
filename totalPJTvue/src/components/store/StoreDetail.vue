@@ -1,7 +1,11 @@
 <template>
   <div calss="container">
     <!-- 업체 정보 위치 -->
-    <div id="detail" class="shadow" style="margin-top: 1rem">
+    <div
+      id="detail"
+      class="shadow"
+      style="margin-top: 30%; border-radius: 20px"
+    >
       <!-- 상호명, 채팅, 즐겨찾기 -->
       <div
         id="detail-head"
@@ -10,8 +14,13 @@
         <div id="head-title" class="p-2">
           <h3>{{ store.storeDetail.storeName }}</h3>
         </div>
-        <div id="head-icons" class="p-2 d-flex flex-row mb-3 align-items-center">
-          <button v-if="isOwner" class="modifyButton" @click="moveUpdate">수정</button>
+        <div
+          id="head-icons"
+          class="p-2 d-flex flex-row mb-3 align-items-center"
+        >
+          <button v-if="isOwner" class="modifyButton" @click="moveUpdate">
+            수정
+          </button>
           <i id="icons-talk" class="bi bi-chat-dots p-2 px-3"></i>
           <div v-if="store.storeDetail.isFavorite === 1">
             <button id="icon-btn" @click="swichFavorite">
@@ -31,14 +40,16 @@
       </div>
       <!-- 업체사진 -->
       <div class="d-flex justify-content-around">
-        <img v-for="(image, index) in store.storeImg" 
-        :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/${image}`" 
-        :key="index" 
-        class="p-2 rounded-3" 
-        id="store-img" />            
+        <img
+          v-for="(image, index) in store.storeImg"
+          :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/${image}`"
+          :key="index"
+          class="p-2 rounded-3"
+          id="store-img"
+        />
         <!-- <img :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/${img}`"/> -->
-          <!-- <img :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/${store.storeDetail.logoImage}`" class="p-2 rounded-3" id="store-img" /> -->
-          <!-- <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img" /> -->
+        <!-- <img :src="`https://ssafit08-11th.s3.ap-southeast-2.amazonaws.com/${store.storeDetail.logoImage}`" class="p-2 rounded-3" id="store-img" /> -->
+        <!-- <img src="@/assets/temp.png" class="p-2 rounded-3" id="store-img" /> -->
       </div>
       <!-- 상세정보 -->
       <div id="store-detail" class="my-3 pb-3">
@@ -56,12 +67,22 @@
     </div>
 
     <!-- 구매 / 예약 버튼 위치 -->
-    <div id="button" class="d-flex justify-content-around pb-3">
-      <RouterLink :to="{name: 'sellTicket', params:{storeId: route.params.storeId}}" class="btn">
-          <p id="btn-type">정기권/다회권</p>
-          <p id="btn-click">구매</p>
+    <div
+      id="button"
+      class="d-flex justify-content-around pb-3"
+      style="margin-top: 40px"
+    >
+      <RouterLink
+        :to="{ name: 'sellTicket', params: { storeId: route.params.storeId } }"
+        class="btn"
+      >
+        <p id="btn-type">정기권/다회권</p>
+        <p id="btn-click">구매</p>
       </RouterLink>
-      <RouterLink :to="{name: 'storeLesson', params:{storeId: route.params.storeId}}" class="btn">
+      <RouterLink
+        :to="{ name: 'storeLesson', params: { storeId: route.params.storeId } }"
+        class="btn"
+      >
         <p id="btn-type">일일권/이용권</p>
         <p id="btn-click">예약</p>
       </RouterLink>
@@ -89,24 +110,30 @@ const router = useRouter();
 const loginUserId = ref(authStore.getLoginUserId());
 
 const swichFavorite = () => {
-  userStore.updateFavorite(store.storeDetail.isFavorite, loginUserId.value, route.params.storeId)
+  userStore
+    .updateFavorite(
+      store.storeDetail.isFavorite,
+      loginUserId.value,
+      route.params.storeId
+    )
     .then(() => {
       store.getStoreDetail(route.params.storeId, loginUserId.value);
     })
-    .catch(() => {
-
-    });
+    .catch(() => {});
 };
 
 const isOwner = computed(() => store.storeDetail.ownerId === loginUserId.value);
 
 const moveUpdate = () => {
-  router.push({name:'storeUpdate', params:{storeId: route.params.storeId }});
-}
+  router.push({
+    name: "storeUpdate",
+    params: { storeId: route.params.storeId },
+  });
+};
 
 onMounted(() => {
   store.getStoreDetail(route.params.storeId, loginUserId.value);
-  store.getImg(route.params.storeId)
+  store.getImg(route.params.storeId);
 });
 </script>
 
@@ -126,8 +153,8 @@ onMounted(() => {
 
 #btn-click {
   margin: -0.4rem;
-  padding: 0 3.5rem;
-  font-size: x-large;
+  padding: 5px 3.5rem;
+  font-size: large;
 }
 
 #store-detail {
@@ -159,8 +186,8 @@ onMounted(() => {
   height: 10rem;
 }
 
-.modifyButton{
-  background-color:orange ;
+.modifyButton {
+  background-color: orange;
   border-radius: 25%;
   border: none;
 }
