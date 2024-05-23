@@ -10,7 +10,7 @@
                 </div>
                 <div id="category" class="mb-3">
                 <label for="categorySelect" class="form-label">카테고리</label>
-                <select id="categorySelect" class="form-select" v-model="storeObj.excerciseId">
+                <select id="categorySelect" class="form-select" :v-model="storeObj.excerciseId" >
                     <option value="none">구분</option>
                     <option value="1">필라테스</option>
                     <option value="2">헬스</option>
@@ -54,7 +54,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router'
 import { useStoreStore } from '@/stores/store';
 import { useAuthStore } from "@/stores/auth";

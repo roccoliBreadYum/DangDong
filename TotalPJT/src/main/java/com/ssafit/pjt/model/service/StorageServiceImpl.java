@@ -20,12 +20,24 @@ public class StorageServiceImpl implements StorageService{
 
 	@Value("${aws.s3.bucket}")
 	private String bucketName;
+	
+	@Value("${aws.s3.bucket.folder}")
+	private String thumbnail;
 
 	@Autowired
 	private AmazonS3 s3Client;
 	
 	
 	public String uploadFile(MultipartFile file) {
+		File fileObj = convertMultiPartFiletoFile(file);
+		String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+		String newFile = thumbnail + "/" + fileName;
+		s3Client.putObject(new PutObjectRequest(bucketName, newFile, fileObj));
+		fileObj.delete();
+		return fileName;
+	}
+	
+	public String updateFile(MultipartFile file) {
 		File fileObj = convertMultiPartFiletoFile(file);
 		String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
 		s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
