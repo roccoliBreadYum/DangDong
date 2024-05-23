@@ -1,23 +1,23 @@
 package com.ssafit.pjt.model.dto;
 
 public class Category {
-	private int excersiceId;
+	private int excerciseId;
 	private String category;
 	
 	public Category() {
 	}
 
 	public Category(int excersiceId, String category) {
-		this.excersiceId = excersiceId;
+		this.excerciseId = excersiceId;
 		this.category = category;
 	}
 
 	public int getExcersiceId() {
-		return excersiceId;
+		return excerciseId;
 	}
 
 	public void setExcersiceId(int excersiceId) {
-		this.excersiceId = excersiceId;
+		this.excerciseId = excersiceId;
 	}
 
 	public String getCategory() {
@@ -30,7 +30,7 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [excersiceId=" + excersiceId + ", category=" + category + "]";
+		return "Category [excerciseId=" + excerciseId + ", category=" + category + "]";
 	}
 	
 }

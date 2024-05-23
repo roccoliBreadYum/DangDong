@@ -65,9 +65,9 @@
 
 	<!-- Store 추가 -->
 	<insert id="insertStore" parameterType="Store" useGeneratedKeys="true" keyProperty="storeId">
-		INSERT INTO stores (exercise_id, store_name, address, phone_number, opening_hours, logo_image, owner_id, coin)
-		VALUES (#{excersiceId}, #{storeName}, #{address}, #{phoneNumber}, #{openingHours}, #{logoImage}, #{ownerId}, #{coin})
-    </insert>
+	    INSERT INTO stores (exercise_id, store_name, address, phone_number, opening_hours, logo_image, owner_id, coin)
+	    VALUES (#{exerciseId}, #{storeName}, #{address}, #{phoneNumber}, #{openingHours}, #{logoImage}, #{ownerId}, #{coin})
+	</insert>
 
     <insert id="insertStorePicture" parameterType="PictureStorage">
         INSERT INTO store_pictures (picture_id, store_id)
@@ -79,8 +79,8 @@
 		UPDATE stores
 		SET 
 		<trim prefixOverrides=",">
-	        	<if test="excersiceId != null">
-	        		, exercise_id = #{excersiceId}
+	        	<if test="excerciseId != null">
+	        		, exercise_id = #{excerciseId}
 	        	</if>
 	        	<if test="address != null">
 	        		, address = #{address}

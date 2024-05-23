@@ -1,30 +1,30 @@
-DROP DATABASE IF EXISTS`ssafy_db`;
+DROP DATABASE IF EXISTS `ssafy_db`;
 
-CREATE DATABASE `ssafy_db` default character set utf8mb4;
+CREATE DATABASE `ssafy_db` DEFAULT CHARACTER SET utf8mb4;
 
 USE `ssafy_db`;
 
 CREATE TABLE IF NOT EXISTS `users` (
-	`id` VARCHAR(20) NOT NULL,
-	`password` VARCHAR(40) NOT NULL,
-	`name` VARCHAR(40) NOT NULL,
-	`email` VARCHAR(40) NULL,
-	`address` VARCHAR(40) NULL,
-	`membership_rate` INT NOT NULL DEFAULT 0,
-	`gender` INT NOT NULL, -- 남자: 0 여자: 1
-	`nick_name` VARCHAR(40) NULL,
-	`birth` TIMESTAMP NOT NULL,
-	`reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	`update_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	`coin` INT NOT NULL DEFAULT 0,
-	`category` INT NOT NULL DEFAULT 0, -- 0: 사용자, 1: 관리
-	`comment` TEXT NULL,
-	`img` VARCHAR(100) NULL,
-	PRIMARY KEY (`id`)
+    `id` VARCHAR(20) NOT NULL,
+    `password` VARCHAR(40) NOT NULL,
+    `name` VARCHAR(40) NOT NULL,
+    `email` VARCHAR(40) NULL,
+    `address` VARCHAR(40) NULL,
+    `membership_rate` INT NOT NULL DEFAULT 0,
+    `gender` INT NOT NULL, -- 남자: 0 여자: 1
+    `nick_name` VARCHAR(40) NULL,
+    `birth` DATE NOT NULL, -- TIMESTAMP에서 DATE로 변경
+    `reg_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `update_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    `coin` INT NOT NULL DEFAULT 0,
+    `category` INT NOT NULL DEFAULT 0, -- 0: 사용자, 1: 관리자
+    `comment` TEXT NULL,
+    `img` VARCHAR(100) NULL,
+    PRIMARY KEY (`id`)
 );
 
 INSERT INTO `users` (`id`, `password`, `name`, `email`, `address`, `membership_rate`, `gender`, `nick_name`, `birth`, `coin`, `category`, `comment`, `img`) VALUES
-('user1', 'password1', '황정현', 'john@example.com', '서울 강남구 테헤란로 212', 10, 0, '로꼴리', '1996-03-014', 200, 0, '뭘봐요, 구경났어요?', 'hwang.jpg'),
+('user1', 'password1', '황정현', 'john@example.com', '서울 강남구 테헤란로 212', 10, 0, '로꼴리', '1996-03-14', 200, 0, '뭘봐요, 구경났어요?', 'hwang.jpg'),
 ('user2', 'password2', '송예진', 'jane@example.com', '456 Park Ave, City, Country', 20, 1, '송송', '1999-11-23', 200, 0, '빵이 좋아요', 'song.jpg');
 
 CREATE TABLE IF NOT EXISTS `exercise_category` (
@@ -43,32 +43,25 @@ VALUES
     ('수영'),
     ('태권도'),
     ('주짓수'),
-    ('요가')
-;
-
-
+    ('요가');
 
 CREATE TABLE IF NOT EXISTS `stores` (
     `store_id` INT NOT NULL AUTO_INCREMENT,
-    `exercise_id` INT NOT NULL, # 외래키 (exercise_category)
+    `exercise_id` INT NOT NULL, -- 외래키 (exercise_category)
     `store_name` VARCHAR(255) NOT NULL,
     `address` VARCHAR(255) NOT NULL,
     `phone_number` VARCHAR(20) NOT NULL,
     `description` TEXT NULL,
     `favorite_count` INT DEFAULT 0,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `opening_hours` VARCHAR(255) NULL, # 운영시간
+    `opening_hours` VARCHAR(255) NULL, -- 운영시간
     `logo_image` VARCHAR(255) NULL,
-    `owner_id` VARCHAR(255) NOT NULL,
+    `owner_id` VARCHAR(20) NOT NULL,
     `coin` INT DEFAULT 0,
-	`thumbnail_img` VARCHAR(255) NOT NULL,
-	# `rating` DECIMAL(3, 2) NULL CHECK (rating >= 0.0 AND rating <= 5.0), # 평점
-    # `dormant_account` BOOLEAN DEFAULT FALSE, #휴면계정
-    # `push_notification_agreement` BOOLEAN DEFAULT FALSE, # push 알림동의
-    # `day_off` VARCHAR(255) NULL, # 휴무일
+    `thumbnail_img` VARCHAR(255),
     PRIMARY KEY (`store_id`),
     FOREIGN KEY (`exercise_id`) REFERENCES `exercise_category`(`exercise_id`),
-	FOREIGN KEY (`owner_id`) REFERENCES `users`(`id`) ON DELETE CASCADE -- 사용자가 삭제되면 삭제..? 
+    FOREIGN KEY (`owner_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
 );
 
 INSERT INTO `stores` (`exercise_id`, `store_name`, `address`, `phone_number`, `description`, `favorite_count`, `created_at`, `opening_hours`, `logo_image`, `owner_id`, `coin`, `thumbnail_img`) VALUES
