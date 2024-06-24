@@ -65,7 +65,7 @@
         </tr>
         <tr>
             <td align="center"><a href="https://github.com/songsongyejin">송예진</td>
-            <td align="center"><a href="https://github.com/roccolIi">황정현</td>
+            <td align="center"><a href="https://github.com/roccoIi">황정현</td>
         </tr>
     </table>
 </div>
