@@ -61,11 +61,11 @@
     <table border=""4 width="50%">
         <tr>
             <td align="center"><a href="https://github.com/songsongyejin"><img src="https://github.com/SSAFIT-FITTICKET/DangDong/assets/155591951/474c2914-3e33-4e19-a666-36a4aebbd276" width="180px;" style="vertical-align:top" alt=""></td>
-            <td align="center"><a href="https://github.com/occoli"><img src="https://github.com/SSAFIT-FITTICKET/DangDong/assets/155591951/c581c692-07e0-4747-8cad-91c4572434b2" width="160px;" style="vertical-align:top" alt=""></td>
+            <td align="center"><a href="https://github.com/roccolii"><img src="https://github.com/SSAFIT-FITTICKET/DangDong/assets/155591951/c581c692-07e0-4747-8cad-91c4572434b2" width="160px;" style="vertical-align:top" alt=""></td>
         </tr>
         <tr>
-            <td align="center"><a href="https://github.com/OlMinJe">송예진</td>
-            <td align="center"><a href="https://github.com/loadraw">황정현</td>
+            <td align="center"><a href="https://github.com/songsongyejin">송예진</td>
+            <td align="center"><a href="https://github.com/roccolii">황정현</td>
         </tr>
     </table>
 </div>
